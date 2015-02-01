@@ -1,0 +1,5 @@
+node_modules/
+
+static/css/styles.css
+
+.env

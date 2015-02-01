@@ -1,0 +1,63 @@
+form {
+
+    width: 100%;
+    overflow: auto;
+
+    fieldset {
+
+        width: 100%;
+        border: 0;
+
+        input,
+        textarea,
+        select {
+            margin: 1em 0;
+            padding: .5em;
+            font-family: inherit;
+            font-size: 1em;
+        }
+
+        input {
+            line-height: 1em;
+        }
+
+        input,
+        textarea {
+            display: block;
+            width: 100%;
+        }
+
+        textarea {
+            margin: 0 0 1em 0;
+            resize: vertical;
+            line-height: 1.3em;
+            -webkit-appearance: textfield;
+        }
+
+    }
+
+}
+
+.button {
+    display: inline-block;
+    margin: .5em 0;
+    padding: .75em 1em;
+    font-size: 1em;
+    line-height: 1em;
+    color: #fff;
+    text-decoration: none;
+    background-color: $theme-color;
+    border: 0;
+    border-radius: 1.5em;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.button.facebook {
+    background-color: $social-color-facebook;
+}
+
+.button.twitter {
+    background-color: $social-color-twitter;
+}

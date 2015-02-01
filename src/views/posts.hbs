@@ -1,0 +1,45 @@
+<div class="page-content">
+
+    <div class="inner-wrapper">
+
+        <h1>{{__ 'Recent Posts'}}</h1>
+        {{#if user}}<div><a href="/post/new/" class="button">{{__ 'Create New Post'}}</a></div>{{/if}}
+
+        {{#each posts}}
+
+        <a href="/post/{{slug}}/{{id}}/" class="post-list-item">
+            <img src="{{createdBy.avatar}}" width="60" height="60" class="avatar">
+            <div class="wrapper">
+                <div class="title">{{title}}</div>
+                <div class="description">{{limitOutput contents 200}}</div>
+                <div class="info">
+                    <div class="posted-by">
+                        {{__ 'Posted by'}}
+                        {{#if createdBy.id}}
+                        {{createdBy.name}}
+                        {{else}}
+                        <i>{{__ 'deleted'}}<i>
+                        {{/if}}
+                        &bull;
+                        <span class="date">
+                            {{__ 'updated'}}
+                            {{relativeTime updated}}
+                        </span>
+                    </div>
+                    <div class="stats">
+                        <span class="data-point messages">
+                            <span class="octicon octicon-comment"></span> {{messages.length}}
+                        </span>
+                        <span class="data-point views">
+                            <span class="octicon octicon-eye"></span> {{displayNumber views}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        {{/each}}
+
+    </div>
+
+</div>

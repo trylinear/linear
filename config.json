@@ -1,0 +1,10 @@
+{
+    "site_name": "Sample Forum",
+    "languages": {
+        "en-us": "English",
+        "pt-br": "Português - Portuguese"
+    },
+    "directories": {
+        "static": "./static"
+    }
+}

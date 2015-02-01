@@ -1,0 +1,87 @@
+<div class="page-content">
+
+    <div class="inner-wrapper">
+
+        <div class="post">
+
+            <img src="{{post.createdBy.avatar}}" width="60" height="60" class="avatar">
+            <div class="wrapper">
+                <div class="title"><a href="/post/{{post.slug}}/{{post.id}}/">{{post.title}}</a></div>
+                <div class="description">{{{markdown post.contents}}}</div>
+                <div class="info">
+                    <div class="posted-by">
+                        {{__ 'Posted by'}}
+                        {{#if post.createdBy.id}}
+                        <a href="/profile/{{post.createdBy.id}}/" class="name">{{post.createdBy.name}}</a>
+                        {{else}}
+                        <i>{{__ 'deleted'}}<i>
+                        {{/if}}
+                        <span class="date">
+                            <a href="/post/{{post.slug}}/{{post.id}}/">{{relativeTime post.created}}</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="messages">
+
+            {{#each post.messages}}
+
+            <div id="message-{{id}}" class="message">
+
+                <img src="{{createdBy.avatar}}" width="50" height="50" class="avatar">
+
+                <div class="wrapper">
+                    <div class="description">{{{markdown contents}}}</div>
+                    <div class="info">
+                        <div class="posted-by">
+                            {{#if createdBy.id}}
+                                <a href="/profile/{{createdBy.id}}/" class="name">{{createdBy.name}}</a>
+                            {{else}}
+                            <i>{{__ 'deleted'}}</i>
+                            {{/if}}
+                            <span class="date">
+                                {{__ 'posted'}}
+                                <a href="#message-{{id}}">{{relativeTime created}}</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {{/each}}
+
+        </div>
+
+        {{#if user}}
+
+        <div class="message">
+
+            <img src="{{user.avatar}}" width="50" height="50" class="avatar">
+
+            <form action="" method="post" id="comment" class="wrapper">
+
+                <fieldset>
+
+                    <textarea name="contents" rows="5"></textarea>
+
+                </fieldset>
+
+                <button type="submit" class="button">{{__ 'Post Message'}}</button>
+
+            </form>
+
+        </div>
+
+        {{else}}
+
+        <p>You must <a href="/login/">login</a> to respond to this post.</p>
+
+        {{/if}}
+
+    </div>
+
+</div>

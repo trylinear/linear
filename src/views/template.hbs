@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, user-scalable=0">
+<title>{{#if title}}{{title}} &mdash; {{/if}}{{config.site_name}}</title>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/octicons/2.1.2/octicons.css">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+<header class="page-header">
+
+    <div class="inner-wrapper">
+
+        <div class="logo"><a href="/">{{config.site_name}}</a></div>
+        <div class="auth">
+            {{#if user}}
+            <a href="/settings/">{{__ 'Settings'}}</a> <a href="/logout/">{{__ 'Logout'}}</a>
+            {{else}}
+            <a href="/login/">{{__ 'Login / Register'}}</a>
+            {{/if}}
+        </div>
+
+    </div>
+
+</header>
+
+{{{body}}}
+
+<footer class="page-footer">
+
+    <div class="inner-wrapper">
+
+        <p>{{__ 'Powered by'}} <a href="https://github.com/neogeek/linear">linear</a></p>
+
+    </div>
+
+</footer>
+
+</body>
+</html>

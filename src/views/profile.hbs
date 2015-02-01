@@ -1,0 +1,19 @@
+<div class="page-content profile">
+
+    <div class="inner-wrapper">
+
+        <h1><img src="{{profile.avatar}}" width="50" height="50" class="avatar"> {{__ 'Recent Posts By'}} {{profile.name}}</h1>
+
+        <ul>
+
+            {{#each posts}}
+
+            <li><a href="/post/{{slug}}/{{id}}/">{{title}}</a></li>
+
+            {{/each}}
+
+        </ul>
+
+    </div>
+
+</div>

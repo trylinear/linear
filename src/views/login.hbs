@@ -1,0 +1,33 @@
+<div class="page-content login">
+
+    <div class="inner-wrapper">
+
+        <h1>{{__ 'Login / Register'}}</h1>
+
+        {{#if social.length}}
+
+            <p>{{{__ 'Logging in using the social networks below will associate your name and avatar to your forum content, however <b>it will never post to any social networks on your behalf.</b>'}}}</p>
+
+            <div class="social-networks">
+
+                {{#each social}}
+
+                <a href="/login/{{this}}/" class="button {{this}}">
+                    <span class="icon-{{this}}"></span> {{__ 'Login With'}} {{titleCase this}}
+                </a>
+
+                {{/each}}
+
+            </div>
+
+        {{else}}
+
+            <p>{{{__ '<b>Error:</b> No social networks have been setup. Please see <a href="https://github.com/neogeek/linear">https://github.com/neogeek/linear</a> for more information.'}}}</p>
+
+        {{/if}}
+
+        </div>
+
+    </div>
+
+</div>

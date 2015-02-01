@@ -1,0 +1,28 @@
+<div class="page-content settings">
+
+    <div class="inner-wrapper">
+
+        <h1>{{__ 'Settings'}}</h1>
+
+        <form action="" method="post">
+
+            <fieldset>
+
+                <label for="locale">{{__ 'Language'}}</label>
+                <select name="locale" id="locale">
+
+                {{#each config.languages}}
+                <option value="{{@key}}"{{#ifCond @key ../user.locale}}selected="selected"{{/ifCond}}>{{this}}</option>
+                {{/each}}
+
+                </select>
+
+            </fieldset>
+
+            <button type="submit" class="button">{{__ 'Save Changes'}}</button>
+
+        </form>
+
+    </div>
+
+</div>
