@@ -101,7 +101,14 @@ module.exports = {
         app.use(function (err, req, res, next) {
 
             res.status(err.status || 500);
-            res.render('error', { message: err.message });
+            res.render('error', { status: err.status || 500, message: err.message });
+
+        });
+
+        app.use(function (req, res, next) {
+
+            res.status(404);
+            res.render('error', { status: 404, message: req.__('Page Not Found') });
 
         });
 

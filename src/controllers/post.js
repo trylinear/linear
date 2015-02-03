@@ -1,72 +1,59 @@
+var q = require('q');
+
 var postModel = require('../models/post');
 
 module.exports = {
 
-    create: function (req, res, next) {
+    create: function (data, user) {
 
-        if (req.user && req.body.title && req.body.contents) {
+        var deferred = new q.defer();
+
+        if (data.title && data.contents && user) {
 
             postModel.createPost({
-                title: req.body.title,
-                contents: req.body.contents,
-                createdBy: req.user._id
+                title: data.title,
+                contents: data.contents,
+                createdBy: user._id
             }, function (err, post) {
 
-                if (err) { return next(err); }
+                if (err || !post) { deferred.reject(err); }
+                else { deferred.resolve(post); }
 
-                res.redirect('/post/' + post.slug + '/' + post._id + '/');
-
-            });
-
-        } else {
-
-            res.render('post_create', {
-                title: req.__('Create New Post')
             });
 
         }
+
+        return deferred.promise;
 
     },
 
-    render: function (req, res, next) {
+    list: function () {
 
-        if (req.user && req.body.contents) {
+        var deferred = new q.defer();
 
-            postModel.findById(req.params.id).
-                exec(function (err, post) {
+        postModel.listPosts(function (err, posts) {
 
-                    if (err) { return next(err); }
+            if (err || !posts) { deferred.reject(err); }
+            else { deferred.resolve(posts); }
 
-                    post.addMessage({
-                        contents: req.body.contents,
-                        createdBy: req.user._id
-                    }, function (err, post) {
+        });
 
-                        if (err) { return next(err); }
+        return deferred.promise;
 
-                        res.redirect('#message-' + post.messages[post.messages.length - 1]._id);
+    },
 
-                    });
+    show: function (postId) {
 
-                });
+        var deferred = new q.defer();
 
-        } else {
+        postModel.showPostById(postId, function (err, post) {
 
-            postModel.findByIdAndUpdate(req.params.id, { $inc: { views: 1 } })
-                .populate('createdBy')
-                .populate('messages.createdBy')
-                .exec(function (err, post) {
+            if (err || !post) { deferred.reject(err); }
+            else { deferred.resolve(post); }
 
-                    if (err) { return next(err); }
+        });
 
-                    res.render('post', {
-                        title: post.title,
-                        post: post
-                    });
-
-                });
-
-        }
+        return deferred.promise;
 
     }
 

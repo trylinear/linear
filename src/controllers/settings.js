@@ -1,27 +1,21 @@
+var q = require('q');
+
 var profileModel = require('../models/profile');
 
 module.exports = {
 
-    render: function (req, res, next) {
+    update: function (data, user) {
 
-        if (req.body.locale) {
+        var deferred = new q.defer();
 
-            profileModel.findByIdAndUpdate(req.user.id, { updated: Date.now(), locale: req.body.locale }).
-                exec(function (err, profile) {
+        profileModel.updateProfile(user.id, data, function (err, profile) {
 
-                    if (err) { return next(err); }
+            if (err || !profile) { deferred.reject(err); }
+            else { deferred.resolve(profile); }
 
-                    res.redirect('/settings/');
+        });
 
-                });
-
-        } else {
-
-            res.render('settings', {
-                title: req.__('Settings')
-            });
-
-        }
+        return deferred.promise;
 
     }
 

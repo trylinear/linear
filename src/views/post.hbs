@@ -17,7 +17,7 @@
                         <i>{{__ 'deleted'}}<i>
                         {{/if}}
                         <span class="date">
-                            <a href="/post/{{post.slug}}/{{post.id}}/">{{relativeTime post.created}}</a>
+                            <a href="/post/{{post.slug}}/{{post.id}}/">{{relativeTime post.createdAt}}</a>
                         </span>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                             {{/if}}
                             <span class="date">
                                 {{__ 'posted'}}
-                                <a href="#message-{{id}}">{{relativeTime created}}</a>
+                                <a href="#message-{{id}}">{{relativeTime createdAt}}</a>
                             </span>
                         </div>
                     </div>

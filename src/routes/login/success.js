@@ -1,7 +1,13 @@
-var login = require('../../controllers/login');
-
 module.exports = function (router) {
 
-    router.get('/', login.success);
+    router.get('/', function (req, res) {
+
+        var referer = req.session.referer || '/';
+
+        req.session.referer = null;
+
+        res.redirect(referer);
+
+    });
 
 };
