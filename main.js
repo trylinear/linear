@@ -87,6 +87,8 @@ module.exports = {
 
             }
 
+            res.locals.lang = req.getLocale();
+
             next();
 
         });
