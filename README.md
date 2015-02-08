@@ -1,3 +1,7 @@
+[![](https://david-dm.org/neogeek/linear.svg?style=flat)](https://david-dm.org/neogeek/linear/)
+[![](https://david-dm.org/neogeek/linear/dev-status.svg?style=flat)](https://david-dm.org/neogeek/linear/#info=devDependencies)
+[![](http://img.shields.io/npm/v/linear.svg?style=flat)](https://www.npmjs.org/package/linear/)
+
 # linear
 
 > A simple setup micro-forum built with Node.js, MongoDB and Express.
