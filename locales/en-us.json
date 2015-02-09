@@ -19,5 +19,6 @@
   "Recent Posts": "Recent Posts",
   "Save Changes": "Save Changes",
   "Settings": "Settings",
-  "updated": "updated"
+  "updated": "updated",
+  "A new version (%s) of linear is available. <a href=\"https://github.com/neogeek/linear/releases\">Review the changelog.</a>": "A new version (%s) of linear is available. <a href=\"https://github.com/neogeek/linear/releases\">Review the changelog.</a>"
 }

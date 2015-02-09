@@ -20,6 +20,8 @@ var defaultConfig = require('./config.json');
 
 var profileModel = require('./src/models/profile');
 
+var latest = require('./src/utils/latest');
+
 module.exports = {
 
     startWithConfig: function (config) {
@@ -73,6 +75,7 @@ module.exports = {
         app.use(function (req, res, next) {
 
             res.locals.layout = 'template';
+            res.locals.latest_version = latest();
             res.locals.config = config;
             res.locals.user = req.user;
 
