@@ -27,7 +27,7 @@ linear.startWithConfig({
 ### site_name
 
 Type: `String`  
-Default: `'Sample Forum'`
+Default: `"Sample Forum"`
 
 Name used in both `header` and `title` tags throughout the site.
 
