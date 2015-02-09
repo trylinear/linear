@@ -12,6 +12,7 @@ var hbs = require('express-hbs');
 var hbs_helpers = require('./src/utils/helpers')(hbs);
 
 var i18n = require('i18n');
+var moment = require('moment');
 
 var mongoose = require('mongoose');
 
@@ -88,6 +89,8 @@ module.exports = {
             }
 
             res.locals.lang = req.getLocale();
+
+            moment.locale(req.getLocale());
 
             next();
 
