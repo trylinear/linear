@@ -44,6 +44,13 @@ Directories used to overwrite the assets included with linear.
 
 Note: Replacing either the `locales` or `views` directory is a destructive action. Replacing `static` is a additive action as the server will look for static files in the config specified directory first.
 
+### ga
+
+Type: `String`  
+Default: `""`
+
+Tracking code for Google Analytics. <http://www.google.com/analytics/>
+
 ## Environment Setup
 
 Place the following key/value pairs in an `.env` file locally and within the settings panel of your Heroku application.

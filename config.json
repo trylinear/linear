@@ -6,5 +6,6 @@
     },
     "directories": {
         "static": "./static"
-    }
+    },
+    "ga": ""
 }
