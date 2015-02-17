@@ -4,7 +4,7 @@
 
 # linear
 
-> A simple setup micro-forum built with Node.js, MongoDB and Express.
+> A simple setup micro-forum built in Node.js with Express and MongoDB.
 
 ## Install
 
