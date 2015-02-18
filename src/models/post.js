@@ -1,24 +1,42 @@
 var mongoose = require('mongoose');
 
-var profileModel = require('../models/profile');
-
 var messageSchema = new mongoose.Schema({
-    created: { type: Date, default: Date.now },
-    updated: { type: Date, default: Date.now },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
     contents: String,
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'profile' }
 });
 
 var postSchema = new mongoose.Schema({
-    created: { type: Date, default: Date.now },
-    updated: { type: Date, default: Date.now },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
     views: { type: Number, default: 0 },
     title: String,
     slug: String,
     contents: String,
+    messageCount: { type: Number, default: 0 },
     messages: [messageSchema],
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'profile' }
 });
+
+postSchema.statics.listPosts = function (callback) {
+
+    this.find()
+        .populate('createdBy')
+        .sort({ updatedAt: -1 })
+        .select('createdAt updatedAt views title slug contents messageCount createdBy')
+        .exec(callback);
+
+};
+
+postSchema.statics.showPostById = function (id, callback) {
+
+    this.findByIdAndUpdate(id, { $inc: { views: 1 } })
+        .populate('createdBy')
+        .populate('messages.createdBy')
+        .exec(callback);
+
+};
 
 postSchema.statics.createPost = function (data, callback) {
 
@@ -33,17 +51,29 @@ postSchema.statics.createPost = function (data, callback) {
 
 };
 
-postSchema.methods.addMessage = function (data, callback) {
+postSchema.statics.addMessageToPostById = function (id, data, callback) {
 
-    this.updated = Date.now();
+    this.findById(id)
+        .exec(function (err, post) {
 
-    this.messages.push({
-        contents: data.contents,
-        createdBy: data.createdBy
-    });
+            post.messages.push({
+                contents: data.contents,
+                createdBy: data.createdBy
+            });
 
-    this.save(callback);
+            post.save(callback);
+
+        });
 
 };
+
+postSchema.pre('save', function (next) {
+
+    this.updatedAt = Date.now();
+    this.messageCount = this.messages.length;
+
+    next();
+
+});
 
 module.exports = mongoose.model('post', postSchema);

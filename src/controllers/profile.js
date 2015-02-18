@@ -1,30 +1,21 @@
+var q = require('q');
+
 var profileModel = require('../models/profile');
-var postModel = require('../models/post');
 
 module.exports = {
 
-    render: function (req, res, next) {
+    show: function (profileId) {
 
-        profileModel.findById(req.params.id).
-            exec(function (err, profile) {
+        var deferred = new q.defer();
 
-                if (err) { return next(err); }
+        profileModel.showProfileById(profileId, function (err, profile) {
 
-                postModel.find({ createdBy: req.params.id })
-                    .sort({ createdBy: -1 })
-                    .exec(function (err, posts) {
+            if (err || !profile) { deferred.reject(err); }
+            else { deferred.resolve(profile); }
 
-                        if (err) { return next(err); }
+        });
 
-                        res.render('profile', {
-                            title: req.__('Profile'),
-                            profile: profile,
-                            posts: posts
-                        });
-
-                    });
-
-            });
+        return deferred.promise;
 
     }
 
