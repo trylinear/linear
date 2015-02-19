@@ -1,5 +1,5 @@
-[![](https://david-dm.org/neogeek/linear.svg?style=flat)](https://david-dm.org/neogeek/linear/)
-[![](https://david-dm.org/neogeek/linear/dev-status.svg?style=flat)](https://david-dm.org/neogeek/linear/#info=devDependencies)
+[![](https://david-dm.org/trylinear/linear.svg?style=flat)](https://david-dm.org/trylinear/linear/)
+[![](https://david-dm.org/trylinear/linear/dev-status.svg?style=flat)](https://david-dm.org/trylinear/linear/#info=devDependencies)
 [![](http://img.shields.io/npm/v/linear.svg?style=flat)](https://www.npmjs.org/package/linear/)
 
 # linear

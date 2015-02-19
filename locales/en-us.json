@@ -1,5 +1,5 @@
 {
-  "<b>Error:</b> No social networks have been setup. Please see <a href=\"https://github.com/neogeek/linear\">https://github.com/neogeek/linear</a> for more information.": "<b>Error:</b> No social networks have been setup. Please see <a href=\"https://github.com/neogeek/linear\">https://github.com/neogeek/linear</a> for more information.",
+  "<b>Error:</b> No social networks have been setup. Please see <a href=\"https://github.com/trylinear/linear\">https://github.com/trylinear/linear</a> for more information.": "<b>Error:</b> No social networks have been setup. Please see <a href=\"https://github.com/trylinear/linear\">https://github.com/trylinear/linear</a> for more information.",
   "Logging in using the social networks below will associate your name and avatar to your forum content, however <b>it will never post to any social networks on your behalf.</b>": "Logging in using the social networks below will associate your name and avatar to your forum content, however <b>it will never post to any social networks on your behalf.</b>",
   "Create New Post": "Create New Post",
   "deleted": "deleted",
@@ -20,5 +20,5 @@
   "Save Changes": "Save Changes",
   "Settings": "Settings",
   "updated": "updated",
-  "A new version (%s) of linear is available. <a href=\"https://github.com/neogeek/linear/releases\">Review the changelog.</a>": "A new version (%s) of linear is available. <a href=\"https://github.com/neogeek/linear/releases\">Review the changelog.</a>"
+  "A new version (%s) of linear is available. <a href=\"https://github.com/trylinear/linear/releases\">Review the changelog.</a>": "A new version (%s) of linear is available. <a href=\"https://github.com/trylinear/linear/releases\">Review the changelog.</a>"
 }
