@@ -34,7 +34,7 @@ Name used in both `header` and `title` tags throughout the site.
 ### directories
 
 Type: `Object`  
-Default: `{ "static": "./static" }`
+Default: `{ "static": "./static", "views": "./views" }`
 
 Directories used to overwrite the assets included with linear.
 
@@ -42,7 +42,7 @@ Directories used to overwrite the assets included with linear.
 - `locales`: Localization files.
 - `views`: Server-side templates.
 
-Note: Replacing either the `locales` or `views` directory is a destructive action. Replacing `static` is a additive action as the server will look for static files in the config specified directory first.
+Note: Replacing the `locales` directory is a destructive action. Changing `static` or `views` is a additive action as the server will look for static files and view templates in the config specified directories first.
 
 ### ga
 
