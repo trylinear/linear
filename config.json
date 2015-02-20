@@ -5,8 +5,7 @@
         "pt-br": "Português - Portuguese"
     },
     "directories": {
-        "static": "./static",
-        "views": "./views"
+        "static": "./static"
     },
     "ga": ""
 }

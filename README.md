@@ -34,7 +34,7 @@ Name used in both `header` and `title` tags throughout the site.
 ### directories
 
 Type: `Object`  
-Default: `{ "static": "./static", "views": "./views" }`
+Default: `{ "static": "./static" }`
 
 Directories used to overwrite the assets included with linear.
 

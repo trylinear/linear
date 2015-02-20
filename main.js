@@ -118,7 +118,16 @@ module.exports = {
         app.engine('hbs', hbs.express3());
 
         app.set('view engine', 'hbs');
-        app.set('views', [config.directories.views, __dirname + '/src/views']);
+
+        if (config.directories.views) {
+
+            app.set('views', [config.directories.views, __dirname + '/src/views']);
+
+        } else {
+
+            app.set('views', __dirname + '/src/views');
+
+        }
 
         app.listen(process.env.PORT || 5000);
 
