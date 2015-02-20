@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-beta.3 (February 19, 2015)
+
+- Added support for additive view directories.
+- Updated packages.
+
 ## 0.1.0-beta.2 (February 18, 2015)
 
 - Added readonly API for posts and profiles.
