@@ -9,7 +9,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "1.12.0",
-    "express": "4.11.2",
+    "express": "4.12.0",
     "express-enrouten": "1.2.0",
     "express-hbs": "0.8.1",
     "express-session": "1.10.3",
@@ -21,17 +21,17 @@
     "later": "1.1.6",
     "latest-version": "1.0.0",
     "load-grunt-tasks": "3.1.0",
-    "lodash": "3.2.0",
-    "markdown-it": "3.0.6",
+    "lodash": "3.3.1",
+    "markdown-it": "3.0.7",
     "markdown-it-emoji": "0.1.3",
     "moment": "2.9.0",
-    "mongoose": "3.8.23",
+    "mongoose": "3.8.24",
     "mongoose-findorcreate": "0.1.2",
     "numeral": "1.5.3",
     "passport": "0.2.1",
     "passport-facebook": "1.0.3",
     "passport-twitter": "1.0.2",
-    "q": "1.1.2"
+    "q": "1.2.0"
   },
   "devDependencies": {
     "grunt-contrib-watch": "0.6.1"
