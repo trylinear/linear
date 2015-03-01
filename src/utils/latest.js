@@ -3,6 +3,8 @@ var memoryCache = cacheManager.caching({ store: 'memory', max: 100, ttl: 60 * 60
 
 var latestVersion = require('latest-version');
 
+var logger = require('./logger');
+
 var pkg = require('../../package.json');
 
 var latest;
@@ -13,11 +15,15 @@ module.exports = function () {
 
         if (!version) {
 
+            logger.info('Checking for new version of linear.');
+
             latestVersion('linear', function (err, version) {
 
                 memoryCache.set('package-version', version);
 
                 if (version !== pkg.version) {
+
+                    logger.info('New version (' + version + ') found!');
 
                     latest = version;
 

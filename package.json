@@ -20,6 +20,7 @@
     "grunt-sass": "0.18.0",
     "i18n": "0.5.0",
     "latest-version": "1.0.0",
+    "le_node": "0.2.1",
     "load-grunt-tasks": "3.1.0",
     "lodash": "3.3.1",
     "markdown-it": "3.0.7",
