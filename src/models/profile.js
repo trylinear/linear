@@ -35,7 +35,7 @@ profileSchema.statics.showProfileById = function (id, callback) {
 
                 postModel.find({ createdBy: id })
                     .populate('createdBy')
-                    .sort({ createdBy: -1 })
+                    .sort({ createdAt: -1 })
                     .select('createdAt updatedAt views title slug contents messageCount createdBy')
                     .exec(function (err, posts) {
 
