@@ -1,6 +1,6 @@
 {
   "name": "linear",
-  "version": "0.1.0-beta.4",
+  "version": "0.1.0-beta.5",
   "description": "A simple setup micro-forum built in Node.js with Express and MongoDB.",
   "engines": {
     "node": "0.10.x"

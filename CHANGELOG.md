@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-beta.5 (March 1, 2015)
+
+- Improved latest version functionality.
+- Added basic debug logging (via Logentries).
+
 ## 0.1.0-beta.4 (February 19, 2015)
 
 - Removed views/ from default config.
