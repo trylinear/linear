@@ -19,25 +19,6 @@ var postSchema = new mongoose.Schema({
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'profile' }
 });
 
-postSchema.statics.listPosts = function (callback) {
-
-    this.find()
-        .populate('createdBy')
-        .sort({ updatedAt: -1 })
-        .select('createdAt updatedAt views title slug contents messageCount createdBy')
-        .exec(callback);
-
-};
-
-postSchema.statics.showPostById = function (id, callback) {
-
-    this.findByIdAndUpdate(id, { $inc: { views: 1 } })
-        .populate('createdBy')
-        .populate('messages.createdBy')
-        .exec(callback);
-
-};
-
 postSchema.statics.createPost = function (data, callback) {
 
     var post = new this({
@@ -64,6 +45,25 @@ postSchema.statics.addMessageToPostById = function (id, data, callback) {
             post.save(callback);
 
         });
+
+};
+
+postSchema.statics.showPostById = function (id, callback) {
+
+    this.findByIdAndUpdate(id, { $inc: { views: 1 } })
+        .populate('createdBy')
+        .populate('messages.createdBy')
+        .exec(callback);
+
+};
+
+postSchema.statics.listPosts = function (callback) {
+
+    this.find()
+        .populate('createdBy')
+        .sort({ updatedAt: -1 })
+        .select('createdAt updatedAt views title slug contents messageCount createdBy')
+        .exec(callback);
 
 };
 

@@ -21,33 +21,6 @@ var profileSchema = new mongoose.Schema({
 
 profileSchema.plugin(findOrCreate);
 
-profileSchema.statics.showProfileById = function (id, callback) {
-
-    this.findById(id)
-        .lean()
-        .exec(function (err, profile) {
-
-            if (err || !profile) {
-
-                callback(err, profile);
-
-            } else {
-
-                postModel.find({ createdBy: id })
-                    .populate('createdBy')
-                    .sort({ createdAt: -1 })
-                    .select('createdAt updatedAt views title slug contents messageCount createdBy')
-                    .exec(function (err, posts) {
-
-                        callback(err, _.assign(profile, { posts: posts }));
-
-                    });
-
-            }
-
-        });
-};
-
 profileSchema.statics.createProfile = function (type, data, callback) {
 
     this.findOrCreate(
@@ -78,6 +51,33 @@ profileSchema.statics.updateProfile = function (id, data, callback) {
 
         });
 
+};
+
+profileSchema.statics.showProfileById = function (id, callback) {
+
+    this.findById(id)
+        .lean()
+        .exec(function (err, profile) {
+
+            if (err || !profile) {
+
+                callback(err, profile);
+
+            } else {
+
+                postModel.find({ createdBy: id })
+                    .populate('createdBy')
+                    .sort({ createdAt: -1 })
+                    .select('createdAt updatedAt views title slug contents messageCount createdBy')
+                    .exec(function (err, posts) {
+
+                        callback(err, _.assign(profile, { posts: posts }));
+
+                    });
+
+            }
+
+        });
 };
 
 profileSchema.pre('save', function (next) {
