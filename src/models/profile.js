@@ -36,9 +36,9 @@ profileSchema.statics.createProfile = function (type, data, callback) {
 
 };
 
-profileSchema.statics.updateProfile = function (id, data, callback) {
+profileSchema.statics.updateProfile = function (profileId, data, callback) {
 
-    this.findById(id)
+    this.findById(profileId)
         .exec(function (err, profile) {
 
             if (data.locale) {
@@ -53,9 +53,9 @@ profileSchema.statics.updateProfile = function (id, data, callback) {
 
 };
 
-profileSchema.statics.showProfileById = function (id, callback) {
+profileSchema.statics.showProfileById = function (profileId, callback) {
 
-    this.findById(id)
+    this.findById(profileId)
         .lean()
         .exec(function (err, profile) {
 
@@ -65,7 +65,7 @@ profileSchema.statics.showProfileById = function (id, callback) {
 
             } else {
 
-                postModel.find({ createdBy: id })
+                postModel.find({ createdBy: profileId })
                     .populate('createdBy')
                     .sort({ createdAt: -1 })
                     .select('createdAt updatedAt views title slug contents messageCount createdBy')

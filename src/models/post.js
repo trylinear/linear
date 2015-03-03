@@ -32,9 +32,9 @@ postSchema.statics.createPost = function (data, callback) {
 
 };
 
-postSchema.statics.addMessageToPostById = function (id, data, callback) {
+postSchema.statics.addMessageToPostById = function (postId, data, callback) {
 
-    this.findById(id)
+    this.findById(postId)
         .exec(function (err, post) {
 
             post.messages.push({
@@ -48,9 +48,9 @@ postSchema.statics.addMessageToPostById = function (id, data, callback) {
 
 };
 
-postSchema.statics.showPostById = function (id, callback) {
+postSchema.statics.showPostById = function (postId, callback) {
 
-    this.findByIdAndUpdate(id, { $inc: { views: 1 } })
+    this.findByIdAndUpdate(postId, { $inc: { views: 1 } })
         .populate('createdBy')
         .populate('messages.createdBy')
         .exec(callback);
