@@ -28,6 +28,8 @@ module.exports = {
 
         var app = express();
 
+        app.disable('x-powered-by');
+
         config = _.assign(defaultConfig, config);
 
         mongoose.connect(process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/linear');
