@@ -4,15 +4,15 @@ var postModel = require('../models/post');
 
 module.exports = {
 
-    create: function (postId, data, user) {
+    create: function (postId, data, profileId) {
 
         var deferred = new q.defer();
 
-        if (postId && data.contents && user) {
+        if (postId && data.contents && profileId) {
 
             postModel.addMessageToPostById(postId, {
                 contents: data.contents,
-                createdBy: user._id
+                createdBy: profileId
             }, function (err, post) {
 
                 if (err || !post) { deferred.reject(err); }

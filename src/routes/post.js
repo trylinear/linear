@@ -15,7 +15,7 @@ module.exports = function (router) {
 
     router.post('/new', requireLogin, function (req, res, next) {
 
-        post.create(req.body, req.user).then(function (post) {
+        post.create(req.body, req.user.id).then(function (post) {
 
             res.redirect('/post/' + post.slug + '/' + post._id + '/');
 
@@ -38,7 +38,7 @@ module.exports = function (router) {
 
     router.post('/:slug?/:id', requireLogin, function (req, res, next) {
 
-        message.create(req.params.id, req.body, req.user).then(function (post) {
+        message.create(req.params.id, req.body, req.user.id).then(function (post) {
 
             res.redirect('#message-' + post.messages[post.messageCount - 1]._id);
 

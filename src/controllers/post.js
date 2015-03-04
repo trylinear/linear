@@ -4,16 +4,16 @@ var postModel = require('../models/post');
 
 module.exports = {
 
-    create: function (data, user) {
+    create: function (data, profileId) {
 
         var deferred = new q.defer();
 
-        if (data.title && data.contents && user) {
+        if (data.title && data.contents && profileId) {
 
             postModel.createPost({
                 title: data.title,
                 contents: data.contents,
-                createdBy: user._id
+                createdBy: profileId
             }, function (err, post) {
 
                 if (err || !post) { deferred.reject(err); }
