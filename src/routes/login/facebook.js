@@ -8,8 +8,7 @@ if (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET && proc
     passport.use(new FacebookStrategy({
         clientID: process.env.FACEBOOK_CLIENT_ID,
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL: process.env.FACEBOOK_CALLBACK,
-        authorizationURL: 'https://www.facebook.com/v2.2/dialog/oauth'
+        callbackURL: process.env.FACEBOOK_CALLBACK
     }, function (accessToken, refreshToken, data, done) {
 
         profileModel.createProfile('facebook', {
