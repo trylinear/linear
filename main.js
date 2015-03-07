@@ -1,3 +1,5 @@
+require('with-env')();
+
 var _ = require('lodash');
 
 var express = require('express');
