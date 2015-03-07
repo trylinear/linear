@@ -67,10 +67,14 @@ h1 {
         display: -webkit-flex;
     }
 
-    .auth {
-
+    .logo,
+    .navigation {
         flex: 1;
         -webkit-flex: 1;
+    }
+
+    .navigation {
+
         text-align: right;
 
         a {

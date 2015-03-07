@@ -15,13 +15,14 @@
     <div class="inner-wrapper">
 
         <div class="logo"><a href="/">{{config.site_name}}</a></div>
-        <div class="auth">
+        <nav class="navigation">
             {{#if user}}
-            <a href="/settings/">{{__ 'Settings'}}</a> <a href="/logout/">{{__ 'Logout'}}</a>
+            <a href="/settings/">{{__ 'Settings'}}</a>
+            <a href="/logout/">{{__ 'Logout'}}</a>
             {{else}}
             <a href="/login/">{{__ 'Login / Register'}}</a>
             {{/if}}
-        </div>
+        </nav>
 
     </div>
 
