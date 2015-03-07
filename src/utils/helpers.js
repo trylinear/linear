@@ -27,6 +27,8 @@ module.exports = function (Handlebars) {
 
     Handlebars.registerHelper('limitOutput', function (value, limit) {
 
+        value = markdown.render(value).replace(/<.+?>/g, '');
+
         if (value.length > limit) {
 
             value = value.substring(0, limit);
