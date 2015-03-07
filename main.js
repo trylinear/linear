@@ -82,6 +82,7 @@ module.exports = {
             res.locals.latest_version = latest();
             res.locals.config = config;
             res.locals.user = req.user;
+            res.locals.url = req.protocol + '://' + req.get('host') + req.originalUrl;
 
             hbs.registerHelper('__', function () {
 
