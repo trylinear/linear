@@ -1,9 +1,12 @@
 var markdown = require('markdown-it')({
+    html: true,
     linkify: true
 });
 
 var emoji = require('markdown-it-emoji');
 markdown.use(emoji);
+
+var sanitizeHtml = require('sanitize-html');
 
 var moment = require('moment');
 var numeral = require('numeral');
@@ -37,7 +40,9 @@ module.exports = function (Handlebars) {
 
     Handlebars.registerHelper('markdown', function (value) {
 
-        return markdown.render(value);
+        return sanitizeHtml(markdown.render(value), {
+            allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
+        });
 
     });
 
