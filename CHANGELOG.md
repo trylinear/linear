@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-beta.6 (March 8, 2015)
+
+- Fixed issue where Markdown was displaying in post descriptions.
+- Updated node engine to support 0.10.0 and greater.
+- Added new API route /info.
+- Added HTML support to contents of posts and responses.
+- Added non-foreman (Heroku) .env support.
+- Added canonical and description meta tags.
+- Added Twitter Card support.
+- Added styles for post content and replies.
+- Updated Octicons.
+- Updated packages.
+
 ## 0.1.0-beta.5 (March 1, 2015)
 
 - Improved latest version functionality.
