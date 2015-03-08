@@ -29,6 +29,7 @@ module.exports = function (router) {
 
             res.render('post', {
                 title: post.title,
+                description: post.contents,
                 post: post
             });
 

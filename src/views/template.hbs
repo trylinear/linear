@@ -7,6 +7,17 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/octicons/2.2.0/octicons.css">
 <link rel="stylesheet" href="/css/styles.css">
 <link rel="canonical" href="{{url}}">
+
+{{#if description}}
+<meta name="description" content="{{limitOutput description 200}}">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@trylinear" />
+<meta name="twitter:title" content="{{title}}" />
+<meta name="twitter:description" content="{{limitOutput description 200}}" />
+<meta name="twitter:url" content="{{url}}" />
+{{/if}}
+
 </head>
 
 <body>

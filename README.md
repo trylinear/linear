@@ -67,15 +67,27 @@ MONGOLAB_URI=mongodb://username:password@mongolab.com/linear
 
 Omitting either of these social networks will prevent it from showing up on the login screen.
 
+#### Facebook
+
+For more information on how to retrieve these keys see <https://github.com/trylinear/linear/wiki/Social-Setup#facebook>.
+
 ```
 FACEBOOK_CLIENT_ID=<token>
 FACEBOOK_CLIENT_SECRET=<token>
 FACEBOOK_CALLBACK=http://localhost:5000/login/facebook/callback
+```
 
+#### Twitter
+
+For more information on how to retrieve these keys see <https://github.com/trylinear/linear/wiki/Social-Setup#twitter>.
+
+```
 TWITTER_CONSUMER_KEY=<token>
 TWITTER_CONSUMER_SECRET=<token>
 TWITTER_CALLBACK=http://localhost:5000/login/twitter/callback
 ```
+
+The default template supports [Twitter Cards](https://dev.twitter.com/cards/overview). To get these to display you must first run a sample post through the [Card Validator](https://cards-dev.twitter.com/validator) and then **Request Approval** to be whitelisted.
 
 ### Setting Up Express Session Security
 
