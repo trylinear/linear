@@ -1,0 +1,31 @@
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+blockquote {
+    padding-left: 1em;
+    font-style: italic;
+    border-left: .5em solid #f6f6f6;
+}
+
+pre, code {
+    background-color: #f6f6f6;
+}
+
+code {
+    padding: .25em;
+    display: inline-block;
+    font-family: 'Monaco', monospace;
+    font-size: 0.8em;
+    line-height: 1.3em;
+}
+
+pre {
+    margin: 1em 0;
+    padding: .5em;
+    overflow: auto;
+    code {
+        padding: 0;
+    }
+}
