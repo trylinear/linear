@@ -18,7 +18,7 @@ $ npm install linear --save
 var linear = require('linear');
 
 linear.startWithConfig({
-    "site_name": "Sample Forum"
+    'site_name': 'Sample Forum'
 });
 ```
 
@@ -27,14 +27,14 @@ linear.startWithConfig({
 ### site_name
 
 Type: `String`  
-Default: `"Sample Forum"`
+Default: `'Sample Forum'`
 
 Name used in both `header` and `title` tags throughout the site.
 
 ### directories
 
 Type: `Object`  
-Default: `{ "static": "./static" }`
+Default: `{ 'static': './static' }`
 
 Directories used to overwrite the assets included with linear.
 
@@ -47,7 +47,7 @@ Note: Replacing the `locales` directory is a destructive action. Changing `stati
 ### ga
 
 Type: `String`  
-Default: `""`
+Default: `''`
 
 Tracking code for Google Analytics. <http://www.google.com/analytics/>
 
