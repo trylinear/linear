@@ -26,6 +26,19 @@ h1 {
     line-height: 1.3em;
 }
 
+p,
+ul,
+ol {
+    margin: 1em 0;
+}
+
+ul,
+ol {
+    li {
+        margin: 0 0 0 2em;
+    }
+}
+
 .avatar {
     border-radius: 50%;
     vertical-align: middle;
@@ -113,15 +126,6 @@ h1 {
             color: #444;
 
             @import "content";
-
-            p {
-                margin: 0 0 1em;
-            }
-
-            ul,
-            ol {
-                margin: 1em 0 1em 2em
-            }
 
         }
 
@@ -232,10 +236,6 @@ h1 {
 
 .login {
 
-    p {
-        margin: 1em 0;
-    }
-
     .social-networks {
         text-align: center;
     }
@@ -253,9 +253,5 @@ h1 {
 .page-footer {
 
     text-align: center;
-
-    p {
-        margin: 1em 0;
-    }
 
 }
