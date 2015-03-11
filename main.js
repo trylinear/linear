@@ -23,6 +23,7 @@ var defaultConfig = require('./config.json');
 var profileModel = require('./src/models/profile');
 
 var latest = require('./src/utils/latest');
+var env = require('./src/utils/env');
 
 module.exports = {
 
@@ -34,7 +35,7 @@ module.exports = {
 
         config = _.assign(defaultConfig, config);
 
-        mongoose.connect(process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/linear');
+        mongoose.connect(env.mongodb());
 
         app.use(session({
             secret: process.env.SECRET || 'secret',
@@ -134,7 +135,7 @@ module.exports = {
 
         }
 
-        app.listen(process.env.PORT || 5000);
+        app.listen(env.port(), env.ipaddress());
 
     }
 
