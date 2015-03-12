@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0-beta.8 (March 12, 2015)
+
+- Changed default IP address to work with Heroku.
+
 ## 0.1.0-beta.7 (March 12, 2015)
 
 - Added support for different deployment environments.
