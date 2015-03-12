@@ -1,7 +1,7 @@
 var IPADDRESS = [
     process.env.BIND_IP,
     process.env.OPENSHIFT_NODEJS_IP,
-    '127.0.0.1'
+    '0.0.0.0'
 ];
 
 var MONGODB = [
@@ -14,7 +14,7 @@ var MONGODB = [
 var PORT = [
     process.env.PORT,
     process.env.OPENSHIFT_NODEJS_PORT,
-    5000
+    8080
 ];
 
 module.exports = {
