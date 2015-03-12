@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-beta.7 (March 12, 2015)
+
+- Added support for different deployment environments.
+- Updated packages.
+
 ## 0.1.0-beta.6 (March 8, 2015)
 
 - Fixed issue where Markdown was displaying in post descriptions.
