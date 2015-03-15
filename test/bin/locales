@@ -1,0 +1,23 @@
+#!/bin/bash
+
+ERROR=0
+
+REDON=`tput setaf 1`
+GREENON=`tput setaf 2`
+COLOROFF=`tput sgr0`
+
+echo "Testing localized files:"
+
+for file in locales/*; do
+    if [[ $file =~ ([a-z\-]+)\.json$ ]]; then
+        echo -n " - ${file} ... "
+        if grep -q '\['${BASH_REMATCH[1]}'\]' $file; then
+            echo "${REDON}ERROR${COLOROFF} - Found untranslated values!"
+            ERROR=1
+        else
+            echo "${GREENON}PASSED${COLOROFF}"
+        fi
+    fi
+done
+
+exit $ERROR
