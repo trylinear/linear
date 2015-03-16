@@ -139,6 +139,43 @@ postSchema.statics.listPosts = function () {
 
 };
 
+postSchema.statics.searchPosts = function (query) {
+
+    var deferred = new q.defer();
+
+    if (query) {
+
+        query = query.toLowerCase().replace(/[^0-9a-z]+/, '|');
+
+        this.find({ title: { $regex: new RegExp(query, 'i') } })
+            .populate('createdBy')
+            .sort({ updatedAt: -1 })
+            .select('createdAt updatedAt views title slug contents messageCount createdBy')
+            .exec(function (err, posts) {
+
+                if (err || !posts) {
+
+                    logger.err('Error retrieving search results.', err);
+
+                    deferred.reject({
+                        status: 500,
+                        message: 'Internal Server Error'
+                    });
+
+                } else { deferred.resolve(posts); }
+
+            });
+
+    } else {
+
+        deferred.resolve([]);
+
+    }
+
+    return deferred.promise;
+
+};
+
 postSchema.pre('save', function (next) {
 
     this.updatedAt = Date.now();
