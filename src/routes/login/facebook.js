@@ -15,7 +15,11 @@ if (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET && proc
             id: data.id,
             name: data.displayName,
             avatar: 'https://graph.facebook.com/' + data.id + '/picture?type=large'
-        }, done);
+        }).then(function (profile) {
+
+            done(null, profile);
+
+        });
 
     }));
 
