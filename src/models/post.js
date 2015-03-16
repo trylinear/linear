@@ -1,4 +1,8 @@
+var q = require('q');
+
 var mongoose = require('mongoose');
+
+var logger = require('../utils/logger');
 
 var messageSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
@@ -19,7 +23,9 @@ var postSchema = new mongoose.Schema({
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'profile' }
 });
 
-postSchema.statics.createPost = function (data, callback) {
+postSchema.statics.createPost = function (data) {
+
+    var deferred = new q.defer();
 
     var post = new this({
         title: data.title,
@@ -28,11 +34,28 @@ postSchema.statics.createPost = function (data, callback) {
         createdBy: data.createdBy
     });
 
-    post.save(callback);
+    post.save(function (err, post) {
+
+        if (err || !post) {
+
+            logger.err('Error creating new post.', err, data);
+
+            deferred.reject({
+                status: 500,
+                message: 'Internal Server Error'
+            });
+
+        } else { deferred.resolve(post); }
+
+    });
+
+    return deferred.promise;
 
 };
 
-postSchema.statics.addMessageToPostById = function (postId, data, callback) {
+postSchema.statics.addMessageToPostById = function (postId, data) {
+
+    var deferred = new q.defer();
 
     this.findById(postId)
         .exec(function (err, post) {
@@ -42,28 +65,77 @@ postSchema.statics.addMessageToPostById = function (postId, data, callback) {
                 createdBy: data.createdBy
             });
 
-            post.save(callback);
+            post.save(function (err, post) {
+
+                if (err || !post) {
+
+                    logger.err('Error creating new message.', err, data);
+
+                    deferred.reject({
+                        status: 500,
+                        message: 'Internal Server Error'
+                    });
+
+                } else { deferred.resolve(post); }
+
+            });
 
         });
 
+    return deferred.promise;
+
 };
 
-postSchema.statics.showPostById = function (postId, callback) {
+postSchema.statics.showPostById = function (postId) {
+
+    var deferred = new q.defer();
 
     this.findByIdAndUpdate(postId, { $inc: { views: 1 } })
         .populate('createdBy')
         .populate('messages.createdBy')
-        .exec(callback);
+        .exec(function (err, post) {
+
+            if (err || !post) {
+
+                logger.err('Post id ' + postId + ' not found.');
+
+                deferred.reject({
+                    status: 404,
+                    message: 'Post not found.'
+                });
+
+            } else { deferred.resolve(post); }
+
+        });
+
+    return deferred.promise;
 
 };
 
-postSchema.statics.listPosts = function (callback) {
+postSchema.statics.listPosts = function () {
+
+    var deferred = new q.defer();
 
     this.find()
         .populate('createdBy')
         .sort({ updatedAt: -1 })
         .select('createdAt updatedAt views title slug contents messageCount createdBy')
-        .exec(callback);
+        .exec(function (err, posts) {
+
+            if (err || !posts) {
+
+                logger.err('Error retrieving post list.', err);
+
+                deferred.reject({
+                    status: 500,
+                    message: 'Internal Server Error'
+                });
+
+            } else { deferred.resolve(posts); }
+
+        });
+
+    return deferred.promise;
 
 };
 

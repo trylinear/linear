@@ -1,59 +1,26 @@
-var q = require('q');
-
 var postModel = require('../models/post');
 
 module.exports = {
 
     create: function (data, profileId) {
 
-        var deferred = new q.defer();
-
-        if (data.title && data.contents && profileId) {
-
-            postModel.createPost({
-                title: data.title,
-                contents: data.contents,
-                createdBy: profileId
-            }, function (err, post) {
-
-                if (err || !post) { deferred.reject(err); }
-                else { deferred.resolve(post); }
-
-            });
-
-        }
-
-        return deferred.promise;
+        return postModel.createPost({
+            title: data ? data.title : '',
+            contents: data ? data.contents : '',
+            createdBy: profileId
+        });
 
     },
 
     list: function () {
 
-        var deferred = new q.defer();
-
-        postModel.listPosts(function (err, posts) {
-
-            if (err || !posts) { deferred.reject(err); }
-            else { deferred.resolve(posts); }
-
-        });
-
-        return deferred.promise;
+        return postModel.listPosts();
 
     },
 
     show: function (postId) {
 
-        var deferred = new q.defer();
-
-        postModel.showPostById(postId, function (err, post) {
-
-            if (err || !post) { deferred.reject(err); }
-            else { deferred.resolve(post); }
-
-        });
-
-        return deferred.promise;
+        return postModel.showPostById(postId);
 
     }
 
