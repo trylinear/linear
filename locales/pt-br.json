@@ -23,5 +23,8 @@
   "A new version (%s) of linear is available. <a href=\"https://github.com/trylinear/linear/releases\">Review the changelog.</a>": "Nova versão (%s) disponível para linear. <a href=\"https://github.com/trylinear/linear/releases\">Consulte o changelog</a>.",
   "Post not found.": "Post não encontrado.",
   "Profile not found.": "Perfil não encontrado.",
-  "Internal Server Error": "Erro interno de servidor"
+  "Internal Server Error": "Erro interno de servidor",
+  "Search": "Procura",
+  "search posts by title": "procura posts por título",
+  "Found %s results for <b>%s</b>.": "Encontrado %s resultados para <b>%s</b>."
 }

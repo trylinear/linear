@@ -1,0 +1,35 @@
+<div class="page-content search">
+
+    <div class="inner-wrapper">
+
+        <h1>{{__ 'Search'}}</h1>
+
+        <form action="" method="get">
+
+            <fieldset>
+
+                <input type="text" name="q" id="search" placeholder="{{__ 'search posts by title'}}" value="{{query}}">
+
+            </fieldset>
+
+        </form>
+
+        {{#if results}}
+
+        <p>{{{__ 'Found %s results for <b>%s</b>.' results.length query}}}</p>
+
+        <ul>
+
+            {{#each results}}
+
+            <li><a href="/post/{{slug}}/{{id}}/">{{title}}</a></li>
+
+            {{/each}}
+
+        </ul>
+
+        {{/if}}
+
+    </div>
+
+</div>
