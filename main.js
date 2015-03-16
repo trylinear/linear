@@ -5,6 +5,7 @@ var _ = require('lodash');
 var express = require('express');
 
 var session = require('express-session');
+var lusca = require('lusca');
 var bodyParser = require('body-parser');
 var enrouten = require('express-enrouten');
 
@@ -44,6 +45,13 @@ module.exports = {
         }));
 
         app.use(bodyParser.urlencoded({ extended: true }));
+
+        app.use(lusca({
+            csrf: true,
+            xframe: 'SAMEORIGIN',
+            hsts: { maxAge: 31536000 },
+            xssProtection: true
+        }));
 
         app.use(passport.initialize());
         app.use(passport.session());
