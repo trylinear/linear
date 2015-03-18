@@ -38,6 +38,7 @@
     "with-env": "0.1.0"
   },
   "devDependencies": {
+    "mocha": "2.2.1",
     "grunt-contrib-watch": "0.6.1"
   },
   "scripts": {
