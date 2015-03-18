@@ -11,8 +11,10 @@ echo "Testing localized files:"
 for file in locales/*; do
     if [[ $file =~ ([a-z\-]+)\.json$ ]]; then
         echo -n " - ${file} ... "
-        if grep -q '\['${BASH_REMATCH[1]}'\]' $file; then
+        UNTRANSLATED=`grep '\['${BASH_REMATCH[1]}'\]' $file`
+        if [ -n "$UNTRANSLATED" ]; then
             echo "${REDON}ERROR${COLOROFF} - Found untranslated values!"
+            echo $UNTRANSLATED
             ERROR=1
         else
             echo "${GREENON}PASSED${COLOROFF}"
