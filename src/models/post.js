@@ -145,26 +145,35 @@ postSchema.statics.searchPosts = function (query) {
 
     if (query) {
 
-        query = query.toLowerCase().replace(/[^0-9a-z]+/, '|');
+        query = query.trim().toLowerCase();
+        query = query.replace(/[^0-9a-z]+/, '|').replace(/^\||\|$/, '');
 
-        this.find({ title: { $regex: new RegExp(query, 'i') } })
-            .populate('createdBy')
-            .sort({ updatedAt: -1 })
-            .select('createdAt updatedAt views title slug contents messageCount createdBy')
-            .exec(function (err, posts) {
+        if (query) {
 
-                if (err || !posts) {
+            this.find({ title: { $regex: new RegExp(query, 'i') } })
+                .populate('createdBy')
+                .sort({ updatedAt: -1 })
+                .select('createdAt updatedAt views title slug contents messageCount createdBy')
+                .exec(function (err, posts) {
 
-                    logger.err('Error retrieving search results.', err);
+                    if (err || !posts) {
 
-                    deferred.reject({
-                        status: 500,
-                        message: 'Internal Server Error'
-                    });
+                        logger.err('Error retrieving search results.', err);
 
-                } else { deferred.resolve(posts); }
+                        deferred.reject({
+                            status: 500,
+                            message: 'Internal Server Error'
+                        });
 
-            });
+                    } else { deferred.resolve(posts); }
+
+                });
+
+        } else {
+
+            deferred.resolve([]);
+
+        }
 
     } else {
 

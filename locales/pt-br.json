@@ -26,5 +26,6 @@
   "Internal Server Error": "Erro interno de servidor",
   "Search": "Procura",
   "search posts by title": "procura posts por título",
-  "Found %s results for <b>%s</b>.": "Encontrado %s resultados para <b>%s</b>."
+  "Found %s results for <b>%s</b>.": "Encontrado %s resultados para <b>%s</b>.",
+  "No results found.": "Procura sem resultados."
 }

@@ -26,5 +26,6 @@
   "Internal Server Error": "Internal Server Error",
   "Search": "Search",
   "search posts by title": "search posts by title",
-  "Found %s results for <b>%s</b>.": "Found %s results for <b>%s</b>."
+  "Found %s results for <b>%s</b>.": "Found %s results for <b>%s</b>.",
+  "No results found.": "No results found."
 }

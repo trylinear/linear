@@ -14,6 +14,8 @@
 
         </form>
 
+        {{#if query}}
+
         {{#if results}}
 
         <p>{{{__ 'Found %s results for <b>%s</b>.' results.length query}}}</p>
@@ -27,6 +29,12 @@
             {{/each}}
 
         </ul>
+
+        {{else}}
+
+        <p>{{__ 'No results found.'}}</p>
+
+        {{/if}}
 
         {{/if}}
 
