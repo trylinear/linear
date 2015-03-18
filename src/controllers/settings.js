@@ -4,7 +4,7 @@ module.exports = {
 
     update: function (data, profileId) {
 
-        return profileModel.updateProfile(profileId, data);
+        return profileModel.updateProfileById(profileId, data);
 
     }
 
