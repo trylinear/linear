@@ -21,9 +21,9 @@ describe('profile model', function () {
 
         profileModel.find().remove(function () {
 
-            done();
-
             mongoose.connection.close();
+
+            done();
 
         });
 

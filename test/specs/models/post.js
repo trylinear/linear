@@ -21,9 +21,9 @@ describe('post model', function () {
 
         postModel.find().remove(function () {
 
-            done();
-
             mongoose.connection.close();
+
+            done();
 
         });
 
