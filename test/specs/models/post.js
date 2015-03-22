@@ -2,7 +2,6 @@ var assert = require('assert');
 
 var mongoose = require('mongoose');
 
-var profileModel = require('../../../src/models/profile');
 var postModel = require('../../../src/models/post');
 
 describe('post model', function () {
