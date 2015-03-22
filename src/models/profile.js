@@ -57,7 +57,7 @@ profileSchema.statics.createProfile = function (type, data) {
 
 };
 
-profileSchema.statics.updateProfile = function (profileId, data) {
+profileSchema.statics.updateProfileById = function (profileId, data) {
 
     var deferred = new q.defer();
 
