@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.0-beta.9 (March 25, 2015)
+
+- Added search functionality.
+- Added tests for localization and models.
+- Added security through lusca.
+- Improved logging capabilities.
+- Set post title and post comment contents to be required.
+- Code cleanup.
+- Updated packages.
+
 ## 0.1.0-beta.8 (March 12, 2015)
 
 - Changed default IP address to work with Heroku.
