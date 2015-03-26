@@ -118,7 +118,7 @@ profileSchema.statics.showProfileById = function (profileId) {
 
                         if (err || !posts) {
 
-                            logger.err('Error retriving post for profile id ' + profileId + '.');
+                            logger.err('Error retriving posts for profile id ' + profileId + '.');
 
                             deferred.reject({
                                 status: 500,
