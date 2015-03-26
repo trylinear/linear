@@ -122,7 +122,7 @@ profileSchema.statics.showProfileById = function (profileId) {
 
                             deferred.reject({
                                 status: 500,
-                                message: 'Error retriving profile posts.'
+                                message: 'Internal Server Error'
                             });
 
                         } else { deferred.resolve(_.assign(profile, { posts: posts })); }
