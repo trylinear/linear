@@ -20,9 +20,7 @@ describe('profile model', function () {
 
         profileModel.find().remove(function () {
 
-            mongoose.connection.close();
-
-            done();
+            mongoose.connection.close(done);
 
         });
 

@@ -20,9 +20,7 @@ describe('post model', function () {
 
         postModel.find().remove(function () {
 
-            mongoose.connection.close();
-
-            done();
+            mongoose.connection.close(done);
 
         });
 
