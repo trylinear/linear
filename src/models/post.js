@@ -2,6 +2,8 @@ var q = require('q');
 
 var mongoose = require('mongoose');
 
+var notificationModel = require('../models/notification');
+
 var logger = require('../utils/logger');
 
 var messageSchema = new mongoose.Schema({
@@ -45,7 +47,13 @@ postSchema.statics.createPost = function (data) {
                 message: 'Internal Server Error'
             });
 
-        } else { deferred.resolve(post); }
+        } else {
+
+            notificationModel.markAsUnread(post.id, data.createdBy);
+
+            deferred.resolve(post);
+
+        }
 
     });
 
@@ -76,7 +84,13 @@ postSchema.statics.addMessageToPostById = function (postId, data) {
                         message: 'Internal Server Error'
                     });
 
-                } else { deferred.resolve(post); }
+                } else {
+
+                    notificationModel.markAsUnread(post.id, data.createdBy);
+
+                    deferred.resolve(post);
+
+                }
 
             });
 
@@ -86,7 +100,7 @@ postSchema.statics.addMessageToPostById = function (postId, data) {
 
 };
 
-postSchema.statics.showPostById = function (postId) {
+postSchema.statics.showPostById = function (postId, profileId) {
 
     var deferred = new q.defer();
 
@@ -104,7 +118,13 @@ postSchema.statics.showPostById = function (postId) {
                     message: 'Post not found.'
                 });
 
-            } else { deferred.resolve(post); }
+            } else {
+
+                deferred.resolve(post);
+
+                notificationModel.markAsUnread(post.id, profileId);
+
+            }
 
         });
 

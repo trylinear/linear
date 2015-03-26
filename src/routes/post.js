@@ -25,7 +25,7 @@ module.exports = function (router) {
 
     router.get('/:slug?/:id', function (req, res, next) {
 
-        post.show(req.params.id).then(function (post) {
+        post.show(req.params.id, req.user ? req.user.id : null).then(function (post) {
 
             res.render('post', {
                 title: post.title,

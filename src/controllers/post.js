@@ -18,9 +18,9 @@ module.exports = {
 
     },
 
-    show: function (postId) {
+    show: function (postId, profileId) {
 
-        return postModel.showPostById(postId);
+        return postModel.showPostById(postId, profileId);
 
     }
 

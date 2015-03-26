@@ -1,0 +1,25 @@
+<div class="page-content notifications">
+
+    <div class="inner-wrapper">
+
+        <h1>{{__ 'Notifications'}}</h1>
+
+        <ul>
+
+            {{#each notifications}}
+
+            <li>
+                <a href="/post/{{post.slug}}/{{post.id}}/">{{post.title}}</a>
+                <span class="date">
+                    {{__ 'updated'}}
+                    {{relativeTime updatedAt}}
+                </span>
+            </li>
+
+            {{/each}}
+
+        </ul>
+
+    </div>
+
+</div>
