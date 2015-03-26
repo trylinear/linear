@@ -15,7 +15,11 @@ if (process.env.TWITTER_CONSUMER_KEY && process.env.TWITTER_CONSUMER_SECRET && p
             id: data.id,
             name: data.displayName,
             avatar: data.photos[0].value.replace(/_normal\.(.+)?/, '_bigger.$1')
-        }, done);
+        }).then(function (profile) {
+
+            done(null, profile);
+
+        });
 
     }));
 

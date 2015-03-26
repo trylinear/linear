@@ -1,9 +1,13 @@
+var q = require('q');
+
 var _ = require('lodash');
 
 var mongoose = require('mongoose');
 var findOrCreate = require('mongoose-findorcreate');
 
 var postModel = require('../models/post');
+
+var logger = require('../utils/logger');
 
 var socialSchema = new mongoose.Schema({
     type: String,
@@ -21,7 +25,9 @@ var profileSchema = new mongoose.Schema({
 
 profileSchema.plugin(findOrCreate);
 
-profileSchema.statics.createProfile = function (type, data, callback) {
+profileSchema.statics.createProfile = function (type, data) {
+
+    var deferred = new q.defer();
 
     this.findOrCreate(
         { 'social.type': type, 'social.id': data.id },
@@ -31,12 +37,29 @@ profileSchema.statics.createProfile = function (type, data, callback) {
             social: [ { type: type, id: data.id } ]
         },
         { upsert: true },
-        callback
+        function (err, profile) {
+
+            if (err || !profile) {
+
+                logger.err('Error saving profile.', err, data);
+
+                deferred.reject({
+                    status: 500,
+                    message: 'Internal Server Error'
+                });
+
+            } else { deferred.resolve(profile); }
+
+        }
     );
+
+    return deferred.promise;
 
 };
 
-profileSchema.statics.updateProfile = function (profileId, data, callback) {
+profileSchema.statics.updateProfileById = function (profileId, data) {
+
+    var deferred = new q.defer();
 
     this.findById(profileId)
         .exec(function (err, profile) {
@@ -47,13 +70,30 @@ profileSchema.statics.updateProfile = function (profileId, data, callback) {
 
             }
 
-            profile.save(callback);
+            profile.save(function (err, profile) {
+
+                if (err || !profile) {
+
+                    logger.err('Error saving profile ' + profileId + '.', err, data);
+
+                    deferred.reject({
+                        status: 500,
+                        message: 'Internal Server Error'
+                    });
+
+                } else { deferred.resolve(profile); }
+
+            });
 
         });
 
+    return deferred.promise;
+
 };
 
-profileSchema.statics.showProfileById = function (profileId, callback) {
+profileSchema.statics.showProfileById = function (profileId) {
+
+    var deferred = new q.defer();
 
     this.findById(profileId)
         .lean()
@@ -61,7 +101,12 @@ profileSchema.statics.showProfileById = function (profileId, callback) {
 
             if (err || !profile) {
 
-                callback(err, profile);
+                logger.err('Profile id ' + profileId + ' not found.');
+
+                deferred.reject({
+                    status: 404,
+                    message: 'Profile not found.'
+                });
 
             } else {
 
@@ -71,13 +116,25 @@ profileSchema.statics.showProfileById = function (profileId, callback) {
                     .select('createdAt updatedAt views title slug contents messageCount createdBy')
                     .exec(function (err, posts) {
 
-                        callback(err, _.assign(profile, { posts: posts }));
+                        if (err || !posts) {
+
+                            logger.err('Error retriving posts for profile id ' + profileId + '.');
+
+                            deferred.reject({
+                                status: 500,
+                                message: 'Internal Server Error'
+                            });
+
+                        } else { deferred.resolve(_.assign(profile, { posts: posts })); }
 
                     });
 
             }
 
         });
+
+    return deferred.promise;
+
 };
 
 profileSchema.pre('save', function (next) {

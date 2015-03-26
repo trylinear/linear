@@ -1,12 +1,12 @@
-var profile = require('../../../controllers/profile');
+var search = require('../../../controllers/search');
 
 module.exports = function (router) {
 
-    router.get('/:id', function (req, res) {
+    router.get('/', function (req, res) {
 
-        profile.show(req.params.id).then(function (profile) {
+        search.show(req.query.q).then(function (results) {
 
-            res.json(profile);
+            res.json(results);
 
         }).catch(function (err) {
 
