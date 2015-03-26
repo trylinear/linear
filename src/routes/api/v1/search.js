@@ -10,8 +10,8 @@ module.exports = function (router) {
 
         }).catch(function (err) {
 
-            res.status(404);
-            res.json({ message: 'Not Found', code: 404 });
+            res.status(err.status);
+            res.json({ status: err.status, message: err.message });
 
         });
 
