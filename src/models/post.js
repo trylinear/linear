@@ -158,7 +158,7 @@ postSchema.statics.searchPosts = function (query) {
 
                     if (err || !posts) {
 
-                        logger.err('Error retrieving search results.', err);
+                        logger.err('Error retrieving search results.', err, query);
 
                         deferred.reject({
                             status: 500,
