@@ -13,7 +13,7 @@
     "express": "4.12.3",
     "express-enrouten": "1.2.0",
     "express-hbs": "0.8.4",
-    "express-session": "1.10.4",
+    "express-session": "1.11.1",
     "grunt": "0.4.5",
     "grunt-cli": "0.1.13",
     "grunt-contrib-jshint": "0.11.1",
@@ -24,9 +24,9 @@
     "load-grunt-tasks": "3.1.0",
     "lodash": "3.6.0",
     "lusca": "1.0.3",
-    "markdown-it": "4.1.0",
+    "markdown-it": "4.1.1",
     "markdown-it-emoji": "1.0.0",
-    "moment": "2.9.0",
+    "moment": "2.10.2",
     "mongoose": "4.0.1",
     "mongoose-findorcreate": "0.1.2",
     "numeral": "1.5.3",
@@ -38,7 +38,7 @@
     "with-env": "0.1.0"
   },
   "devDependencies": {
-    "mocha": "2.2.1",
+    "mocha": "2.2.4",
     "grunt-contrib-watch": "0.6.1"
   },
   "scripts": {
