@@ -79,6 +79,16 @@ FACEBOOK_CLIENT_SECRET=<token>
 FACEBOOK_CALLBACK=http://localhost:5000/login/facebook/callback
 ```
 
+#### Google
+
+For more information on how to retrieve these keys see <https://github.com/trylinear/linear/wiki/Social-Setup#google>.
+
+```
+GOOGLE_CLIENT_ID=<token>
+GOOGLE_CLIENT_SECRET=<token>
+GOOGLE_CALLBACK=http://localhost:5000/login/google/callback
+```
+
 #### Twitter
 
 For more information on how to retrieve these keys see <https://github.com/trylinear/linear/wiki/Social-Setup#twitter>.
