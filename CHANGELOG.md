@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.0-beta.10 (June 18, 2015)
+
+- Added Google login support.
+- Updated packages.
+
 ## 0.1.0-beta.9 (March 25, 2015)
 
 - Added search functionality.
