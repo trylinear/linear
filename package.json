@@ -38,8 +38,8 @@
     "with-env": "0.1.0"
   },
   "devDependencies": {
-    "mocha": "2.2.5",
-    "grunt-contrib-watch": "0.6.1"
+    "grunt-contrib-watch": "0.6.1",
+    "mocha": "2.2.5"
   },
   "scripts": {
     "postinstall": "./node_modules/grunt-cli/bin/grunt default",
