@@ -23,10 +23,12 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-facebook:before {
-    content: "\e600";
+.icon-google:before {
+    content: "\ea88";
 }
-
+.icon-facebook:before {
+    content: "\ea8c";
+}
 .icon-twitter:before {
-    content: "\e601";
+    content: "\ea91";
 }
