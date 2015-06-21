@@ -1,4 +1,4 @@
-var assert = require('assert');
+var expect = require('chai').expect;
 
 var mongoose = require('mongoose');
 
@@ -34,6 +34,9 @@ describe('profile model', function () {
             avatar: 'https://pbs.twimg.com/profile_images/521442109727838209/IyeKD7Rx_bigger.jpeg'
         }).then(function (profile) {
 
+            expect(profile).to.have.property('id');
+            expect(profile.id).to.be.a('string');
+
             profileId = profile.id;
 
             done();
@@ -48,7 +51,12 @@ describe('profile model', function () {
             locale: 'pt-br'
         }).then(function (profile) {
 
-            assert.equal(profile.locale, 'pt-br');
+            expect(profile).to.have.property('_id');
+            expect(profile._id.equals(profileId)).to.equal(true);
+
+            expect(profile).to.have.property('locale');
+            expect(profile.locale).to.be.a('string');
+            expect(profile.locale).to.equal('pt-br');
 
             done();
 
@@ -60,8 +68,10 @@ describe('profile model', function () {
 
         profileModel.showProfileById(profileId).then(function (profile) {
 
-            assert.equal(profile._id, profileId);
-            assert.equal(profile.posts.length, 0);
+            expect(profile).to.have.property('_id');
+            expect(profile._id.equals(profileId)).to.equal(true);
+
+            expect(profile.posts).to.have.length(0);
 
             done();
 

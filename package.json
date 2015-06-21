@@ -26,6 +26,7 @@
     "lusca": "1.1.1",
     "markdown-it": "4.2.2",
     "markdown-it-emoji": "1.0.0",
+    "meddleware": "3.0.2",
     "moment": "2.10.3",
     "mongoose": "4.0.5",
     "mongoose-findorcreate": "0.1.2",
@@ -39,6 +40,7 @@
     "with-env": "0.1.0"
   },
   "devDependencies": {
+    "chai": "3.0.0",
     "grunt-contrib-watch": "0.6.1",
     "mocha": "2.2.5"
   },

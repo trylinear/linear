@@ -50,6 +50,6 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('default', [ 'jshint', 'sass' ]);
+    grunt.registerTask('default', ['jshint', 'sass']);
 
 };

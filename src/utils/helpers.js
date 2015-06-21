@@ -3,8 +3,7 @@ var markdown = require('markdown-it')({
     linkify: true
 });
 
-var emoji = require('markdown-it-emoji');
-markdown.use(emoji);
+markdown.use(require('markdown-it-emoji'));
 
 var sanitizeHtml = require('sanitize-html');
 

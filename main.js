@@ -5,9 +5,11 @@ var _ = require('lodash');
 var express = require('express');
 
 var session = require('express-session');
-var lusca = require('lusca');
 var bodyParser = require('body-parser');
+
+var lusca = require('lusca');
 var enrouten = require('express-enrouten');
+var meddleware = require('meddleware');
 
 var passport = require('passport');
 
@@ -45,12 +47,24 @@ module.exports = {
         }));
 
         app.use(bodyParser.urlencoded({ extended: true }));
+        app.use(bodyParser.json());
 
-        app.use(lusca({
-            csrf: true,
-            xframe: 'SAMEORIGIN',
-            hsts: { maxAge: 31536000 },
-            xssProtection: true
+        app.use(meddleware({
+            security: {
+                enabled: true,
+                route: '/((?!api))*',
+                module: {
+                    name: 'lusca',
+                    arguments: [
+                        {
+                            csrf: true,
+                            xframe: 'SAMEORIGIN',
+                            hsts: { maxAge: 31536000 },
+                            xssProtection: true
+                        }
+                    ]
+                }
+            }
         }));
 
         app.use(passport.initialize());
@@ -117,8 +131,8 @@ module.exports = {
 
         app.use(function (err, req, res, next) {
 
-            res.status(err.status);
-            res.render('error', { status: err.status, message: err.message });
+            res.status(err.status || 500);
+            res.render('error', { status: err.status || 500, message: err.message });
 
         });
 
@@ -129,19 +143,25 @@ module.exports = {
 
         });
 
-        app.engine('hbs', hbs.express3());
-
-        app.set('view engine', 'hbs');
-
         if (config.directories.views) {
+
+            app.engine('hbs', hbs.express3({
+                partialsDir: [config.directories.views + '/partials', __dirname + '/src/views/partials']
+            }));
 
             app.set('views', [config.directories.views, __dirname + '/src/views']);
 
         } else {
 
+            app.engine('hbs', hbs.express3({
+                partialsDir: __dirname + '/src/views/partials'
+            }));
+
             app.set('views', __dirname + '/src/views');
 
         }
+
+        app.set('view engine', 'hbs');
 
         app.listen(env.port(), env.ipaddress());
 

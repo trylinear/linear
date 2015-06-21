@@ -1,4 +1,4 @@
-var assert = require('assert');
+var expect = require('chai').expect;
 
 var mongoose = require('mongoose');
 
@@ -34,6 +34,9 @@ describe('post model', function () {
             createdBy: mongoose.Schema.ObjectID
         }).then(function (post) {
 
+            expect(post).to.have.property('id');
+            expect(post.id).to.be.a('string');
+
             postId = post.id;
 
             done();
@@ -47,9 +50,10 @@ describe('post model', function () {
         postModel.addMessageToPostById(postId, {
             contents: 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
             createdBy: mongoose.Schema.ObjectID
-        }).then(function (post) {
+        }).then(function (message) {
 
-            assert.equal(post.id, postId);
+            expect(message).to.have.property('id');
+            expect(message.id).to.be.a('string');
 
             done();
 
@@ -61,7 +65,8 @@ describe('post model', function () {
 
         postModel.showPostById(postId).then(function (post) {
 
-            assert.equal(post.id, postId);
+            expect(post).to.have.property('_id');
+            expect(post._id.equals(postId)).to.equal(true);
 
             done();
 
@@ -73,7 +78,7 @@ describe('post model', function () {
 
         postModel.listPosts().then(function (posts) {
 
-            assert.equal(posts.length, 1);
+            expect(posts).to.have.length(1);
 
             done();
 
@@ -85,7 +90,7 @@ describe('post model', function () {
 
         postModel.searchPosts('lorem').then(function (posts) {
 
-            assert.equal(posts.length, 1);
+            expect(posts).to.have.length(1);
 
             done();
 

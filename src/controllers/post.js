@@ -12,6 +12,16 @@ module.exports = {
 
     },
 
+    update: function (postId, data, profileId) {
+
+        return postModel.updatePostById(postId, {
+            title: data ? data.title : null,
+            contents: data ? data.contents : null,
+            editedBy: profileId
+        });
+
+    },
+
     list: function () {
 
         return postModel.listPosts();

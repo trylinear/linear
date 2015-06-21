@@ -17,7 +17,7 @@ module.exports = function (router) {
 
         post.create(req.body, req.user.id).then(function (post) {
 
-            res.redirect('/post/' + post.slug + '/' + post._id + '/');
+            res.redirect('/post/' + post.slug + '/' + post.id + '/');
 
         }).catch(next);
 
@@ -37,11 +37,19 @@ module.exports = function (router) {
 
     });
 
-    router.post('/:slug?/:id', requireLogin, function (req, res, next) {
+    router.post('/:slug?/:id/message/', requireLogin, function (req, res, next) {
 
-        message.create(req.params.id, req.body, req.user.id).then(function (post) {
+        message.create(req.params.id, req.body, req.user.id).then(function (message) {
 
-            res.redirect('#message-' + post.messages[post.messageCount - 1]._id);
+            if (req.params.slug) {
+
+                res.redirect('/post/' + req.params.slug + '/' + req.params.id + '/#message-' + message.id);
+
+            } else {
+
+                res.redirect('/post/' + req.params.id + '/#message-' + message.id);
+
+            }
 
         }).catch(next);
 
