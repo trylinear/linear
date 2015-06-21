@@ -1,0 +1,43 @@
+<div id="message{{#if _id}}-{{_id}}{{/if}}" data-id="{{#if _id}}{{_id}}{{/if}}" class="message">
+
+    {{#if user}}
+
+    <img src="{{user.avatar}}" width="50" height="50" class="avatar">
+
+    {{/if}}
+
+    {{#if createdBy}}
+
+    <img src="{{createdBy.avatar}}" width="50" height="50" class="avatar">
+
+    {{/if}}
+
+    <form action="message/" method="post" id="comment" class="wrapper">
+
+        {{#if _id}}
+
+        <input type="hidden" name="_id" value="{{_id}}">
+
+        {{/if}}
+
+        <input type="hidden" name="_csrf" value="{{_csrf}}">
+
+        <fieldset>
+
+        {{> markdown_editor}}
+
+        </fieldset>
+
+        {{#if _id}}
+
+        <button type="submit" class="button">{{__ 'Update Message'}}</button> {{__ "or"}} <a href="#cancel-edit">{{__ "Cancel"}}</a>
+
+        {{else}}
+
+        <button type="submit" class="button">{{__ 'Post Message'}}</button>
+
+        {{/if}}
+
+    </form>
+
+</div>

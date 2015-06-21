@@ -65,3 +65,38 @@ form {
 .button.twitter {
     background-color: $social-color-twitter;
 }
+
+.markdown-editor {
+
+    .markdown-contents,
+    .markdown-preview {
+        min-height: 150px;
+    }
+
+    .markdown-contents {
+        margin: 0;
+        border: 1px solid #eee;
+    }
+
+    .markdown-preview {
+        display: none;
+        padding: calc(.5em + 1px);
+    }
+
+    .markdown-toolbar {
+        overflow: auto;
+        padding: .75em;
+        background-color: #eee;
+        border-radius: 0 0 5px 5px;
+        text-align: right;
+        .icon {
+            opacity: .75;
+            img {
+                margin: 0 0 0 .5em;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+    }
+
+}

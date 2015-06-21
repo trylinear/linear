@@ -26,6 +26,7 @@ module.exports = function (router) {
 
         res.render('login', {
             title: req.__('Login'),
+            style: 'login',
             social: social
         });
 

@@ -8,6 +8,7 @@ module.exports = function (router) {
 
             res.render('search', {
                 title: req.__('Search'),
+                style: 'search',
                 query: req.query.q,
                 results: results
             });

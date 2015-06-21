@@ -7,7 +7,8 @@ module.exports = function (router) {
     router.get('/', requireLogin, function (req, res) {
 
         res.render('settings', {
-            title: req.__('Settings')
+            title: req.__('Settings'),
+            style: 'settings'
         });
 
     });

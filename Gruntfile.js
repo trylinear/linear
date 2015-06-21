@@ -4,6 +4,28 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
 
+        handlebars: {
+
+            compile: {
+
+                options: {
+                    amd: ['handlebars', 'handlebars.helpers'],
+                    namespace: 'templates',
+                    partialRegex: /.*/,
+                    partialsPathRegex: /\/partials\//,
+                    processName: function (path) {
+                        return path.match(/([\w]+)\.hbs/)[1];
+                    }
+                },
+
+                files: {
+                    'static/templates/compiled.js': ['src/views/**/*.hbs']
+                }
+
+            }
+
+        },
+
         jshint: {
 
             server: {
@@ -11,6 +33,13 @@ module.exports = function (grunt) {
                     jshintrc: true
                 },
                 src: ['src/**/*.js']
+            },
+
+            client: {
+                options: {
+                    jshintrc: true
+                },
+                src: ['static/js/**/*.js']
             },
 
             tests: {
@@ -36,8 +65,13 @@ module.exports = function (grunt) {
 
         watch: {
 
+            handlebars: {
+                files: ['src/views/**/*.hbs'],
+                tasks: ['handlebars']
+            },
+
             jshint: {
-                files: ['src/**/*.js', 'test/**/*.js'],
+                files: ['src/**/*.js', 'static/js/**/*.js', 'test/**/*.js'],
                 tasks: ['jshint']
             },
 
@@ -50,6 +84,6 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('default', ['jshint', 'sass']);
+    grunt.registerTask('default', ['handlebars', 'jshint', 'sass']);
 
 };

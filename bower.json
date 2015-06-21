@@ -1,0 +1,16 @@
+{
+  "name": "linear",
+  "dependencies": {
+    "backbone": "1.2.1",
+    "handlebars": "3.0.3",
+    "jquery": "2.1.4",
+    "markdown-it": "4.2.2",
+    "markdown-it-emoji": "1.0.0",
+    "moment": "2.10.3",
+    "numeraljs": "1.5.3",
+    "requirejs": "2.1.18",
+    "requirejs-text": "2.0.14",
+    "marionette": "2.4.2"
+  },
+  "private": true
+}

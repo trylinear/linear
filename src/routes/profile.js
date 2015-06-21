@@ -8,6 +8,7 @@ module.exports = function (router) {
 
             res.render('profile', {
                 title: req.__('Profile'),
+                style: 'profile',
                 profile: profile
             });
 

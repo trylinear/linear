@@ -1,28 +1,21 @@
-<div class="page-content">
+<h1>{{__ 'Create New Post'}}</h1>
 
-    <div class="inner-wrapper">
+<div class="create-new">
 
-        <h1>{{__ 'Create New Post'}}</h1>
+    <form action="" method="post">
 
-        <div class="create-new">
+        <input type="hidden" name="_csrf" value="{{_csrf}}">
 
-            <form action="" method="post">
+        <fieldset>
 
-                <input type="hidden" name="_csrf" value="{{_csrf}}">
+            <input type="text" name="title" required>
 
-                <fieldset>
+            {{> markdown_editor}}
 
-                    <input type="text" name="title" required>
-                    <textarea name="contents" rows="8"></textarea>
+        </fieldset>
 
-                </fieldset>
+        <button type="submit" class="button">{{__ 'Create New Post'}}</button>
 
-                <button type="submit" class="button">{{__ 'Create New Post'}}</button>
-
-            </form>
-
-        </div>
-
-    </div>
+    </form>
 
 </div>

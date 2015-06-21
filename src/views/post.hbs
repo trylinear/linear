@@ -1,89 +1,53 @@
-<div class="page-content">
+<div id="post-{{post._id}}" class="post">
 
-    <div class="inner-wrapper">
+    <img src="{{post.createdBy.avatar}}" width="60" height="60" class="avatar">
 
-        <div class="post">
+    <div class="wrapper">
 
-            <img src="{{post.createdBy.avatar}}" width="60" height="60" class="avatar">
-            <div class="wrapper">
-                <div class="title"><a href="/post/{{post.slug}}/{{post.id}}/">{{post.title}}</a></div>
-                <div class="description">{{{markdown post.contents}}}</div>
-                <div class="info">
-                    <div class="posted-by">
-                        {{__ 'Posted by'}}
-                        {{#if post.createdBy.id}}
-                        <a href="/profile/{{post.createdBy.id}}/" class="name">{{post.createdBy.name}}</a>
-                        {{else}}
-                        <i>{{__ 'deleted'}}<i>
-                        {{/if}}
-                        <span class="date">
-                            <a href="/post/{{post.slug}}/{{post.id}}/">{{relativeTime post.createdAt}}</a>
-                        </span>
-                    </div>
-                </div>
-            </div>
+        <div class="title"><a href="/post/{{post.slug}}/{{post._id}}/">{{post.title}}</a></div>
 
-        </div>
+        <div class="description">{{{markdown post.contents}}}</div>
 
-        <div class="messages">
+        <div class="info">
 
-            {{#each post.messages}}
+            <div class="posted-by">
 
-            <div id="message-{{id}}" class="message">
+                {{__ 'Posted by'}}
 
-                <img src="{{createdBy.avatar}}" width="50" height="50" class="avatar">
+                {{#if post.createdBy._id}}
+                <a href="/profile/{{post.createdBy._id}}/" class="name">{{post.createdBy.name}}</a>
+                {{else}}
+                <i>{{__ 'deleted'}}</i>
+                {{/if}}
 
-                <div class="wrapper">
-                    <div class="description">{{{markdown contents}}}</div>
-                    <div class="info">
-                        <div class="posted-by">
-                            {{#if createdBy.id}}
-                                <a href="/profile/{{createdBy.id}}/" class="name">{{createdBy.name}}</a>
-                            {{else}}
-                            <i>{{__ 'deleted'}}</i>
-                            {{/if}}
-                            <span class="date">
-                                {{__ 'posted'}}
-                                <a href="#message-{{id}}">{{relativeTime createdAt}}</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                <span class="date">
+                    <a href="/post/{{post.slug}}/{{post._id}}/">{{relativeTime post.createdAt}}</a>
+                </span>
 
             </div>
 
-            {{/each}}
-
         </div>
-
-        {{#if user}}
-
-        <div class="message">
-
-            <img src="{{user.avatar}}" width="50" height="50" class="avatar">
-
-            <form action="" method="post" id="comment" class="wrapper">
-
-                <input type="hidden" name="_csrf" value="{{_csrf}}">
-
-                <fieldset>
-
-                    <textarea name="contents" rows="5" required></textarea>
-
-                </fieldset>
-
-                <button type="submit" class="button">{{__ 'Post Message'}}</button>
-
-            </form>
-
-        </div>
-
-        {{else}}
-
-        <p>You must <a href="/login/">login</a> to respond to this post.</p>
-
-        {{/if}}
 
     </div>
 
 </div>
+
+<div class="messages">
+
+    {{#each post.messages}}
+
+    {{> message}}
+
+    {{/each}}
+
+</div>
+
+{{#if user}}
+
+{{> message_create}}
+
+{{else}}
+
+<p>You must <a href="/login/">login</a> to respond to this post.</p>
+
+{{/if}}

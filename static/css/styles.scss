@@ -29,7 +29,7 @@ h1 {
 p,
 ul,
 ol {
-    margin: 1em 0;
+    margin: 0 0 1em 0;
 }
 
 ul,
@@ -150,6 +150,14 @@ ol {
                 color: $theme-color;
                 text-decoration: underline;
             }
+        }
+
+    }
+
+    .admin-links {
+
+        a {
+            color: $theme-color;
         }
 
     }

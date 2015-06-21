@@ -41,7 +41,15 @@
 
 </header>
 
-{{{body}}}
+<div class="page-content {{style}}">
+
+    <div class="inner-wrapper">
+
+        {{{body}}}
+
+    </div>
+
+</div>
 
 <footer class="page-footer">
 
@@ -55,6 +63,8 @@
     </div>
 
 </footer>
+
+<script src="/bower_components/requirejs/require.js" data-main="/js/config" async></script>
 
 {{#if config.ga}}
 

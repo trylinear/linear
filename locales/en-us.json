@@ -27,5 +27,7 @@
   "Search": "Search",
   "search posts by title": "search posts by title",
   "Found %s results for <b>%s</b>.": "Found %s results for <b>%s</b>.",
-  "No results found.": "No results found."
+  "No results found.": "No results found.",
+  "Toggle Preview": "Toggle Preview",
+  "Are you sure you want to delete this post?": "Are you sure you want to delete this post?"
 }
