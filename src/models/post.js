@@ -20,6 +20,7 @@ var postSchema = new mongoose.Schema({
     contents: String,
     messageCount: { type: Number, default: 0 },
     messages: [messageSchema],
+    pinned: { type: Boolean, default: false },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'profile' }
 });
 
@@ -118,7 +119,7 @@ postSchema.statics.listPosts = function () {
 
     this.find()
         .populate('createdBy')
-        .sort({ updatedAt: -1 })
+        .sort({ pinned: -1, updatedAt: -1 })
         .select('createdAt updatedAt views title slug contents messageCount createdBy')
         .exec(function (err, posts) {
 
