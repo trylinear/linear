@@ -1,42 +1,14 @@
-<div id="post-{{post._id}}" class="post">
+{{#with post}}
 
-    <img src="{{post.createdBy.avatar}}" width="60" height="60" class="avatar">
+{{> post_header}}
 
-    <div class="wrapper">
-
-        <div class="title"><a href="/post/{{post.slug}}/{{post._id}}/">{{post.title}}</a></div>
-
-        <div class="description">{{{markdown post.contents}}}</div>
-
-        <div class="info">
-
-            <div class="posted-by">
-
-                {{__ 'Posted by'}}
-
-                {{#if post.createdBy._id}}
-                <a href="/profile/{{post.createdBy._id}}/" class="name">{{post.createdBy.name}}</a>
-                {{else}}
-                <i>{{__ 'deleted'}}</i>
-                {{/if}}
-
-                <span class="date">
-                    <a href="/post/{{post.slug}}/{{post._id}}/">{{relativeTime post.createdAt}}</a>
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
+{{/with}}
 
 <div class="messages">
 
     {{#each post.messages}}
 
-    {{> message}}
+    {{> post_message}}
 
     {{/each}}
 
@@ -44,7 +16,7 @@
 
 {{#if user}}
 
-{{> message_create}}
+{{> post_message_form}}
 
 {{else}}
 

@@ -2,6 +2,8 @@ define(function (require) {
 
     'use strict';
 
+    var _ = require('underscore');
+
     var Marionette = require('marionette'),
         Handlebars = require('handlebars'),
         templates = require('templates');
@@ -17,13 +19,21 @@ define(function (require) {
             'click a[href="#cancel-edit"]': 'handleCancelEditMessage'
         },
 
-        template: templates.partials.message,
+        template: templates.partials.post_message,
+
+        render: function () {
+
+            this.$el.html(this.template(
+                _.extend({}, this.model.toJSON(), { editable: true })
+            ));
+
+        },
 
         handleEditMessage: function (e) {
 
             e.preventDefault();
 
-            this.template = templates.partials.message_create;
+            this.template = templates.partials.post_message_form;
 
             this.render();
 
@@ -33,7 +43,7 @@ define(function (require) {
 
             e.preventDefault();
 
-            this.template = templates.partials.message;
+            this.template = templates.partials.post_message;
 
             this.render();
 
@@ -59,7 +69,7 @@ define(function (require) {
                 contents: this.$el.find('.markdown-contents').val()
             });
 
-            this.template = templates.partials.message;
+            this.template = templates.partials.post_message;
 
             this.model.save().done(this.render);
 

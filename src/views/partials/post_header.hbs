@@ -1,0 +1,33 @@
+<div id="post-{{_id}}" class="post">
+
+    <img src="{{createdBy.avatar}}" width="60" height="60" class="avatar">
+
+    <div class="wrapper">
+
+        <div class="title"><a href="/post/{{slug}}/{{_id}}/">{{title}}</a></div>
+
+        <div class="description">{{{markdown contents}}}</div>
+
+        <div class="info">
+
+            <div class="posted-by">
+
+                {{__ 'Posted by'}}
+
+                {{#if createdBy._id}}
+                <a href="/profile/{{createdBy._id}}/" class="name">{{createdBy.name}}</a>
+                {{else}}
+                <i>{{__ 'deleted'}}</i>
+                {{/if}}
+
+                <span class="date">
+                    <a href="/post/{{slug}}/{{_id}}/">{{relativeTime createdAt}}</a>
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

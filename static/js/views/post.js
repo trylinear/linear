@@ -2,6 +2,8 @@ define(function (require) {
 
     'use strict';
 
+    var _ = require('underscore');
+
     var Marionette = require('marionette'),
         templates = require('templates');
 
@@ -11,13 +13,14 @@ define(function (require) {
 
         el: '.page-content .inner-wrapper',
 
-        template: templates.post,
+        template: templates.partials.post_header,
 
         initialize: function () {
 
             this.listenTo(this.model, 'sync', (function () {
 
                 this.subview = new MessagesView({ collection: this.model.get('messages') });
+                this.subview.setElement(this.$el.find('.messages'));
 
             }).bind(this));
 
@@ -25,7 +28,9 @@ define(function (require) {
 
         render: function () {
 
-            this.$el.html(this.template({ post: this.model.toJSON() }));
+            this.$el.find('.post').replaceWith(this.template(
+                _.extend({}, this.model.toJSON(), { editable: true })
+            ));
 
             if (this.model.get('messages')) {
 
