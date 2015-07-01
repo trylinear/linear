@@ -2,9 +2,13 @@ define(function (require) {
 
     'use strict';
 
-    var Backbone = require('backbone'),
+    var $ = require('jquery'),
+        Backbone = require('backbone'),
         PostView = require('views/post'),
+        ProfileModel = require('models/profile'),
         PostModel = require('models/post');
+
+    var profile = new ProfileModel({ id: 'auth' });
 
     var Router = Backbone.Router.extend({
 
@@ -18,7 +22,10 @@ define(function (require) {
             var model = new PostModel({ id: postId }),
                 view = new PostView({ model: model });
 
-            model.fetch().done(view.render);
+            $.when(
+                profile.fetch(),
+                model.fetch()
+            ).done(view.render);
 
         }
 

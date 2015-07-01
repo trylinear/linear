@@ -1,4 +1,4 @@
-<div id="message{{#if _id}}-{{_id}}{{/if}}" data-id="{{#if _id}}{{_id}}{{/if}}" class="message">
+<div {{#if _id}}id="message-{{_id}}" data-id="{{_id}}" class="message"{{else}} class="message message-create"{{/if}}>
 
     {{#if user}}
 

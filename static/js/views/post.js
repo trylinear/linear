@@ -13,6 +13,10 @@ define(function (require) {
 
         el: '.page-content .inner-wrapper',
 
+        events: {
+            'submit .message-create form': 'handleSubmitMessage',
+        },
+
         template: templates.partials.post_header,
 
         initialize: function () {
@@ -29,7 +33,7 @@ define(function (require) {
         render: function () {
 
             this.$el.find('.post').replaceWith(this.template(
-                _.extend({}, this.model.toJSON(), { editable: true })
+                _.extend({}, this.model.toJSON(), { editable: false })
             ));
 
             if (this.model.get('messages')) {
@@ -40,6 +44,21 @@ define(function (require) {
                 this.subview.render();
 
             }
+
+        },
+
+        handleSubmitMessage: function (e) {
+
+            var MessageModel = require('models/message'),
+                model = new MessageModel({ contents: 'test', createdBy: 0 });
+
+            e.preventDefault();
+
+            model.save().done((function () {
+
+                this.subview.collection.add(model);
+
+            }).bind(this));
 
         }
 
