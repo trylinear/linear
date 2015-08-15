@@ -12,7 +12,7 @@ define(function (require) {
 
         initialize: function () {
 
-            this.on('sync', (function () {
+            this.on('sync', function () {
 
                 if (this.attributes.messages) {
 
@@ -21,7 +21,7 @@ define(function (require) {
 
                 }
 
-            }).bind(this));
+            }.bind(this));
 
         }
 

@@ -21,12 +21,12 @@ define(function (require) {
 
         initialize: function () {
 
-            this.listenTo(this.model, 'sync', (function () {
+            this.listenTo(this.model, 'sync', function () {
 
                 this.subview = new MessagesView({ collection: this.model.get('messages') });
                 this.subview.setElement(this.$el.find('.messages'));
 
-            }).bind(this));
+            }.bind(this));
 
         },
 
@@ -54,11 +54,11 @@ define(function (require) {
 
             e.preventDefault();
 
-            model.save().done((function () {
+            model.save().done(function () {
 
                 this.subview.collection.add(model);
 
-            }).bind(this));
+            }.bind(this));
 
         }
 
