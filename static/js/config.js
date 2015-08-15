@@ -15,4 +15,4 @@ require.config({
     }
 });
 
-define(['router']);
+require(['router']);
