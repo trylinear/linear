@@ -55,7 +55,7 @@ define(function (require) {
 
             if (window.confirm('Are you sure you want to delete this message?')) {
 
-                this.model.destroy();
+                this.$el.fadeOut(200, this.model.destroy);
 
             }
 
