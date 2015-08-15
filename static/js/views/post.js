@@ -52,6 +52,8 @@ define(function (require) {
             var MessageModel = require('models/message'),
                 model = new MessageModel({ contents: 'test', createdBy: 0 });
 
+            model.url = '/api/v1/posts/' + this.model.get('id') + '/messages/';
+
             e.preventDefault();
 
             model.save().done(function () {
