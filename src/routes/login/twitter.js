@@ -1,4 +1,4 @@
-var profileModel = require('../../models/profile');
+var profile = require('../../controllers/profile');
 
 var passport = require('passport'),
     TwitterStrategy = require('passport-twitter').Strategy;
@@ -11,7 +11,7 @@ if (process.env.TWITTER_CONSUMER_KEY && process.env.TWITTER_CONSUMER_SECRET && p
         callbackURL: process.env.TWITTER_CALLBACK
     }, function (accessToken, refreshToken, data, done) {
 
-        profileModel.createProfile('twitter', {
+        profile.create('twitter', {
             id: data.id,
             name: data.displayName,
             avatar: data.photos[0].value.replace(/_normal\.(.+)?/, '_bigger.$1')

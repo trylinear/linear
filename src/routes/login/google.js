@@ -1,4 +1,4 @@
-var profileModel = require('../../models/profile');
+var profile = require('../../controllers/profile');
 
 var passport = require('passport'),
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -12,7 +12,7 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && process.
         scope: 'profile'
     }, function (accessToken, refreshToken, data, done) {
 
-        profileModel.createProfile('google', {
+        profile.create('google', {
             id: data.id,
             name: data.displayName,
             avatar: data.photos[0].value.replace(/50$/, 200)

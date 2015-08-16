@@ -1,4 +1,4 @@
-var profileModel = require('../../models/profile');
+var profile = require('../../controllers/profile');
 
 var passport = require('passport'),
     FacebookStrategy = require('passport-facebook').Strategy;
@@ -11,7 +11,7 @@ if (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET && proc
         callbackURL: process.env.FACEBOOK_CALLBACK
     }, function (accessToken, refreshToken, data, done) {
 
-        profileModel.createProfile('facebook', {
+        profile.create('facebook', {
             id: data.id,
             name: data.displayName,
             avatar: 'https://graph.facebook.com/' + data.id + '/picture?type=large'
