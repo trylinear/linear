@@ -29,6 +29,16 @@ define(function (require) {
 
         },
 
+        remove: function () {
+
+            this.$el.fadeOut(200, function () {
+
+                this.$el.remove();
+
+            }.bind(this));
+
+        },
+
         handleEditMessage: function (e) {
 
             e.preventDefault();
@@ -55,7 +65,7 @@ define(function (require) {
 
             if (window.confirm('Are you sure you want to delete this message?')) {
 
-                this.$el.fadeOut(200, this.model.destroy);
+                this.model.destroy();
 
             }
 
