@@ -60,6 +60,8 @@ define(function (require) {
 
                 this.subview.collection.add(model);
 
+                this.$el.find('.markdown-contents').val('');
+
             }.bind(this));
 
         }
