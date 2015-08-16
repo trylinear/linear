@@ -1,6 +1,6 @@
 var q = require('q');
 
-var _ = require('lodash');
+var _ = require('underscore');
 
 var mongoose = require('mongoose');
 var findOrCreate = require('mongoose-findorcreate');

@@ -1,5 +1,7 @@
 var q = require('q');
 
+var _ = require('underscore');
+
 var mongoose = require('mongoose');
 
 var logger = require('../utils/logger');

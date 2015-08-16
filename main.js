@@ -1,6 +1,6 @@
 require('with-env')();
 
-var _ = require('lodash');
+var _ = require('underscore');
 
 var express = require('express');
 
