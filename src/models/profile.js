@@ -11,7 +11,8 @@ var logger = require('../utils/logger');
 
 var socialSchema = new mongoose.Schema({
     type: String,
-    id: String
+    id: String,
+    _id: false
 });
 
 var profileSchema = new mongoose.Schema({
