@@ -50,7 +50,7 @@ define(function (require) {
         handleSubmitMessage: function (e) {
 
             var MessageModel = require('models/message'),
-                model = new MessageModel({ contents: 'test', createdBy: 0 });
+                model = new MessageModel({ contents: this.$el.find('.markdown-contents').val() });
 
             model.url = '/api/v1/posts/' + this.model.get('id') + '/messages/';
 
