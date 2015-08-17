@@ -8,7 +8,7 @@ var logger = require('../utils/logger');
 
 var messageSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date },
     contents: { type: String, required: true },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'profile' },
     editedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'profile' }
@@ -16,7 +16,7 @@ var messageSchema = new mongoose.Schema({
 
 var postSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date },
     views: { type: Number, default: 0 },
     title: { type: String, required: true },
     slug: String,
@@ -30,7 +30,8 @@ var postSchema = new mongoose.Schema({
 
 postSchema.statics.createPost = function (data, profileId) {
 
-    var deferred = new q.defer();
+    var self = this,
+        deferred = new q.defer();
 
     var post = new this({
         title: data.title,
@@ -50,7 +51,7 @@ postSchema.statics.createPost = function (data, profileId) {
                 message: 'Internal Server Error'
             });
 
-        } else { deferred.resolve(post); }
+        } else { deferred.resolve(self.showPostById(post._id)); }
 
     });
 
@@ -153,7 +154,7 @@ postSchema.statics.addMessageToPostById = function (postId, data, profileId) {
 
             } else {
 
-                deferred.resolve(post.messages[post.messages.length - 1]);
+                deferred.resolve(self.showMessageById(postId, post.messages[post.messages.length - 1]._id));
 
             }
 
