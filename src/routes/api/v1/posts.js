@@ -95,4 +95,34 @@ module.exports = function (router) {
 
     });
 
+    router.put('/:postId/messages/:messageId', function (req, res) {
+
+        message.update(req.params.postId, req.params.messageId, req.body, req.user.id).then(function (message) {
+
+            res.json(message);
+
+        }).catch(function (err) {
+
+            res.status(err.status);
+            res.json({ status: err.status, message: err.message });
+
+        });
+
+    });
+
+    router.delete('/:postId/messages/:messageId', function (req, res) {
+
+        message.delete(req.params.postId, req.params.messageId, req.user.id).then(function (message) {
+
+            res.json(message);
+
+        }).catch(function (err) {
+
+            res.status(err.status);
+            res.json({ status: err.status, message: err.message });
+
+        });
+
+    });
+
 };

@@ -62,31 +62,29 @@ profileSchema.statics.updateProfileById = function (profileId, data) {
 
     var deferred = new q.defer();
 
-    this.findById(profileId)
-        .exec(function (err, profile) {
-
-            if (data.locale) {
-
-                profile.locale = data.locale;
-
+    this.findOneAndUpdate(
+        { '_id': profileId },
+        {
+            '$set': {
+                'locale': data.locale
             }
+        },
+        { 'new': true },
+        function (err, profile) {
 
-            profile.save(function (err, profile) {
+            if (err || !profile) {
 
-                if (err || !profile) {
+                logger.err('Error saving profile ' + profileId + '.', err, data);
 
-                    logger.err('Error saving profile ' + profileId + '.', err, data);
+                deferred.reject({
+                    status: 500,
+                    message: 'Internal Server Error'
+                });
 
-                    deferred.reject({
-                        status: 500,
-                        message: 'Internal Server Error'
-                    });
+            } else { deferred.resolve(profile); }
 
-                } else { deferred.resolve(profile); }
-
-            });
-
-        });
+        }
+    );
 
     return deferred.promise;
 
@@ -137,6 +135,18 @@ profileSchema.statics.showProfileById = function (profileId) {
     return deferred.promise;
 
 };
+
+profileSchema.virtual('id').get(function () {
+
+    return this._id.toHexString();
+
+});
+
+profileSchema.set('toJSON', {
+
+    virtuals: true
+
+});
 
 profileSchema.pre('save', function (next) {
 

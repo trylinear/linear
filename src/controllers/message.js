@@ -4,10 +4,19 @@ module.exports = {
 
     create: function (postId, data, profileId) {
 
-        return postModel.addMessageToPostById(postId, {
-            contents: data ? data.contents : '',
-            createdBy: profileId
-        });
+        return postModel.addMessageToPostById(postId, data, profileId);
+
+    },
+
+    update: function (postId, messageId, data, profileId) {
+
+        return postModel.updateMessageToPostById(postId, messageId, data, profileId);
+
+    },
+
+    delete: function (postId, messageId, data, profileId) {
+
+        return postModel.deleteMessageFromPostById(postId, messageId, profileId);
 
     },
 

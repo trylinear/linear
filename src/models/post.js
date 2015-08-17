@@ -28,7 +28,7 @@ var postSchema = new mongoose.Schema({
     editedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'profile' }
 });
 
-postSchema.statics.createPost = function (data) {
+postSchema.statics.createPost = function (data, profileId) {
 
     var deferred = new q.defer();
 
@@ -36,7 +36,7 @@ postSchema.statics.createPost = function (data) {
         title: data.title,
         slug: data.title.toLowerCase().replace(/[^a-z]+/g, '-').replace(/^\-|\-$/g, ''),
         contents: data.contents,
-        createdBy: data.createdBy
+        createdBy: profileId
     });
 
     post.save(function (err, post) {
@@ -58,7 +58,7 @@ postSchema.statics.createPost = function (data) {
 
 };
 
-postSchema.statics.updatePostById = function (postId, data) {
+postSchema.statics.updatePostById = function (postId, data, profileId) {
 
     var deferred = new q.defer();
 
@@ -74,7 +74,7 @@ postSchema.statics.updatePostById = function (postId, data) {
                     message: 'Internal Server Error'
                 });
 
-            } else if (![data.editedBy].filter(post.createdBy.equals, post.createdBy)) {
+            } else if (![profileId].filter(post.createdBy.equals, post.createdBy)) {
 
                 logger.err('Authentication invalid.', err, data);
 
@@ -93,7 +93,7 @@ postSchema.statics.updatePostById = function (postId, data) {
                     post.contents = data.contents;
                 }
 
-                post.editedBy = data.editedBy;
+                post.editedBy = profileId;
 
                 post.save(function (err, post) {
 
@@ -118,19 +118,33 @@ postSchema.statics.updatePostById = function (postId, data) {
 
 };
 
-postSchema.statics.addMessageToPostById = function (postId, data) {
+postSchema.statics.addMessageToPostById = function (postId, data, profileId) {
 
     var self = this,
         deferred = new q.defer();
 
-    this.findById(postId)
-        .exec(function (err, post) {
-
-            var index;
+    this.findOneAndUpdate(
+        { '_id': postId },
+        {
+            '$set': {
+                'updatedAt': Date.now(),
+            },
+            '$push': {
+                'messages': {
+                    contents: data.contents,
+                    createdBy: profileId
+                }
+            },
+            '$inc': {
+                'messageCount': 1
+            }
+        },
+        { 'new': true },
+        function (err, post) {
 
             if (err || !post) {
 
-                logger.err('Error creating new message.', err, data);
+                logger.err('Error updating exiting message.', err, data);
 
                 deferred.reject({
                     status: 500,
@@ -139,33 +153,95 @@ postSchema.statics.addMessageToPostById = function (postId, data) {
 
             } else {
 
-                index = post.messages.push({
-                    contents: data.contents,
-                    createdBy: data.createdBy
-                });
-
-                post.save(function (err, post) {
-
-                    if (err || !post) {
-
-                        logger.err('Error creating new message.', err, data);
-
-                        deferred.reject({
-                            status: 500,
-                            message: 'Internal Server Error'
-                        });
-
-                    } else {
-
-                        deferred.resolve(self.showMessageById(postId, post.messages[index - 1].id));
-
-                    }
-
-                });
+                deferred.resolve(post.messages[post.messages.length - 1]);
 
             }
 
-        });
+        }
+    );
+
+    return deferred.promise;
+
+};
+
+postSchema.statics.updateMessageToPostById = function (postId, messageId, data, profileId) {
+
+    var self = this,
+        deferred = new q.defer();
+
+    this.findOneAndUpdate(
+        { '_id': postId, 'messages._id': messageId },
+        {
+            '$set': {
+                'updatedAt': Date.now(),
+                'messages.$.updatedAt': Date.now(),
+                'messages.$.contents': data.contents,
+                'messages.$.editedBy': profileId
+            }
+        },
+        { 'new': true },
+        function (err, post) {
+
+            if (err || !post) {
+
+                logger.err('Error updating exiting message.', err, data);
+
+                deferred.reject({
+                    status: 500,
+                    message: 'Internal Server Error'
+                });
+
+            } else {
+
+                self.showMessageById(postId, messageId).then(deferred.resolve);
+
+            }
+
+        }
+    );
+
+    return deferred.promise;
+
+};
+
+postSchema.statics.deleteMessageFromPostById = function (postId, messageId, profileId) {
+
+    var self = this,
+        deferred = new q.defer();
+
+    this.findOneAndUpdate(
+        { '_id': postId },
+        {
+            '$set': {
+                'updatedAt': Date.now()
+            },
+            '$pull': {
+                'messages': { '_id': messageId }
+            },
+            '$inc': {
+                'messageCount': -1
+            }
+        },
+        { 'new': true },
+        function (err, post) {
+
+            if (err || !post) {
+
+                logger.err('Error deleting exiting message.', err);
+
+                deferred.reject({
+                    status: 500,
+                    message: 'Internal Server Error'
+                });
+
+            } else {
+
+                deferred.resolve([]);
+
+            }
+
+        }
+    );
 
     return deferred.promise;
 
@@ -321,12 +397,27 @@ postSchema.statics.searchPosts = function (query) {
 
 };
 
-postSchema.pre('save', function (next) {
+messageSchema.virtual('id').get(function () {
 
-    this.updatedAt = Date.now();
-    this.messageCount = this.messages.length;
+    return this._id.toHexString();
 
-    next();
+});
+
+messageSchema.set('toJSON', {
+
+    virtuals: true
+
+});
+
+postSchema.virtual('id').get(function () {
+
+    return this._id.toHexString();
+
+});
+
+postSchema.set('toJSON', {
+
+    virtuals: true
 
 });
 
