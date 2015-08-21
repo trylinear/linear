@@ -7,6 +7,10 @@ define(function (require) {
     var Marionette = require('marionette'),
         templates = require('templates');
 
+    var markdown = require('markdown-it')();
+
+    markdown.use(require('markdown-it-emoji'));
+
     var MessagesView = require('views/messages');
 
     return Marionette.ItemView.extend({
@@ -16,6 +20,7 @@ define(function (require) {
         events: {
             'keydown textarea[name="contents"]': 'handleKeyDownEvent',
             'submit .message-create form': 'handleSubmitMessage',
+            'click a[href="#markdown-toggle"]': 'handleMarkdownToggle'
         },
 
         template: templates.partials.post_header,
@@ -78,6 +83,20 @@ define(function (require) {
                 this.$el.find('.markdown-contents').val('');
 
             }.bind(this));
+
+        },
+
+        handleMarkdownToggle: function (e) {
+
+            e.preventDefault();
+
+            var $markdownContents = this.$el.find('.markdown-contents'),
+                $markdownPreview = this.$el.find('.markdown-preview');
+
+            $markdownPreview.html(markdown.render($markdownContents.val()));
+
+            $markdownContents.toggle();
+            $markdownPreview.toggle();
 
         }
 

@@ -8,6 +8,10 @@ define(function (require) {
         Handlebars = require('handlebars'),
         templates = require('templates');
 
+    var markdown = require('markdown-it')();
+
+    markdown.use(require('markdown-it-emoji'));
+
     templates.partials = Handlebars.partials;
 
     return Marionette.ItemView.extend({
@@ -17,7 +21,8 @@ define(function (require) {
             'click a[href="#edit"]': 'handleEditMessage',
             'click a[href="#delete"]': 'handleDeleteMessage',
             'submit form': 'handleSaveMessage',
-            'click a[href="#cancel-edit"]': 'handleCancelEditMessage'
+            'click a[href="#cancel-edit"]': 'handleCancelEditMessage',
+            'click a[href="#markdown-toggle"]': 'handleMarkdownToggle'
         },
 
         template: templates.partials.post_message,
@@ -97,6 +102,20 @@ define(function (require) {
             this.template = templates.partials.post_message;
 
             this.model.save().done(this.render);
+
+        },
+
+        handleMarkdownToggle: function (e) {
+
+            e.preventDefault();
+
+            var $markdownContents = this.$el.find('.markdown-contents'),
+                $markdownPreview = this.$el.find('.markdown-preview');
+
+            $markdownPreview.html(markdown.render($markdownContents.val()));
+
+            $markdownContents.toggle();
+            $markdownPreview.toggle();
 
         }
 
