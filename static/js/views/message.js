@@ -13,6 +13,7 @@ define(function (require) {
     return Marionette.ItemView.extend({
 
         events: {
+            'keydown textarea[name="contents"]': 'handleKeyDownEvent',
             'click a[href="#edit"]': 'handleEditMessage',
             'click a[href="#delete"]': 'handleDeleteMessage',
             'submit form': 'handleSaveMessage',
@@ -36,6 +37,20 @@ define(function (require) {
                 this.$el.remove();
 
             }.bind(this));
+
+        },
+
+        handleKeyDownEvent: function (e) {
+
+            if (e.metaKey && e.keyCode === 13) {
+
+                e.preventDefault();
+
+                this.handleSaveMessage(e);
+
+                return false;
+
+            }
 
         },
 

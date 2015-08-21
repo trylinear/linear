@@ -14,6 +14,7 @@ define(function (require) {
         el: '.page-content .inner-wrapper',
 
         events: {
+            'keydown textarea[name="contents"]': 'handleKeyDownEvent',
             'submit .message-create form': 'handleSubmitMessage',
         },
 
@@ -42,6 +43,20 @@ define(function (require) {
 
                 this.subview.setElement(this.$el.find('.messages'));
                 this.subview.render();
+
+            }
+
+        },
+
+        handleKeyDownEvent: function (e) {
+
+            if (e.metaKey && e.keyCode === 13) {
+
+                e.preventDefault();
+
+                this.handleSubmitMessage(e);
+
+                return false;
 
             }
 
