@@ -145,16 +145,22 @@ module.exports = {
 
         if (config.directories.views) {
 
-            app.engine('hbs', hbs.express3({
-                partialsDir: [config.directories.views + '/partials', __dirname + '/src/views/partials']
+            app.engine('hbs', hbs.express4({
+                partialsDir: [config.directories.views + '/partials', __dirname + '/src/views/partials'],
+                onCompile: function(exhbs, source) {
+                    return exhbs.handlebars.compile(source, { preventIndent: true });
+                }
             }));
 
             app.set('views', [config.directories.views, __dirname + '/src/views']);
 
         } else {
 
-            app.engine('hbs', hbs.express3({
-                partialsDir: __dirname + '/src/views/partials'
+            app.engine('hbs', hbs.express4({
+                partialsDir: __dirname + '/src/views/partials',
+                onCompile: function(exhbs, source) {
+                    return exhbs.handlebars.compile(source, { preventIndent: true });
+                }
             }));
 
             app.set('views', __dirname + '/src/views');
