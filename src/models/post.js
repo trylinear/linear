@@ -8,7 +8,7 @@ var logger = require('../utils/logger');
 
 var messageSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date },
+    updatedAt: { type: Date, default: Date.now },
     contents: { type: String, required: true },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'profile' },
     editedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'profile' }
@@ -16,7 +16,7 @@ var messageSchema = new mongoose.Schema({
 
 var postSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date },
+    updatedAt: { type: Date, default: Date.now },
     views: { type: Number, default: 0 },
     title: { type: String, required: true },
     slug: String,
