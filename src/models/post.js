@@ -254,7 +254,9 @@ postSchema.statics.showPostById = function (postId) {
 
     this.findByIdAndUpdate(postId, { $inc: { views: 1 } })
         .populate('createdBy')
+        .populate('editedBy')
         .populate('messages.createdBy')
+        .populate('messages.editedBy')
         .exec(function (err, post) {
 
             if (err || !post) {
@@ -280,6 +282,7 @@ postSchema.statics.showMessageById = function (postId, messageId) {
 
     this.find({ 'messages._id': messageId }, { 'messages.$': true })
         .populate('messages.createdBy')
+        .populate('messages.editedBy')
         .exec(function (err, post) {
 
             if (err || !post || !post[0].messages) {
@@ -305,8 +308,9 @@ postSchema.statics.listPosts = function () {
 
     this.find()
         .populate('createdBy')
+        .populate('editedBy')
         .sort({ pinned: -1, updatedAt: -1 })
-        .select('createdAt updatedAt views title slug contents messageCount createdBy')
+        .select('createdAt updatedAt views title slug contents messageCount createdBy editedBy')
         .exec(function (err, posts) {
 
             if (err || !posts) {
@@ -332,7 +336,9 @@ postSchema.statics.listMessagesByPostId = function (postId) {
 
     this.findByIdAndUpdate(postId, { $inc: { views: 1 } })
         .populate('createdBy')
+        .populate('editedBy')
         .populate('messages.createdBy')
+        .populate('messages.editedBy')
         .exec(function (err, post) {
 
             if (err || !post) {
@@ -365,8 +371,9 @@ postSchema.statics.searchPosts = function (query) {
 
             this.find({ title: { $regex: new RegExp(query, 'i') } })
                 .populate('createdBy')
+                .populate('editedBy')
                 .sort({ updatedAt: -1 })
-                .select('createdAt updatedAt views title slug contents messageCount createdBy')
+                .select('createdAt updatedAt views title slug contents messageCount createdBy editedBy')
                 .exec(function (err, posts) {
 
                     if (err || !posts) {
