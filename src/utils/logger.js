@@ -7,7 +7,9 @@ var log = {
 
 if (process.env.LOGENTRIES_TOKEN) {
 
-    log = require('le_node').logger({
+    var Logger = require('le_node');
+
+    log = new Logger({
         token: process.env.LOGENTRIES_TOKEN
     });
 
