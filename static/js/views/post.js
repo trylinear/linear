@@ -72,7 +72,7 @@ define(function (require) {
             var MessageModel = require('models/message'),
                 model = new MessageModel({ contents: this.$el.find('.markdown-contents').val() });
 
-            model.url = '/api/v1/posts/' + this.model.get('id') + '/messages/';
+            model.urlRoot = '/api/v1/posts/' + this.model.get('id') + '/messages/';
 
             e.preventDefault();
 
