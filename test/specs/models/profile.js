@@ -1,3 +1,5 @@
+require('with-env')();
+
 var expect = require('chai').expect;
 
 var mongoose = require('mongoose');
@@ -76,6 +78,18 @@ describe('profile model', function () {
             done();
 
         }).catch(done);
+
+    });
+
+    it('should error on invalid profileId', function (done) {
+
+        profileModel.showProfileById('invalid').catch(function (err) {
+
+            expect(err.status).to.equal(404);
+
+            done();
+
+        });
 
     });
 

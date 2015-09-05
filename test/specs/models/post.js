@@ -1,3 +1,5 @@
+require('with-env')();
+
 var expect = require('chai').expect;
 
 var mongoose = require('mongoose');
@@ -109,6 +111,18 @@ describe('post model', function () {
             done();
 
         }).catch(done);
+
+    });
+
+    it('should error on invalid postID for message list', function (done) {
+
+        postModel.listMessagesByPostId('invalid').catch(function (err) {
+
+            expect(err.status).to.equal(404);
+
+            done();
+
+        });
 
     });
 
