@@ -18,7 +18,7 @@ var socialSchema = new mongoose.Schema({
 var profileSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
-    name: String,
+    name: { type: String, required: true },
     avatar: String,
     social: [socialSchema],
     locale: { type: String, default: 'en-us' }

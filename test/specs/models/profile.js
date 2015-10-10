@@ -47,6 +47,22 @@ describe('profile model', function () {
 
     });
 
+    it('should error when trying to create profile without a name', function (done) {
+
+        profileModel.createProfile('twitter', {
+            id: '',
+            name: '',
+            avatar: ''
+        }).catch(function (err) {
+
+            expect(err.status).to.equal(500);
+
+            done();
+
+        });
+
+    });
+
     it('should update profile', function (done) {
 
         profileModel.updateProfileById(profileId, {
