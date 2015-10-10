@@ -135,9 +135,6 @@ postSchema.statics.addMessageToPostById = function (postId, data, profileId) {
                     contents: data.contents,
                     createdBy: profileId
                 }
-            },
-            '$inc': {
-                'messageCount': 1
             }
         },
         { 'new': true },
@@ -211,19 +208,16 @@ postSchema.statics.deleteMessageFromPostById = function (postId, messageId, prof
         deferred = new q.defer();
 
     this.findOneAndUpdate(
-        { '_id': postId },
+        { '_id': postId, 'messages._id': messageId },
         {
             '$set': {
                 'updatedAt': Date.now()
             },
             '$pull': {
                 'messages': { '_id': messageId }
-            },
-            '$inc': {
-                'messageCount': -1
             }
         },
-        { 'new': true },
+        { 'upsert': true, 'new': true },
         function (err, post) {
 
             if (err || !post) {
@@ -414,6 +408,14 @@ messageSchema.virtual('id').get(function () {
 messageSchema.set('toJSON', {
 
     virtuals: true
+
+});
+
+postSchema.post('findOneAndUpdate', function (doc, next) {
+
+    doc.messageCount = doc.messages.length;
+
+    doc.save(next);
 
 });
 
