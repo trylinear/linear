@@ -43,7 +43,7 @@ describe('profile model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
@@ -62,7 +62,7 @@ describe('profile model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
@@ -77,7 +77,7 @@ describe('profile model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 

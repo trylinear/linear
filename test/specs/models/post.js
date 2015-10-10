@@ -44,7 +44,7 @@ describe('post model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
@@ -61,7 +61,7 @@ describe('post model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
@@ -74,7 +74,7 @@ describe('post model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
@@ -98,7 +98,7 @@ describe('post model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
@@ -110,7 +110,7 @@ describe('post model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
@@ -134,7 +134,7 @@ describe('post model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
@@ -146,7 +146,7 @@ describe('post model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
@@ -158,7 +158,7 @@ describe('post model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
@@ -170,7 +170,7 @@ describe('post model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
@@ -183,7 +183,7 @@ describe('post model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
@@ -195,7 +195,7 @@ describe('post model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
@@ -207,7 +207,7 @@ describe('post model', function () {
 
             done();
 
-        }).catch(done);
+        });
 
     });
 
