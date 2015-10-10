@@ -104,6 +104,31 @@ describe('post model', function () {
 
     });
 
+    it('should be able to show message', function (done) {
+
+        postModel.showMessageById(postId, messageId).then(function (message) {
+
+            expect(message).to.have.property('_id');
+            expect(message._id.equals(messageId)).to.equal(true);
+
+            done();
+
+        });
+
+    });
+
+    it('should error on invalid messageId', function (done) {
+
+        postModel.showMessageById(postId, mongoose.Types.ObjectId()).catch(function (err) {
+
+            expect(err.status).to.equal(404);
+
+            done();
+
+        });
+
+    });
+
     it('should be able to list posts', function (done) {
 
         postModel.listPosts().then(function (posts) {

@@ -279,7 +279,7 @@ postSchema.statics.showMessageById = function (postId, messageId) {
         .populate('messages.editedBy')
         .exec(function (err, post) {
 
-            if (err || !post || !post[0].messages) {
+            if (err || !post || !post[0] || !post[0].messages) {
 
                 logger.err('Message id ' + messageId + ' not found.');
 
