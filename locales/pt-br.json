@@ -27,7 +27,5 @@
   "Search": "Procura",
   "search posts by title": "procura posts por título",
   "Found %s results for <b>%s</b>.": "Encontrado %s resultados para <b>%s</b>.",
-  "No results found.": "Procura sem resultados.",
-  "Toggle Preview": "[pt-br]Toggle Preview",
-  "Are you sure you want to delete this post?": "[pt-br]Are you sure you want to delete this post?"
+  "No results found.": "Procura sem resultados."
 }
