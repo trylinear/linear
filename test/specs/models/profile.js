@@ -82,6 +82,20 @@ describe('profile model', function () {
 
     });
 
+    it('should error when trying to update profile with invalid ID', function (done) {
+
+        profileModel.updateProfileById(mongoose.Types.ObjectId(), {
+            locale: 'en-us'
+        }).catch(function (err) {
+
+            expect(err.status).to.equal(500);
+
+            done();
+
+        });
+
+    });
+
     it('should show profile', function (done) {
 
         profileModel.showProfileById(profileId).then(function (profile) {
