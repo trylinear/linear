@@ -92,7 +92,7 @@ describe('post model', function () {
 
     });
 
-    it('should error on invalid postID', function (done) {
+    it('should error on invalid postId', function (done) {
 
         postModel.showPostById('invalid').catch(function (err) {
 
@@ -141,7 +141,7 @@ describe('post model', function () {
 
     });
 
-    it('should be able to list messages by post ID', function (done) {
+    it('should be able to list messages by postId', function (done) {
 
         postModel.listMessagesByPostId(postId).then(function (messages) {
 
@@ -153,7 +153,7 @@ describe('post model', function () {
 
     });
 
-    it('should error on invalid postID for message list', function (done) {
+    it('should error on invalid postId for message list', function (done) {
 
         postModel.listMessagesByPostId('invalid').catch(function (err) {
 
@@ -213,7 +213,7 @@ describe('post model', function () {
 
     });
 
-    it('should be able to update post by ID', function (done) {
+    it('should be able to update post by postId', function (done) {
 
         postModel.updatePostById(postId, { title: 'Test', contents: 'test' }, profileID).then(function (post) {
 
@@ -226,7 +226,7 @@ describe('post model', function () {
 
     });
 
-    it('should error when trying to update post by invalid ID', function (done) {
+    it('should error when trying to update post by invalid postId', function (done) {
 
         postModel.updatePostById(mongoose.Types.ObjectId(), { title: 'Test', contents: 'test' }, profileID).catch(function (err) {
 
@@ -238,7 +238,7 @@ describe('post model', function () {
 
     });
 
-    it('should error when trying to update post by ID when not the original author', function (done) {
+    it('should error when trying to update post by postId when not the original author', function (done) {
 
         postModel.updatePostById(postId, { title: 'Test', contents: 'test' }, mongoose.Types.ObjectId()).catch(function (err) {
 
@@ -250,19 +250,7 @@ describe('post model', function () {
 
     });
 
-    it('should be able to update messages in a post by ID', function (done) {
-
-        postModel.updateMessageToPostById(postId, messageId, { contents: 'test' }, profileID).then(function (message) {
-
-            expect(message.contents).to.be.equal('test');
-
-            done();
-
-        });
-
-    });
-
-    it('should error when trying to update post by ID when removing the title', function (done) {
+    it('should error when trying to update post by postId when removing the title', function (done) {
 
         postModel.updatePostById(postId, { title: '' }, profileID).catch(function (err) {
 
@@ -274,7 +262,19 @@ describe('post model', function () {
 
     });
 
-    it('should be able to delete messages in a post by ID', function (done) {
+    it('should be able to update messages in a post by postId and messageId', function (done) {
+
+        postModel.updateMessageToPostById(postId, messageId, { contents: 'test' }, profileID).then(function (message) {
+
+            expect(message.contents).to.be.equal('test');
+
+            done();
+
+        });
+
+    });
+
+    it('should be able to delete messages in a post by postId and messageId', function (done) {
 
         postModel.deleteMessageFromPostById(postId, messageId, { contents: 'test' }, profileID).then(function (messages) {
 
@@ -286,7 +286,7 @@ describe('post model', function () {
 
     });
 
-    it('should error when trying to delete messages in a post by invalid ID', function (done) {
+    it('should error when trying to delete messages in a post by invalid postId', function (done) {
 
         postModel.deleteMessageFromPostById(mongoose.Types.ObjectId(), messageId, { contents: 'test' }, profileID).catch(function (err) {
 
@@ -298,7 +298,7 @@ describe('post model', function () {
 
     });
 
-    it('should error when trying to delete messages in a post by invalid ID', function (done) {
+    it('should error when trying to delete messages in a post by invalid messageId', function (done) {
 
         postModel.deleteMessageFromPostById(postId, mongoose.Types.ObjectId(), { contents: 'test' }, profileID).catch(function (err) {
 

@@ -82,7 +82,7 @@ describe('profile model', function () {
 
     });
 
-    it('should error when trying to update profile with invalid ID', function (done) {
+    it('should error when trying to update profile with invalid profileId', function (done) {
 
         profileModel.updateProfileById(mongoose.Types.ObjectId(), {
             locale: 'en-us'
