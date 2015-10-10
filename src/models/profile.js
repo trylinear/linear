@@ -66,6 +66,7 @@ profileSchema.statics.updateProfileById = function (profileId, data) {
         { '_id': profileId },
         {
             '$set': {
+                'updatedAt': Date.now(),
                 'locale': data.locale
             }
         },
@@ -145,14 +146,6 @@ profileSchema.virtual('id').get(function () {
 profileSchema.set('toJSON', {
 
     virtuals: true
-
-});
-
-profileSchema.pre('save', function (next) {
-
-    this.updatedAt = Date.now();
-
-    next();
 
 });
 
