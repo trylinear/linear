@@ -274,6 +274,18 @@ describe('post model', function () {
 
     });
 
+    it('should error when trying to update messages in a post by invalid postId', function (done) {
+
+        postModel.updateMessageToPostById(mongoose.Types.ObjectId(), messageId, { contents: 'test' }, profileID).catch(function (err) {
+
+            expect(err.status).to.equal(500);
+
+            done();
+
+        });
+
+    });
+
     it('should be able to delete messages in a post by postId and messageId', function (done) {
 
         postModel.deleteMessageFromPostById(postId, messageId, { contents: 'test' }, profileID).then(function (messages) {

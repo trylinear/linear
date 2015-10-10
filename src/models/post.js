@@ -413,9 +413,17 @@ messageSchema.set('toJSON', {
 
 postSchema.post('findOneAndUpdate', function (doc, next) {
 
-    doc.messageCount = doc.messages.length;
+    if (doc && doc.messageCount !== doc.messages.length) {
 
-    doc.save(next);
+        doc.messageCount = doc.messages.length;
+
+        doc.save(next);
+
+    } else {
+
+        next();
+
+    }
 
 });
 
