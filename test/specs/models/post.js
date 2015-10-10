@@ -48,6 +48,20 @@ describe('post model', function () {
 
     });
 
+    it('should error while trying to create a post without a title', function (done) {
+
+        postModel.createPost({
+            title: ''
+        }, profileID).catch(function (err) {
+
+            expect(err.status).to.equal(500);
+
+            done();
+
+        });
+
+    });
+
     it('should be able to add message to post', function (done) {
 
         postModel.addMessageToPostById(postId, {
@@ -187,6 +201,30 @@ describe('post model', function () {
 
     });
 
+    it('should error when trying to update post by invalid ID', function (done) {
+
+        postModel.updatePostById(mongoose.Types.ObjectId(), { title: 'Test', contents: 'test' }, profileID).catch(function (err) {
+
+            expect(err.status).to.equal(500);
+
+            done();
+
+        });
+
+    });
+
+    it('should error when trying to update post by ID when not the original author', function (done) {
+
+        postModel.updatePostById(postId, { title: 'Test', contents: 'test' }, mongoose.Types.ObjectId()).catch(function (err) {
+
+            expect(err.status).to.equal(401);
+
+            done();
+
+        });
+
+    });
+
     it('should be able to update messages in a post by ID', function (done) {
 
         postModel.updateMessageToPostById(postId, messageId, { contents: 'test' }, profileID).then(function (message) {
@@ -199,11 +237,47 @@ describe('post model', function () {
 
     });
 
+    it('should error when trying to update post by ID when removing the title', function (done) {
+
+        postModel.updatePostById(postId, { title: '' }, profileID).catch(function (err) {
+
+            expect(err.status).to.equal(500);
+
+            done();
+
+        });
+
+    });
+
     it('should be able to delete messages in a post by ID', function (done) {
 
         postModel.deleteMessageFromPostById(postId, messageId, { contents: 'test' }, profileID).then(function (messages) {
 
             expect(messages).to.have.length(0);
+
+            done();
+
+        });
+
+    });
+
+    it('should error when trying to delete messages in a post by invalid ID', function (done) {
+
+        postModel.deleteMessageFromPostById(mongoose.Types.ObjectId(), messageId, { contents: 'test' }, profileID).catch(function (err) {
+
+            expect(err.status).to.equal(500);
+
+            done();
+
+        });
+
+    });
+
+    it('should error when trying to delete messages in a post by invalid ID', function (done) {
+
+        postModel.deleteMessageFromPostById(postId, mongoose.Types.ObjectId(), { contents: 'test' }, profileID).catch(function (err) {
+
+            expect(err.status).to.equal(500);
 
             done();
 
