@@ -86,11 +86,11 @@ postSchema.statics.updatePostById = function (postId, data, profileId) {
 
             } else {
 
-                if (data.title) {
+                if (data.title !== undefined) {
                     post.title = data.title;
                 }
 
-                if (data.contents) {
+                if (data.contents !== undefined) {
                     post.contents = data.contents;
                 }
 
