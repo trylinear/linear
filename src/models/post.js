@@ -75,7 +75,7 @@ postSchema.statics.updatePostById = function (postId, data, profileId) {
                     message: 'Internal Server Error'
                 });
 
-            } else if (![profileId].filter(post.createdBy.equals, post.createdBy)) {
+            } else if (![profileId].filter(post.createdBy.equals, post.createdBy).length) {
 
                 logger.err('Authentication invalid.', err, data);
 
