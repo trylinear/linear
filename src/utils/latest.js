@@ -17,7 +17,7 @@ module.exports = function () {
 
             logger.info('Checking for new version of linear.');
 
-            latestVersion('linear', function (err, version) {
+            latestVersion('linear').then(function (version) {
 
                 memoryCache.set('package-version', version);
 
