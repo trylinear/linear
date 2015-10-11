@@ -11,6 +11,7 @@ define(function (require) {
 
     markdown.use(require('markdown-it-emoji'));
 
+    var MessageCreateView = require('views/message-create');
     var MessagesView = require('views/messages');
 
     return Marionette.ItemView.extend({
@@ -20,6 +21,12 @@ define(function (require) {
         template: templates.partials.post_header,
 
         initialize: function () {
+
+            var createMessage = new MessageCreateView({
+                el: this.$el.find('.message-create')
+            });
+
+            createMessage.parentPost = this;
 
             this.listenTo(this.model, 'sync', function () {
 
