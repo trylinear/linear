@@ -17,12 +17,6 @@ define(function (require) {
 
         el: '.page-content .inner-wrapper',
 
-        events: {
-            'keydown textarea[name="contents"]': 'handleKeyDownEvent',
-            'submit .message-create form': 'handleSubmitMessage',
-            'click a[href="#markdown-toggle"]': 'handleMarkdownToggle'
-        },
-
         template: templates.partials.post_header,
 
         initialize: function () {
@@ -50,53 +44,6 @@ define(function (require) {
                 this.subview.render();
 
             }
-
-        },
-
-        handleKeyDownEvent: function (e) {
-
-            if (e.metaKey && e.keyCode === 13) {
-
-                e.preventDefault();
-
-                this.handleSubmitMessage(e);
-
-                return false;
-
-            }
-
-        },
-
-        handleSubmitMessage: function (e) {
-
-            var MessageModel = require('models/message'),
-                model = new MessageModel({ contents: this.$el.find('.markdown-contents').val() });
-
-            model.urlRoot = '/api/v1/posts/' + this.model.get('id') + '/messages/';
-
-            e.preventDefault();
-
-            model.save().done(function () {
-
-                this.subview.collection.add(model);
-
-                this.$el.find('.markdown-contents').val('');
-
-            }.bind(this));
-
-        },
-
-        handleMarkdownToggle: function (e) {
-
-            e.preventDefault();
-
-            var $markdownContents = this.$el.find('.markdown-contents'),
-                $markdownPreview = this.$el.find('.markdown-preview');
-
-            $markdownPreview.html(markdown.render($markdownContents.val()));
-
-            $markdownContents.toggle();
-            $markdownPreview.toggle();
 
         }
 
