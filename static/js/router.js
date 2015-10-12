@@ -4,8 +4,9 @@ define(function (require) {
 
     var $ = require('jquery'),
         Backbone = require('backbone'),
-        PostView = require('views/post'),
-        PostModel = require('models/post');
+        ProfileModel = require('./models/profile'),
+        PostModel = require('./models/post'),
+        PostView = require('./views/post');
 
     var Router = Backbone.Router.extend({
 
@@ -16,10 +17,12 @@ define(function (require) {
 
         post: function (postName, postId) {
 
-            var model = new PostModel({ id: postId }),
+            var profile = new ProfileModel(),
+                model = new PostModel({ id: postId }),
                 view = new PostView({ model: model });
 
             $.when(
+                profile.fetch(),
                 model.fetch()
             ).done(view.render);
 
