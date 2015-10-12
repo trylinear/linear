@@ -40,7 +40,9 @@ define(function (require) {
         render: function () {
 
             this.$el.find('.post').replaceWith(this.template(
-                _.extend({}, this.model.toJSON(), { editable: false })
+                _.extend({}, this.model.toJSON(), {
+                    editable: this.model.get('createdBy')._id === sessionStorage.getItem('profileId')
+                })
             ));
 
             if (this.model.get('messages')) {

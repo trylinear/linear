@@ -30,7 +30,9 @@ define(function (require) {
         render: function () {
 
             this.$el.html(this.template(
-                _.extend({}, this.model.toJSON(), { editable: true })
+                _.extend({}, this.model.toJSON(), {
+                    editable: this.model.get('createdBy')._id === sessionStorage.getItem('profileId')
+                })
             ));
 
         },

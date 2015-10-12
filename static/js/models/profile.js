@@ -6,7 +6,17 @@ define(function (require) {
 
     return Backbone.Model.extend({
 
-        urlRoot: '/api/v1/profiles/'
+        urlRoot: '/api/v1/profiles/auth',
+
+        initialize: function () {
+
+            this.on('sync', function () {
+
+                sessionStorage.setItem('profileId', this.get('_id'));
+
+            }.bind(this));
+
+        }
 
     });
 
