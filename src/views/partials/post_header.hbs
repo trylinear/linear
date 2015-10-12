@@ -24,6 +24,13 @@
                     <a href="/post/{{slug}}/{{_id}}/">{{relativeTime createdAt}}</a>
                 </span>
 
+                {{#if editable}}
+                <span class="admin-links">
+                    &mdash;
+                    <a href="#edit">Edit</a> <a href="#delete">Delete</a>
+                </span>
+                {{/if}}
+
             </div>
 
         </div>
