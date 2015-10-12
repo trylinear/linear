@@ -10,7 +10,9 @@ define(function (require) {
 
         handleSaveMessage: function (e) {
 
-            var model = new MessageModel({ url: this.parentPost.model.url() + '/messages/' });
+            var model = new MessageModel();
+
+            model.url = this.parentPost.model.url() + '/messages/';
 
             e.preventDefault();
 
