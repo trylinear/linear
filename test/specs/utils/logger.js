@@ -6,9 +6,9 @@ var logger = require('../../../src/utils/logger');
 
 describe('logger util', function () {
 
-    it('should log message', function () {
+    it('should log error message', function () {
 
-        logger.info('test');
+        logger.err('test');
 
     });
 
