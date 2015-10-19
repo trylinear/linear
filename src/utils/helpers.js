@@ -26,12 +26,16 @@ module.exports = function (Handlebars) {
 
     Handlebars.registerHelper('limitOutput', function (value, limit) {
 
-        value = markdown.render(value).replace(/<.+?>/g, '');
+        if (value) {
 
-        if (value.length > limit) {
+            value = markdown.render(value).replace(/<.+?>/g, '');
 
-            value = value.substring(0, limit);
-            value = value.substring(0, value.lastIndexOf(' ')) + ' …';
+            if (value.length > limit) {
+
+                value = value.substring(0, limit);
+                value = value.substring(0, value.lastIndexOf(' ')) + ' …';
+
+            }
 
         }
 
@@ -41,9 +45,13 @@ module.exports = function (Handlebars) {
 
     Handlebars.registerHelper('markdown', function (value) {
 
-        return sanitizeHtml(markdown.render(value), {
-            allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
-        });
+        if (value) {
+
+            return sanitizeHtml(markdown.render(value), {
+                allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
+            });
+
+        }
 
     });
 
@@ -55,7 +63,11 @@ module.exports = function (Handlebars) {
 
     Handlebars.registerHelper('titleCase', function (value) {
 
-        return value.replace(/\b\w/g, function (letter) { return letter.toUpperCase(); });
+        if (value) {
+
+            return value.replace(/\b\w/g, function (letter) { return letter.toUpperCase(); });
+
+        }
 
     });
 
