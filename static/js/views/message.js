@@ -14,6 +14,8 @@ define(function (require) {
 
     templates.partials = Handlebars.partials;
 
+    var EditorView = require('./editor');
+
     return Marionette.ItemView.extend({
 
         events: {
@@ -22,18 +24,33 @@ define(function (require) {
             'click a[href="#delete"]': 'handleDeleteMessage',
             'submit form': 'handleSaveMessage',
             'click a[href="#cancel-edit"]': 'handleCancelEditMessage',
-            'click a[href="#markdown-toggle"]': 'handleMarkdownToggle'
         },
 
         template: templates.partials.post_message,
 
+        initialize: function () {
+
+            this.setupEditor();
+
+        },
+
         render: function () {
+
+            this.setupEditor();
 
             this.$el.html(this.template(
                 _.extend({}, this.model.toJSON(), {
                     editable: this.model.get('createdBy')._id === sessionStorage.getItem('profileId')
                 })
             ));
+
+        },
+
+        setupEditor: function () {
+
+            this.editor = new EditorView();
+            this.editor.setElement(this.$el.find('.markdown-editor'));
+            this.editor.delegateEvents();
 
         },
 
@@ -98,26 +115,12 @@ define(function (require) {
             e.preventDefault();
 
             this.model.set({
-                contents: this.$el.find('.markdown-contents').val()
+                contents: this.editor.value()
             });
 
             this.template = templates.partials.post_message;
 
             this.model.save().done(this.render);
-
-        },
-
-        handleMarkdownToggle: function (e) {
-
-            e.preventDefault();
-
-            var $markdownContents = this.$el.find('.markdown-contents'),
-                $markdownPreview = this.$el.find('.markdown-preview');
-
-            $markdownPreview.html(markdown.render($markdownContents.val()));
-
-            $markdownContents.toggle();
-            $markdownPreview.toggle();
 
         }
 

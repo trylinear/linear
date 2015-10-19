@@ -22,7 +22,7 @@ define(function (require) {
 
                 this.parentPost.subview.collection.add(model);
 
-                this.$el.find('.markdown-contents').val('');
+                this.editor.reset();
 
             }.bind(this));
 
