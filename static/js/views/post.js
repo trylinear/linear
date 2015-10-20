@@ -7,10 +7,6 @@ define(function (require) {
     var Marionette = require('marionette'),
         templates = require('templates');
 
-    var markdown = require('markdown-it')();
-
-    markdown.use(require('markdown-it-emoji'));
-
     var MessageCreateView = require('views/message-create');
     var MessagesView = require('views/messages');
 

@@ -8,10 +8,6 @@ define(function (require) {
         Handlebars = require('handlebars'),
         templates = require('templates');
 
-    var markdown = require('markdown-it')();
-
-    markdown.use(require('markdown-it-emoji'));
-
     templates.partials = Handlebars.partials;
 
     var EditorView = require('./editor');
