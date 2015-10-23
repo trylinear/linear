@@ -18,7 +18,9 @@ define(function (require) {
 
             model.save({
                 contents: this.$el.find('.markdown-contents').val()
-            }).done(function () {
+            }).done(function (data) {
+
+                model.url = this.parentPost.model.url() + '/messages/' + data._id;
 
                 this.parentPost.subview.collection.add(model);
 
