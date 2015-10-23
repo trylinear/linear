@@ -26,13 +26,12 @@ define(function (require) {
 
         initialize: function () {
 
+            this.editor = new EditorView();
             this.setupEditor();
 
         },
 
         render: function () {
-
-            this.setupEditor();
 
             this.$el.html(this.template(
                 _.extend({}, this.model.toJSON(), {
@@ -40,11 +39,12 @@ define(function (require) {
                 })
             ));
 
+            this.setupEditor();
+
         },
 
         setupEditor: function () {
 
-            this.editor = new EditorView();
             this.editor.setElement(this.$el.find('.markdown-editor'));
             this.editor.delegateEvents();
 
