@@ -38,7 +38,7 @@ define(function (require) {
 
         reset: function () {
 
-            this.$el.find('.markdown-contents').val('');
+            this.render();
 
         },
 
