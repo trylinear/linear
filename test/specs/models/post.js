@@ -324,4 +324,28 @@ describe('post model', function () {
 
     });
 
+    it('should be able to delete post by postId', function (done) {
+
+        postModel.deletePostById(postId, profileID).then(function (post) {
+
+            expect(post).to.have.length(0);
+
+            done();
+
+        });
+
+    });
+
+    it('should error when trying to delete post by invalid postId', function (done) {
+
+        postModel.deletePostById(mongoose.Types.ObjectId(), profileID).catch(function (err) {
+
+            expect(err.status).to.equal(500);
+
+            done();
+
+        });
+
+    });
+
 });

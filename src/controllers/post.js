@@ -14,6 +14,12 @@ module.exports = {
 
     },
 
+    delete: function (postId, profileId) {
+
+        return postModel.deletePostById(postId, profileId);
+
+    },
+
     list: function () {
 
         return postModel.listPosts();

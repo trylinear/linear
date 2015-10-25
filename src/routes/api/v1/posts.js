@@ -50,6 +50,21 @@ module.exports = function (router) {
 
     });
 
+    router.delete('/:postId', function (req, res) {
+
+        post.delete(req.params.postId).then(function (post) {
+
+            res.json(post);
+
+        }).catch(function (err) {
+
+            res.status(err.status);
+            res.json({ status: err.status, message: err.message });
+
+        });
+
+    });
+
     router.get('/:postId/messages', function (req, res) {
 
         message.list(req.params.postId).then(function (messages) {

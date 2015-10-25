@@ -202,6 +202,37 @@ postSchema.statics.updateMessageToPostById = function (postId, messageId, data, 
 
 };
 
+postSchema.statics.deletePostById = function (postId, profileId) {
+
+    var self = this,
+        deferred = new q.defer();
+
+    this.findOneAndRemove(
+        { '_id': postId },
+        function (err, post) {
+
+            if (err || !post) {
+
+                logger.err('Error deleting exiting post.', err);
+
+                deferred.reject({
+                    status: 500,
+                    message: 'Internal Server Error'
+                });
+
+            } else {
+
+                deferred.resolve([]);
+
+            }
+
+        }
+    );
+
+    return deferred.promise;
+
+};
+
 postSchema.statics.deleteMessageFromPostById = function (postId, messageId, profileId) {
 
     var self = this,
