@@ -31,7 +31,9 @@ define(function (require) {
             $.when(
                 profile.fetch(),
                 model.fetch()
-            ).done(view.render);
+            ).done(function () {
+
+            });
 
         }
 

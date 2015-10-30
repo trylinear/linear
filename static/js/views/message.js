@@ -22,12 +22,23 @@ define(function (require) {
             'click a[href="#cancel-edit"]': 'handleCancelEditMessage',
         },
 
-        template: templates.partials.post_message,
-
-        initialize: function () {
+        initialize: function (config) {
 
             this.editor = new EditorView();
             this.setupEditor();
+
+            this.config = config;
+
+            if (!this.config.templates) {
+
+                this.config.templates =  {
+                    view: templates.partials.post_message,
+                    edit: templates.partials.post_message_form
+                };
+
+            }
+
+            this.template = this.config.templates.view;
 
         },
 
@@ -78,7 +89,7 @@ define(function (require) {
 
             e.preventDefault();
 
-            this.template = templates.partials.post_message_form;
+            this.template = this.config.templates.edit;
 
             this.render();
 
@@ -88,7 +99,7 @@ define(function (require) {
 
             e.preventDefault();
 
-            this.template = templates.partials.post_message;
+            this.template = this.config.templates.view;
 
             this.render();
 
@@ -114,7 +125,7 @@ define(function (require) {
                 contents: this.editor.value()
             });
 
-            this.template = templates.partials.post_message;
+            this.template = this.config.templates.view;
 
             this.model.save().done(this.render);
 
