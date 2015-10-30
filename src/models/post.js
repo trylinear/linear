@@ -61,7 +61,8 @@ postSchema.statics.createPost = function (data, profileId) {
 
 postSchema.statics.updatePostById = function (postId, data, profileId) {
 
-    var deferred = new q.defer();
+    var self = this,
+        deferred = new q.defer();
 
     this.findById(postId)
         .exec(function (err, post) {
@@ -107,7 +108,7 @@ postSchema.statics.updatePostById = function (postId, data, profileId) {
                             message: 'Internal Server Error'
                         });
 
-                    } else { deferred.resolve(post); }
+                    } else { deferred.resolve(self.showPostById(postId)); }
 
                 });
 
@@ -191,7 +192,7 @@ postSchema.statics.updateMessageToPostById = function (postId, messageId, data, 
 
             } else {
 
-                self.showMessageById(postId, messageId).then(deferred.resolve);
+                deferred.resolve(self.showMessageById(postId, messageId));
 
             }
 
