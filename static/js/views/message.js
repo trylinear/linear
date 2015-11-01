@@ -121,9 +121,10 @@ define(function (require) {
 
             e.preventDefault();
 
-            this.model.set({
-                contents: this.editor.value()
-            });
+            this.model.set(this.$el.find('input:visible, textarea:visible').serializeArray().reduce(function(prev, curr, index, data) {
+                prev[curr.name] = curr.value;
+                return prev;
+            }, {}));
 
             this.template = this.config.templates.view;
 
