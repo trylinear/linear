@@ -290,7 +290,7 @@ describe('post model', function () {
 
     it('should be able to delete messages in a post by postId and messageId', function (done) {
 
-        postModel.deleteMessageFromPostById(postId, messageId, { contents: 'test' }, profileId).then(function (messages) {
+        postModel.deleteMessageFromPostById(postId, messageId, profileId).then(function (messages) {
 
             expect(messages).to.have.length(0);
 
