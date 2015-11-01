@@ -64,7 +64,7 @@ postSchema.statics.updatePostById = function (postId, data, profileId) {
     var self = this,
         deferred = new q.defer();
 
-    this.findById(postId)
+    this.findOne({ _id: postId, createdBy: profileId })
         .exec(function (err, post) {
 
             if (err || !post) {
@@ -160,7 +160,15 @@ postSchema.statics.updateMessageToPostById = function (postId, messageId, data, 
         deferred = new q.defer();
 
     this.findOneAndUpdate(
-        { '_id': postId, 'messages._id': messageId },
+        {
+            '_id': postId,
+            'messages': {
+                $elemMatch: {
+                    '_id': messageId,
+                    'createdBy': profileId
+                }
+            }
+        },
         {
             '$set': {
                 'updatedAt': Date.now(),
@@ -200,7 +208,7 @@ postSchema.statics.deletePostById = function (postId, profileId) {
         deferred = new q.defer();
 
     this.findOneAndRemove(
-        { '_id': postId },
+        { '_id': postId, createdBy: profileId },
         function (err, post) {
 
             if (err || !post) {
@@ -231,13 +239,26 @@ postSchema.statics.deleteMessageFromPostById = function (postId, messageId, prof
         deferred = new q.defer();
 
     this.findOneAndUpdate(
-        { '_id': postId, 'messages._id': messageId },
+        {
+            '_id': postId,
+            'messages': {
+                $elemMatch: {
+                    '_id': messageId,
+                    'createdBy': profileId
+                }
+            }
+        },
         {
             '$set': {
                 'updatedAt': Date.now()
             },
             '$pull': {
-                'messages': { '_id': messageId }
+                'messages': {
+                    $elemMatch: {
+                        '_id': messageId,
+                        'createdBy': profileId
+                    }
+                }
             }
         },
         { 'upsert': true, 'new': true },

@@ -244,7 +244,7 @@ describe('post model', function () {
 
         postModel.updatePostById(postId, { title: 'Test', contents: 'test' }, mongoose.Types.ObjectId()).catch(function (err) {
 
-            expect(err.status).to.equal(401);
+            expect(err.status).to.equal(500);
 
             done();
 
