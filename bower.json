@@ -2,9 +2,9 @@
   "name": "linear",
   "dependencies": {
     "backbone": "1.2.3",
-    "handlebars": "4.0.3",
+    "handlebars": "4.0.4",
     "jquery": "2.1.4",
-    "markdown-it": "5.0.0",
+    "markdown-it": "5.0.1",
     "markdown-it-emoji": "1.1.0",
     "moment": "2.10.6",
     "numeraljs": "1.5.3",
