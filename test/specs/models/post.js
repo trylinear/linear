@@ -12,7 +12,7 @@ describe('post model', function () {
 
     var postId = null,
         messageId = null,
-        profileID = mongoose.Types.ObjectId();
+        profileId = mongoose.Types.ObjectId();
 
     before(function (done) {
 
@@ -37,7 +37,7 @@ describe('post model', function () {
         postModel.createPost({
             title: 'Lorem ipsum dolor sit amet',
             contents: 'Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-        }, profileID).then(function (post) {
+        }, profileId).then(function (post) {
 
             expect(post).to.have.property('id');
             expect(post.id).to.be.a('string');
@@ -54,7 +54,7 @@ describe('post model', function () {
 
         postModel.createPost({
             title: ''
-        }, profileID).catch(function (err) {
+        }, profileId).catch(function (err) {
 
             expect(err.status).to.equal(500);
 
@@ -68,7 +68,7 @@ describe('post model', function () {
 
         postModel.addMessageToPostById(postId, {
             contents: 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.'
-        }, profileID).then(function (message) {
+        }, profileId).then(function (message) {
 
             expect(message).to.have.property('id');
             expect(message.id).to.be.a('string');
@@ -217,7 +217,7 @@ describe('post model', function () {
 
     it('should be able to update post by postId', function (done) {
 
-        postModel.updatePostById(postId, { title: 'Test', contents: 'test' }, profileID).then(function (post) {
+        postModel.updatePostById(postId, { title: 'Test', contents: 'test' }, profileId).then(function (post) {
 
             expect(post.title).to.be.equal('Test');
             expect(post.contents).to.be.equal('test');
@@ -230,7 +230,7 @@ describe('post model', function () {
 
     it('should error when trying to update post by invalid postId', function (done) {
 
-        postModel.updatePostById(mongoose.Types.ObjectId(), { title: 'Test', contents: 'test' }, profileID).catch(function (err) {
+        postModel.updatePostById(mongoose.Types.ObjectId(), { title: 'Test', contents: 'test' }, profileId).catch(function (err) {
 
             expect(err.status).to.equal(500);
 
@@ -254,7 +254,7 @@ describe('post model', function () {
 
     it('should error when trying to update post by postId when removing the title', function (done) {
 
-        postModel.updatePostById(postId, { title: '' }, profileID).catch(function (err) {
+        postModel.updatePostById(postId, { title: '' }, profileId).catch(function (err) {
 
             expect(err.status).to.equal(500);
 
@@ -266,7 +266,7 @@ describe('post model', function () {
 
     it('should be able to update messages in a post by postId and messageId', function (done) {
 
-        postModel.updateMessageToPostById(postId, messageId, { contents: 'test' }, profileID).then(function (message) {
+        postModel.updateMessageToPostById(postId, messageId, { contents: 'test' }, profileId).then(function (message) {
 
             expect(message.contents).to.be.equal('test');
 
@@ -278,7 +278,7 @@ describe('post model', function () {
 
     it('should error when trying to update messages in a post by invalid postId', function (done) {
 
-        postModel.updateMessageToPostById(mongoose.Types.ObjectId(), messageId, { contents: 'test' }, profileID).catch(function (err) {
+        postModel.updateMessageToPostById(mongoose.Types.ObjectId(), messageId, { contents: 'test' }, profileId).catch(function (err) {
 
             expect(err.status).to.equal(500);
 
@@ -290,7 +290,7 @@ describe('post model', function () {
 
     it('should be able to delete messages in a post by postId and messageId', function (done) {
 
-        postModel.deleteMessageFromPostById(postId, messageId, { contents: 'test' }, profileID).then(function (messages) {
+        postModel.deleteMessageFromPostById(postId, messageId, { contents: 'test' }, profileId).then(function (messages) {
 
             expect(messages).to.have.length(0);
 
@@ -302,7 +302,7 @@ describe('post model', function () {
 
     it('should error when trying to delete messages in a post by invalid postId', function (done) {
 
-        postModel.deleteMessageFromPostById(mongoose.Types.ObjectId(), messageId, { contents: 'test' }, profileID).catch(function (err) {
+        postModel.deleteMessageFromPostById(mongoose.Types.ObjectId(), messageId, { contents: 'test' }, profileId).catch(function (err) {
 
             expect(err.status).to.equal(500);
 
@@ -314,7 +314,7 @@ describe('post model', function () {
 
     it('should error when trying to delete messages in a post by invalid messageId', function (done) {
 
-        postModel.deleteMessageFromPostById(postId, mongoose.Types.ObjectId(), { contents: 'test' }, profileID).catch(function (err) {
+        postModel.deleteMessageFromPostById(postId, mongoose.Types.ObjectId(), { contents: 'test' }, profileId).catch(function (err) {
 
             expect(err.status).to.equal(500);
 
@@ -326,7 +326,7 @@ describe('post model', function () {
 
     it('should be able to delete post by postId', function (done) {
 
-        postModel.deletePostById(postId, profileID).then(function (post) {
+        postModel.deletePostById(postId, profileId).then(function (post) {
 
             expect(post).to.have.length(0);
 
@@ -338,7 +338,7 @@ describe('post model', function () {
 
     it('should error when trying to delete post by invalid postId', function (done) {
 
-        postModel.deletePostById(mongoose.Types.ObjectId(), profileID).catch(function (err) {
+        postModel.deletePostById(mongoose.Types.ObjectId(), profileId).catch(function (err) {
 
             expect(err.status).to.equal(500);
 
