@@ -81,6 +81,20 @@ describe('post model', function () {
 
     });
 
+    it('should error to add message to post with an invalid postId', function (done) {
+
+        postModel.addMessageToPostById(mongoose.Types.ObjectId(), {
+            contents: 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.'
+        }, profileId).catch(function (err) {
+
+            expect(err.status).to.equal(500);
+
+            done();
+
+        });
+
+    });
+
     it('should be able to show post', function (done) {
 
         postModel.showPostById(postId).then(function (post) {
