@@ -1,3 +1,5 @@
+require('with-env')();
+
 var log = {
     info: console.info,
     notice: console.log,
