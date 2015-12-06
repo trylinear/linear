@@ -7,7 +7,7 @@ module.exports = function (router) {
         profile.show(req.params.id).then(function (profile) {
 
             res.render('profile', {
-                title: req.__('Profile'),
+                page_title: req.__('Profile'),
                 style: 'profile',
                 profile: profile
             });

@@ -25,7 +25,7 @@ module.exports = function (router) {
         req.session.referer = req.headers.referer;
 
         res.render('login', {
-            title: req.__('Login'),
+            page_title: req.__('Login'),
             style: 'login',
             social: social
         });

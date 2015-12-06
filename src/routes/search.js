@@ -7,7 +7,7 @@ module.exports = function (router) {
         search.show(req.query.q).then(function (results) {
 
             res.render('search', {
-                title: req.__('Search'),
+                page_title: req.__('Search'),
                 style: 'search',
                 query: req.query.q,
                 results: results

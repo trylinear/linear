@@ -7,7 +7,7 @@ module.exports = function (router) {
         post.list().then(function (posts) {
 
             res.render('post_list', {
-                title: req.__('Recent Posts'),
+                page_title: req.__('Recent Posts'),
                 posts: posts
             });
 

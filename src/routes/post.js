@@ -8,7 +8,7 @@ module.exports = function (router) {
     router.get('/new', requireLogin, function (req, res) {
 
         res.render('post_create', {
-            title: req.__('Create New Post')
+            page_title: req.__('Create New Post')
         });
 
     });
@@ -28,7 +28,7 @@ module.exports = function (router) {
         post.show(req.params.id).then(function (post) {
 
             res.render('post', {
-                title: post.title,
+                page_title: post.title,
                 description: post.contents,
                 post: post
             });
