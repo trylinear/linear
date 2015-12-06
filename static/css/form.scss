@@ -31,7 +31,7 @@ form {
             margin: 0 0 1em 0;
             resize: vertical;
             line-height: 1.3em;
-            -webkit-appearance: textfield;
+            @include prefix('appearance', 'textfield');
         }
 
     }
@@ -50,8 +50,8 @@ form {
     border: 0;
     border-radius: 1.5em;
     cursor: pointer;
-    -webkit-appearance: none;
-    -webkit-font-smoothing: antialiased;
+    @include prefix('appearance', 'none');
+    @include prefix('font-smoothing', 'antialiased');
 }
 
 .button.facebook {

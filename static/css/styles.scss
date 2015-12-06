@@ -1,12 +1,11 @@
 @import "fonts";
+@import "mixins";
 @import "variables";
 @import "form";
 
 * {
     margin: 0; padding: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    @include prefix('box-sizing', 'border-box');
 }
 
 body {
@@ -77,15 +76,12 @@ ol {
     }
 
     .inner-wrapper {
-        display: flex;
-        display: -webkit-flex;
-        align-items: center;
-        -webkit-align-items: center;
+        @include prefix-value('display', 'flex');
+        @include prefix('align-items', 'center');
     }
 
     .logo {
-        flex: 1;
-        -webkit-flex: 1;
+        @include prefix('flex', '1');
     }
 
     @media screen and (min-width: 37.500em) {
@@ -97,8 +93,7 @@ ol {
         .navigation {
 
             display: block !important;
-            flex: 1;
-            -webkit-flex: 1;
+            @include prefix('flex', '1');
             text-align: right;
 
             a {
@@ -149,12 +144,10 @@ ol {
 .post-list-item,
 .message {
 
-    display: flex;
-    display: -webkit-flex;
+    @include prefix-value('display', 'flex');
 
     .avatar {
-        flex: none;
-        -webkit-flex: none;
+        @include prefix('flex', 'none');
     }
 
     .wrapper {
@@ -254,14 +247,11 @@ ol {
         @media screen and (min-width: 37.500em) {
 
             & {
-                display: flex;
-                display: -webkit-flex;
+                @include prefix-value('display', 'flex');
                 .posted-by,
                 .stats {
-                    flex: 1;
-                    -webkit-flex: 1;
-                    align-self: flex-end;
-                    -webkit-align-self: flex-end;
+                    @include prefix('flex', '1');
+                    @include prefix('align-self', 'flex-end');
                 }
             }
 
