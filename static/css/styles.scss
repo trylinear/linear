@@ -67,6 +67,7 @@ ol {
 
 .page-header {
 
+    position: relative;
     color: #fff;
     background-color: $theme-color;
 
@@ -78,20 +79,66 @@ ol {
     .inner-wrapper {
         display: flex;
         display: -webkit-flex;
+        align-items: center;
+        -webkit-align-items: center;
     }
 
-    .logo,
-    .navigation {
+    .logo {
         flex: 1;
         -webkit-flex: 1;
     }
 
-    .navigation {
+    @media screen and (min-width: 37.500em) {
 
-        text-align: right;
+        .toggle-navigation {
+            display: none;
+        }
 
-        a {
-            margin-left: 1em;
+        .navigation {
+
+            display: block !important;
+            flex: 1;
+            -webkit-flex: 1;
+            text-align: right;
+
+            a {
+                margin-left: 1em;
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 37.500em) {
+
+        .inner-wrapper {
+            padding: .75em;
+        }
+
+        .toggle-navigation {
+            text-align: right;
+            a {
+                display: inline-block;
+                padding: .4em;
+                font-size: 1.6em;
+                border-radius: .25em;
+                background-color: darken($theme-color, 8);
+            }
+        }
+
+        .navigation {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: rgba($theme-color, 0.95);
+        }
+
+        .navigation a {
+            display: block;
+            padding: 1em;
+            text-align: center;
         }
 
     }
