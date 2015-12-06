@@ -1,4 +1,4 @@
-(function () {
+define(function () {
 
     var navigation = document.querySelector('.navigation');
 
@@ -10,4 +10,4 @@
 
     });
 
-}());
+});

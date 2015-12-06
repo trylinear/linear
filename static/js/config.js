@@ -15,4 +15,4 @@ require.config({
     }
 });
 
-require(['router']);
+require(['router', 'utils/navigation']);
