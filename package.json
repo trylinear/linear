@@ -9,7 +9,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "1.14.1",
-    "bower": "1.6.5",
+    "bower": "1.6.9",
     "cache-manager": "1.2.2",
     "express": "4.13.3",
     "express-enrouten": "1.2.1",
