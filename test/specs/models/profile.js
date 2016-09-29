@@ -1,14 +1,14 @@
-var expect = require('chai').expect;
+const expect = require('chai').expect;
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var profileModel = require('../../../src/models/profile');
+const profileModel = require('../../../src/models/profile');
 
-describe('profile model', function () {
+describe('profile model', () => {
 
-    var profileId = null;
+    let profileId = null;
 
-    before(function (done) {
+    before(done => {
 
         mongoose.connect('mongodb://localhost/test');
 
@@ -16,9 +16,9 @@ describe('profile model', function () {
 
     });
 
-    after(function (done) {
+    after(done => {
 
-        profileModel.find().remove(function () {
+        profileModel.find().remove(() => {
 
             mongoose.connection.close(done);
 
@@ -26,13 +26,13 @@ describe('profile model', function () {
 
     });
 
-    it('should create profile', function (done) {
+    it('should create profile', done => {
 
         profileModel.createProfile('twitter', {
-            id: '12603',
-            name: 'neogeek',
-            avatar: 'https://pbs.twimg.com/profile_images/521442109727838209/IyeKD7Rx_bigger.jpeg'
-        }).then(function (profile) {
+            'avatar': 'https://pbs.twimg.com/profile_images/521442109727838209/IyeKD7Rx_bigger.jpeg',
+            'id': '12603',
+            'name': 'neogeek'
+        }).then(profile => {
 
             expect(profile).to.have.property('id');
             expect(profile.id).to.be.a('string');
@@ -45,13 +45,13 @@ describe('profile model', function () {
 
     });
 
-    it('should error when trying to create profile without a name', function (done) {
+    it('should error when trying to create profile without a name', done => {
 
         profileModel.createProfile('twitter', {
-            id: '',
-            name: '',
-            avatar: ''
-        }).catch(function (err) {
+            'avatar': '',
+            'id': '',
+            'name': ''
+        }).catch(err => {
 
             expect(err.status).to.equal(500);
 
@@ -61,11 +61,11 @@ describe('profile model', function () {
 
     });
 
-    it('should update profile', function (done) {
+    it('should update profile', done => {
 
         profileModel.updateProfileById(profileId, {
-            locale: 'pt-br'
-        }).then(function (profile) {
+            'locale': 'pt-br'
+        }).then(profile => {
 
             expect(profile).to.have.property('_id');
             expect(profile._id.equals(profileId)).to.equal(true);
@@ -80,11 +80,11 @@ describe('profile model', function () {
 
     });
 
-    it('should error when trying to update profile with invalid profileId', function (done) {
+    it('should error when trying to update profile with invalid profileId', done => {
 
         profileModel.updateProfileById(mongoose.Types.ObjectId(), {
-            locale: 'en-us'
-        }).catch(function (err) {
+            'locale': 'en-us'
+        }).catch(err => {
 
             expect(err.status).to.equal(500);
 
@@ -94,9 +94,9 @@ describe('profile model', function () {
 
     });
 
-    it('should show profile', function (done) {
+    it('should show profile', done => {
 
-        profileModel.showProfileById(profileId).then(function (profile) {
+        profileModel.showProfileById(profileId).then(profile => {
 
             expect(profile).to.have.property('_id');
             expect(profile._id.equals(profileId)).to.equal(true);
@@ -109,9 +109,9 @@ describe('profile model', function () {
 
     });
 
-    it('should error on invalid profileId', function (done) {
+    it('should error on invalid profileId', done => {
 
-        profileModel.showProfileById('invalid').catch(function (err) {
+        profileModel.showProfileById('invalid').catch(err => {
 
             expect(err.status).to.equal(404);
 
