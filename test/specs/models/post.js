@@ -1,5 +1,3 @@
-console.error = function () {};
-
 var expect = require('chai').expect;
 
 var mongoose = require('mongoose');
