@@ -10,8 +10,7 @@ require.config({
         'moment': '../../bower_components/moment/moment',
         'numeral': '../../bower_components/numeraljs/numeral',
         'templates': '../../templates/compiled',
-        'text': '../../bower_components/requirejs-text/text',
-        'underscore': '../../bower_components/underscore/underscore-min'
+        'text': '../../bower_components/requirejs-text/text'
     }
 });
 

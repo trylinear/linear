@@ -1,5 +1,3 @@
-var _ = require('underscore');
-
 var express = require('express');
 
 var session = require('express-session');
@@ -34,7 +32,7 @@ module.exports = {
 
         app.disable('x-powered-by');
 
-        config = _.assign(defaultConfig, config);
+        config = Object.assign({}, defaultConfig, config);
 
         mongoose.connect(env.mongodb());
 
