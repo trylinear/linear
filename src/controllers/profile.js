@@ -1,14 +1,14 @@
-var profileModel = require('../models/profile');
+const profileModel = require('../models/profile');
 
 module.exports = {
 
-    create: function (type, data) {
+    create (type, data) {
 
         return profileModel.createProfile(type, data);
 
     },
 
-    show: function (profileId) {
+    show (profileId) {
 
         return profileModel.showProfileById(profileId);
 

@@ -1,140 +1,176 @@
-var requireLogin = require('../../../utils/auth').requireLogin;
+const requireLogin = require('../../../utils/auth').requireLogin;
 
-var post = require('../../../controllers/post');
-var message = require('../../../controllers/message');
+const postController = require('../../../controllers/post');
+const messageController = require('../../../controllers/message');
 
-module.exports = function (router) {
+module.exports = router => {
 
-    router.get('/', function (req, res) {
+    router.get('/', (req, res) => {
 
-        post.list().then(function (posts) {
+        postController.list().then(posts => {
 
             res.json(posts);
 
-        }).catch(function (err) {
+        })
+        .catch(err => {
 
             res.status(err.status);
-            res.json({ status: err.status, message: err.message });
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
 
         });
 
     });
 
-    router.get('/:postId', function (req, res) {
+    router.get('/:postId', (req, res) => {
 
-        post.show(req.params.postId).then(function (post) {
+        postController.show(req.params.postId).then(post => {
 
             res.json(post);
 
-        }).catch(function (err) {
+        })
+        .catch(err => {
 
             res.status(err.status);
-            res.json({ status: err.status, message: err.message });
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
 
         });
 
     });
 
-    router.put('/:postId', requireLogin, function (req, res) {
+    router.put('/:postId', requireLogin, (req, res) => {
 
-        post.update(req.params.postId, req.body, req.user.id).then(function (post) {
+        postController.update(req.params.postId, req.body, req.user.id).then(post => {
 
             res.json(post);
 
-        }).catch(function (err) {
+        })
+        .catch(err => {
 
             res.status(err.status);
-            res.json({ status: err.status, message: err.message });
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
 
         });
 
     });
 
-    router.delete('/:postId', function (req, res) {
+    router.delete('/:postId', (req, res) => {
 
-        post.delete(req.params.postId).then(function (post) {
+        postController.delete(req.params.postId).then(post => {
 
             res.json(post);
 
-        }).catch(function (err) {
+        })
+        .catch(err => {
 
             res.status(err.status);
-            res.json({ status: err.status, message: err.message });
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
 
         });
 
     });
 
-    router.get('/:postId/messages', function (req, res) {
+    router.get('/:postId/messages', (req, res) => {
 
-        message.list(req.params.postId).then(function (messages) {
+        messageController.list(req.params.postId).then(messages => {
 
             res.json(messages);
 
-        }).catch(function (err) {
+        })
+        .catch(err => {
 
             res.status(err.status);
-            res.json({ status: err.status, message: err.message });
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
 
         });
 
     });
 
-    router.post('/:postId/messages', requireLogin, function (req, res) {
+    router.post('/:postId/messages', requireLogin, (req, res) => {
 
-        message.create(req.params.postId, req.body, req.user.id).then(function (message) {
+        messageController.create(req.params.postId, req.body, req.user.id).then(message => {
 
             res.json(message);
 
-        }).catch(function (err) {
+        })
+        .catch(err => {
 
             res.status(err.status);
-            res.json({ status: err.status, message: err.message });
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
 
         });
 
     });
 
-    router.get('/:postId/messages/:messageId', function (req, res) {
+    router.get('/:postId/messages/:messageId', (req, res) => {
 
-        message.show(req.params.postId, req.params.messageId).then(function (message) {
+        messageController.show(req.params.postId, req.params.messageId).then(message => {
 
             res.json(message);
 
-        }).catch(function (err) {
+        })
+        .catch(err => {
 
             res.status(err.status);
-            res.json({ status: err.status, message: err.message });
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
 
         });
 
     });
 
-    router.put('/:postId/messages/:messageId', function (req, res) {
+    router.put('/:postId/messages/:messageId', (req, res) => {
 
-        message.update(req.params.postId, req.params.messageId, req.body, req.user.id).then(function (message) {
+        messageController.update(req.params.postId, req.params.messageId, req.body, req.user.id).then(message => {
 
             res.json(message);
 
-        }).catch(function (err) {
+        })
+        .catch(err => {
 
             res.status(err.status);
-            res.json({ status: err.status, message: err.message });
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
 
         });
 
     });
 
-    router.delete('/:postId/messages/:messageId', function (req, res) {
+    router.delete('/:postId/messages/:messageId', (req, res) => {
 
-        message.delete(req.params.postId, req.params.messageId, req.user.id).then(function (message) {
+        messageController.delete(req.params.postId, req.params.messageId, req.user.id).then(message => {
 
             res.json(message);
 
-        }).catch(function (err) {
+        })
+        .catch(err => {
 
             res.status(err.status);
-            res.json({ status: err.status, message: err.message });
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
 
         });
 

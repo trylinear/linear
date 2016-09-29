@@ -1,8 +1,8 @@
-var profileModel = require('../models/profile');
+const profileModel = require('../models/profile');
 
 module.exports = {
 
-    update: function (data, profileId) {
+    update (data, profileId) {
 
         return profileModel.updateProfileById(profileId, data);
 

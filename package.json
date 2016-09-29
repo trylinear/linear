@@ -35,9 +35,7 @@
     "passport-facebook": "2.1.1",
     "passport-google-oauth": "1.0.0",
     "passport-twitter": "1.0.4",
-    "q": "1.4.1",
-    "sanitize-html": "1.13.0",
-    "underscore": "1.8.3"
+    "sanitize-html": "1.13.0"
   },
   "devDependencies": {
     "@neogeek/eslint-config-standards": "1.5.2",

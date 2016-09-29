@@ -1,6 +1,7 @@
 BIN=node_modules/.bin
 
 test:
+	# make lint
 	./test/bin/locales
 	$(BIN)/mocha ./test/specs/**/*.js
 

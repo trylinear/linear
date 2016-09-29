@@ -1,18 +1,19 @@
-var profile = require('../controllers/profile');
+const profileController = require('../controllers/profile');
 
-module.exports = function (router) {
+module.exports = router => {
 
-    router.get('/:id', function (req, res, next) {
+    router.get('/:id', (req, res, next) => {
 
-        profile.show(req.params.id).then(function (profile) {
+        profileController.show(req.params.id).then(profile => {
 
             res.render('profile', {
-                page_title: req.__('Profile'),
-                style: 'profile',
-                profile: profile
+                'page_title': req.__('Profile'),
+                profile,
+                'style': 'profile'
             });
 
-        }).catch(next);
+        })
+        .catch(next);
 
     });
 

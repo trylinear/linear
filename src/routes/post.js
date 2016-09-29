@@ -1,57 +1,60 @@
-var requireLogin = require('../utils/auth').requireLogin;
+const requireLogin = require('../utils/auth').requireLogin;
 
-var post = require('../controllers/post');
-var message = require('../controllers/message');
+const postController = require('../controllers/post');
+const messageController = require('../controllers/message');
 
-module.exports = function (router) {
+module.exports = router => {
 
-    router.get('/new', requireLogin, function (req, res) {
+    router.get('/new', requireLogin, (req, res) => {
 
         res.render('post_create', {
-            page_title: req.__('Create New Post')
+            'page_title': req.__('Create New Post')
         });
 
     });
 
-    router.post('/new', requireLogin, function (req, res, next) {
+    router.post('/new', requireLogin, (req, res, next) => {
 
-        post.create(req.body, req.user.id).then(function (post) {
+        postController.create(req.body, req.user.id).then(post => {
 
-            res.redirect('/post/' + post.slug + '/' + post.id + '/');
+            res.redirect(`/post/${post.slug}/${post.id}/`);
 
-        }).catch(next);
+        })
+        .catch(next);
 
     });
 
-    router.get('/:slug?/:id', function (req, res, next) {
+    router.get('/:slug?/:id', (req, res, next) => {
 
-        post.show(req.params.id).then(function (post) {
+        postController.show(req.params.id).then(post => {
 
             res.render('post', {
-                page_title: post.title,
-                description: post.contents,
-                post: post
+                'description': post.contents,
+                'page_title': post.title,
+                post
             });
 
-        }).catch(next);
+        })
+        .catch(next);
 
     });
 
-    router.post('/:slug?/:id/message/', requireLogin, function (req, res, next) {
+    router.post('/:slug?/:id/message/', requireLogin, (req, res, next) => {
 
-        message.create(req.params.id, req.body, req.user.id).then(function (message) {
+        messageController.create(req.params.id, req.body, req.user.id).then(message => {
 
             if (req.params.slug) {
 
-                res.redirect('/post/' + req.params.slug + '/' + req.params.id + '/#message-' + message.id);
+                res.redirect(`/post/${req.params.slug}/${req.params.id}/#message-${message.id}`);
 
             } else {
 
-                res.redirect('/post/' + req.params.id + '/#message-' + message.id);
+                res.redirect(`/post/${req.params.id}/#message-${message.id}`);
 
             }
 
-        }).catch(next);
+        })
+        .catch(next);
 
     });
 

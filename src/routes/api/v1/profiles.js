@@ -1,34 +1,42 @@
-var requireLogin = require('../../../utils/auth').requireLogin;
+const requireLogin = require('../../../utils/auth').requireLogin;
 
-var profile = require('../../../controllers/profile');
+const profileController = require('../../../controllers/profile');
 
-module.exports = function (router) {
+module.exports = router => {
 
-    router.get('/auth', requireLogin, function (req, res) {
+    router.get('/auth', requireLogin, (req, res) => {
 
-        profile.show(req.user.id).then(function (profile) {
+        profileController.show(req.user.id).then(profile => {
 
             res.json(profile);
 
-        }).catch(function (err) {
+        })
+        .catch(err => {
 
             res.status(err.status);
-            res.json({ status: err.status, message: err.message });
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
 
         });
 
     });
 
-    router.get('/:profileId', function (req, res) {
+    router.get('/:profileId', (req, res) => {
 
-        profile.show(req.params.profileId).then(function (profile) {
+        profileController.show(req.params.profileId).then(profile => {
 
             res.json(profile);
 
-        }).catch(function (err) {
+        })
+        .catch(err => {
 
             res.status(err.status);
-            res.json({ status: err.status, message: err.message });
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
 
         });
 

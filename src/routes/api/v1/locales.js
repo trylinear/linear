@@ -1,6 +1,6 @@
-module.exports = function (router) {
+module.exports = router => {
 
-    router.get('/', function (req, res) {
+    router.get('/', (req, res) => {
 
         res.json(req.getCatalog());
 

@@ -1,17 +1,18 @@
-var post = require('../controllers/post');
+const post = require('../controllers/post');
 
-module.exports = function (router) {
+module.exports = router => {
 
-    router.get('/', function (req, res, next) {
+    router.get('/', (req, res, next) => {
 
-        post.list().then(function (posts) {
+        post.list().then(posts => {
 
             res.render('post_list', {
-                page_title: req.__('Recent Posts'),
-                posts: posts
+                'page_title': req.__('Recent Posts'),
+                posts
             });
 
-        }).catch(next);
+        })
+        .catch(next);
 
     });
 

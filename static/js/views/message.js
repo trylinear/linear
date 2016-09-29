@@ -2,8 +2,6 @@ define(function (require) {
 
     'use strict';
 
-    var _ = require('underscore');
-
     var Marionette = require('marionette'),
         Handlebars = require('handlebars'),
         templates = require('templates');
@@ -45,7 +43,7 @@ define(function (require) {
         render: function () {
 
             this.$el.html(this.template(
-                _.extend({}, this.model.toJSON(), {
+                Object.assign({}, this.model.toJSON(), {
                     editable: this.model.get('createdBy')._id === sessionStorage.getItem('profileId')
                 })
             ));

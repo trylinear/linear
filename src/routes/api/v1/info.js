@@ -1,13 +1,13 @@
-var config = require('../../../../config.json');
-var pkg = require('../../../../package.json');
+const config = require('../../../../config.json');
+const pkg = require('../../../../package.json');
 
-module.exports = function (router) {
+module.exports = router => {
 
-    router.get('/', function (req, res) {
+    router.get('/', (req, res) => {
 
         res.json({
-            site_name: config.site_name,
-            version: pkg.version
+            'site_name': config.site_name,
+            'version': pkg.version
         });
 
     });
