@@ -1,3 +1,6 @@
+/* eslint func-names: 0 */
+/* eslint no-invalid-this: 0 */
+
 const mongoose = require('mongoose');
 
 const logger = require('../utils/logger');
@@ -120,13 +123,13 @@ postSchema.statics.updatePostById = function (postId, data, profileId) {
 
                 } else {
 
-                    if (data.title !== undefined) {
+                    if (typeof data.title !== 'undefined') {
 
                         post.title = data.title;
 
                     }
 
-                    if (data.contents !== undefined) {
+                    if (typeof data.contents !== 'undefined') {
 
                         post.contents = data.contents;
 
@@ -554,7 +557,7 @@ messageSchema.set('toJSON', {
     'virtuals': true
 });
 
-postSchema.post('findOneAndUpdate', function (doc, next) {
+postSchema.post('findOneAndUpdate', (doc, next) => {
 
     if (doc && doc.messageCount !== doc.messages.length) {
 
