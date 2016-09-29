@@ -18,7 +18,6 @@
     "grunt": "1.0.1",
     "grunt-cli": "1.2.0",
     "grunt-contrib-handlebars": "1.0.0",
-    "grunt-contrib-jshint": "1.0.0",
     "grunt-sass": "1.2.1",
     "i18n": "0.8.3",
     "latest-version": "2.0.0",
@@ -41,7 +40,9 @@
     "underscore": "1.8.3"
   },
   "devDependencies": {
+    "@neogeek/eslint-config-standards": "1.5.2",
     "chai": "3.5.0",
+    "eslint": "3.6.1",
     "grunt-contrib-watch": "1.0.0",
     "jscover": "1.0.0",
     "mocha": "3.1.0",

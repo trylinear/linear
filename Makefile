@@ -4,6 +4,11 @@ test:
 	./test/bin/locales
 	$(BIN)/mocha ./test/specs/**/*.js
 
+lint:
+	$(BIN)/eslint ./src
+	$(BIN)/eslint ./test
+	$(BIN)/eslint main.js
+
 coverage:
 	$(BIN)/jscover src src-cov
 	mv src src-old

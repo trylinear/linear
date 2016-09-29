@@ -29,31 +29,6 @@ module.exports = function (grunt) {
 
         },
 
-        jshint: {
-
-            server: {
-                options: {
-                    jshintrc: true
-                },
-                src: ['src/**/*.js']
-            },
-
-            client: {
-                options: {
-                    jshintrc: true
-                },
-                src: ['static/js/**/*.js']
-            },
-
-            tests: {
-                options: {
-                    jshintrc: true
-                },
-                src: ['test/**/*.js']
-            }
-
-        },
-
         sass: {
 
             dist: {
@@ -73,11 +48,6 @@ module.exports = function (grunt) {
                 tasks: ['handlebars']
             },
 
-            jshint: {
-                files: ['src/**/*.js', 'static/js/**/*.js', 'test/**/*.js'],
-                tasks: ['jshint']
-            },
-
             sass: {
                 files: ['static/css/**/*.scss'],
                 tasks: ['sass']
@@ -87,6 +57,6 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('default', ['handlebars', 'jshint', 'sass']);
+    grunt.registerTask('default', ['handlebars', 'sass']);
 
 };
