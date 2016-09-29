@@ -38,8 +38,7 @@
     "passport-twitter": "1.0.4",
     "q": "1.4.1",
     "sanitize-html": "1.13.0",
-    "underscore": "1.8.3",
-    "with-env": "1.0.0"
+    "underscore": "1.8.3"
   },
   "devDependencies": {
     "chai": "3.5.0",

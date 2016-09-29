@@ -1,5 +1,3 @@
-require('with-env')();
-
 var IPADDRESS = [
     process.env.BIND_IP,
     process.env.OPENSHIFT_NODEJS_IP,

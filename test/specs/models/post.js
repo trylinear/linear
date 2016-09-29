@@ -1,7 +1,5 @@
 console.error = function () {};
 
-require('with-env')();
-
 var expect = require('chai').expect;
 
 var mongoose = require('mongoose');
