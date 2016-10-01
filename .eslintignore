@@ -1,1 +1,3 @@
 **/*.min.js
+static/templates/partials.js
+static/templates/views.js
