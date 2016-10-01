@@ -107,7 +107,7 @@ module.exports = {
         app.use((req, res, next) => {
 
             res.locals.layout = 'template';
-            res.locals.latest_version = latest();
+            res.locals.latestVersion = latest();
             res.locals.config = config;
             res.locals.user = req.user;
             res.locals.url = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
