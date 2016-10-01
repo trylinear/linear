@@ -8,7 +8,7 @@ module.exports = {
 
     },
 
-    delete (postId, messageId, data, profileId) {
+    delete (postId, messageId, profileId) {
 
         return postModel.deleteMessageFromPostById(postId, messageId, profileId);
 
