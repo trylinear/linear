@@ -20,17 +20,9 @@ fetch('/api/v1/locales')
 
     });
 
-Handlebars.registerHelper('__', function (key) {
+Handlebars.registerHelper('__', key => locales[key] || key);
 
-    return locales[key] || key;
-
-});
-
-Handlebars.registerHelper('displayNumber', function (num) {
-
-    return numeral(num).format('0,0a');
-
-});
+Handlebars.registerHelper('displayNumber', num => numeral(num).format('0,0a'));
 
 Handlebars.registerHelper('ifCond', function (a, b, options) {
 
@@ -38,14 +30,14 @@ Handlebars.registerHelper('ifCond', function (a, b, options) {
 
 });
 
-Handlebars.registerHelper('limitOutput', function (value, limit) {
+Handlebars.registerHelper('limitOutput', (value, limit) => {
 
-    value = markdown.render(value).replace(/<.+?>/g, '');
+    let newValue = markdown.render(value).replace(/<.+?>/g, '');
 
-    if (value.length > limit) {
+    if (newValue.length > limit) {
 
-        value = value.substring(0, limit);
-        value = value.substring(0, value.lastIndexOf(' ')) + ' …';
+        newValue = newValue.substring(0, limit);
+        newValue = `${newValue.substring(0, newValue.lastIndexOf(' '))} …`;
 
     }
 
@@ -53,7 +45,7 @@ Handlebars.registerHelper('limitOutput', function (value, limit) {
 
 });
 
-Handlebars.registerHelper('markdown', function (value) {
+Handlebars.registerHelper('markdown', value => {
 
     if (value) {
 
@@ -61,16 +53,11 @@ Handlebars.registerHelper('markdown', function (value) {
 
     }
 
-});
-
-Handlebars.registerHelper('relativeTime', function (date) {
-
-    return moment(date).fromNow();
+    return null;
 
 });
 
-Handlebars.registerHelper('titleCase', function (value) {
+Handlebars.registerHelper('relativeTime', date => moment(date).fromNow());
 
-    return value.replace(/\b\w/g, function (letter) { return letter.toUpperCase(); });
-
-});
+Handlebars.registerHelper('titleCase', value =>
+    value.replace(/\b\w/g, letter => letter.toUpperCase()));

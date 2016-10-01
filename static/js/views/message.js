@@ -5,19 +5,21 @@ require('../../templates/helpers');
 require('../../templates/partials');
 require('../../templates/views');
 
-var EditorView = require('./editor');
+const EditorView = require('./editor');
+
+window.Handlebars = Handlebars;
 
 module.exports = Marionette.View.extend({
 
-    events: {
-        'keydown textarea[name="contents"]': 'handleKeyDownEvent',
-        'click a[href="#edit"]': 'handleEditMessage',
-        'click a[href="#delete"]': 'handleDeleteMessage',
-        'submit form': 'handleSaveMessage',
+    'events': {
         'click a[href="#cancel-edit"]': 'handleCancelEditMessage',
+        'click a[href="#delete"]': 'handleDeleteMessage',
+        'click a[href="#edit"]': 'handleEditMessage',
+        'keydown textarea[name="contents"]': 'handleKeyDownEvent',
+        'submit form': 'handleSaveMessage'
     },
 
-    initialize: function (config) {
+    initialize (config) {
 
         this.editor = new EditorView();
         this.setupEditor();
@@ -26,9 +28,9 @@ module.exports = Marionette.View.extend({
 
         if (!this.config.templates) {
 
-            this.config.templates =  {
-                view: Handlebars.partials.post_message,
-                edit: Handlebars.partials.post_message_form
+            this.config.templates = {
+                'edit': Handlebars.partials.post_message_form,
+                'view': Handlebars.partials.post_message
             };
 
         }
@@ -37,11 +39,11 @@ module.exports = Marionette.View.extend({
 
     },
 
-    render: function () {
+    render () {
 
         this.$el.html(this.template(
             Object.assign({}, this.model.toJSON(), {
-                editable: this.model.get('createdBy')._id === sessionStorage.getItem('profileId')
+                'editable': this.model.get('createdBy')._id === sessionStorage.getItem('profileId')
             })
         ));
 
@@ -49,24 +51,24 @@ module.exports = Marionette.View.extend({
 
     },
 
-    setupEditor: function () {
+    setupEditor () {
 
         this.editor.setElement(this.$el.find('.markdown-editor'));
         this.editor.delegateEvents();
 
     },
 
-    remove: function () {
+    remove () {
 
-        this.$el.fadeOut(200, function () {
+        this.$el.fadeOut(200, () => {
 
             this.$el.remove();
 
-        }.bind(this));
+        });
 
     },
 
-    handleKeyDownEvent: function (e) {
+    handleKeyDownEvent (e) {
 
         if (e.metaKey && e.keyCode === 13) {
 
@@ -80,7 +82,7 @@ module.exports = Marionette.View.extend({
 
     },
 
-    handleEditMessage: function (e) {
+    handleEditMessage (e) {
 
         e.preventDefault();
 
@@ -90,7 +92,7 @@ module.exports = Marionette.View.extend({
 
     },
 
-    handleCancelEditMessage: function (e) {
+    handleCancelEditMessage (e) {
 
         e.preventDefault();
 
@@ -100,7 +102,7 @@ module.exports = Marionette.View.extend({
 
     },
 
-    handleDeleteMessage: function (e) {
+    handleDeleteMessage (e) {
 
         e.preventDefault();
 
@@ -112,13 +114,18 @@ module.exports = Marionette.View.extend({
 
     },
 
-    handleSaveMessage: function (e) {
+    handleSaveMessage (e) {
 
         e.preventDefault();
 
-        this.model.set(this.$el.find('input:visible, textarea:visible').serializeArray().reduce(function(prev, curr, index, data) {
+        const formInputs = this.$el.find('input:visible, textarea:visible');
+
+        this.model.set(formInputs.serializeArray().reduce((prev, curr) => {
+
             prev[curr.name] = curr.value;
+
             return prev;
+
         }, {}));
 
         this.template = this.config.templates.view;

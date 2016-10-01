@@ -5,38 +5,45 @@ const PostModel = require('./models/post');
 const PostCreateView = require('./views/post-create');
 const PostView = require('./views/post');
 
-var Router = Backbone.Router.extend({
+const Router = Backbone.Router.extend({
 
-    routes: {
-        'post/new/': 'postCreate',
-        'post/(:name/):id/': 'postEdit'
-    },
+    postCreate () {
 
-    postCreate: function (postName, postId) {
-
-        var view = new PostCreateView();
+        const view = new PostCreateView();
 
     },
 
-    postEdit: function (postName, postId) {
+    postEdit (postName, postId) {
 
-        var profile = new ProfileModel(),
-            model = new PostModel({ id: postId }),
-            view = new PostView({ model: model });
+        const profile = new ProfileModel();
+        const model = new PostModel({
+            'id': postId
+        });
+
+        const view = new PostView({
+            model
+        });
 
         $.when(
             profile.fetch(),
             model.fetch()
-        ).done(function () {
+        ).done(() => {
 
         });
 
+    },
+
+    'routes': {
+        'post/(:name/):id/': 'postEdit',
+        'post/new/': 'postCreate'
     }
 
 });
 
-var App = new Router();
+const App = new Router();
 
-Backbone.history.start({ pushState: true });
+Backbone.history.start({
+    'pushState': true
+});
 
 module.exports = App;

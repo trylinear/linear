@@ -6,7 +6,7 @@ module.exports = Marionette.View.extend({
 
     'el': '.page-content .inner-wrapper',
 
-    'initialize': function () {
+    initialize () {
 
         this.editor = new EditorView();
         this.editor.setElement(this.$el.find('.markdown-editor'));

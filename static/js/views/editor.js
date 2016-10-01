@@ -11,18 +11,16 @@ markdown.use(require('markdown-it-emoji'));
 
 module.exports = Marionette.View.extend({
 
-    events: {
+    'events': {
         'click a[href="#markdown-toggle"]': 'handleMarkdownToggle'
     },
 
-    template: Handlebars.partials.markdown_editor,
-
-    handleMarkdownToggle: function (e) {
+    handleMarkdownToggle (e) {
 
         e.preventDefault();
 
-        var $markdownContents = this.$el.find('.markdown-contents'),
-            $markdownPreview = this.$el.find('.markdown-preview');
+        const $markdownContents = this.$el.find('.markdown-contents');
+        const $markdownPreview = this.$el.find('.markdown-preview');
 
         $markdownPreview.html(markdown.render($markdownContents.val()));
 
@@ -31,13 +29,15 @@ module.exports = Marionette.View.extend({
 
     },
 
-    reset: function () {
+    reset () {
 
         this.render();
 
     },
 
-    value: function () {
+    'template': Handlebars.partials.markdown_editor,
+
+    value () {
 
         return this.$el.find('.markdown-contents').val();
 

@@ -4,9 +4,9 @@ const MessagesCollection = require('../collections/messages');
 
 module.exports = Backbone.Model.extend({
 
-    'initialize': function () {
+    initialize () {
 
-        this.on('sync', function () {
+        this.on('sync', () => {
 
             if (this.attributes.messages) {
 
@@ -15,7 +15,7 @@ module.exports = Backbone.Model.extend({
 
             }
 
-        }.bind(this));
+        });
 
     },
 

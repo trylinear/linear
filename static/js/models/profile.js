@@ -2,13 +2,13 @@ const Backbone = require('backbone');
 
 module.exports = Backbone.Model.extend({
 
-    'initialize': function () {
+    initialize () {
 
-        this.on('sync', function () {
+        this.on('sync', () => {
 
             sessionStorage.setItem('profileId', this.get('_id'));
 
-        }.bind(this));
+        });
 
         this.on('error', () => {
 
