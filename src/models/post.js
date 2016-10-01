@@ -565,11 +565,9 @@ postSchema.post('findOneAndUpdate', (doc, next) => {
 
         doc.save(next);
 
-    } else {
-
-        next();
-
     }
+
+    next();
 
 });
 
