@@ -20,7 +20,7 @@ const mongoose = require('mongoose');
 
 const defaultConfig = require('./config.json');
 
-const profileModel = require('./src/models/profile');
+const profileController = require('./src/controllers/profile');
 
 const latest = require('./src/utils/latest');
 const env = require('./src/utils/env');
@@ -77,13 +77,17 @@ module.exports = {
 
         passport.serializeUser((user, done) => {
 
-            done(null, user.id);
+            done(null, user._id);
 
         });
 
         passport.deserializeUser((id, done) => {
 
-            profileModel.findById(id, done);
+            profileController.show(id).then(profile => {
+
+                done(null, profile);
+
+            });
 
         });
 
