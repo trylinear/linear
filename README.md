@@ -17,7 +17,7 @@ $ npm install linear --save
 ## Quick Start
 
 ```javascript
-var linear = require('linear');
+const linear = require('linear');
 
 linear.startWithConfig({
     'site_name': 'Sample Forum'
