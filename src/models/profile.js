@@ -129,7 +129,6 @@ profileSchema.statics.showProfileById = function (profileId) {
     return new Promise((resolve, reject) => {
 
         this.findById(profileId)
-            .lean()
             .exec((findByIdError, profile) => {
 
                 if (findByIdError || !profile) {
@@ -164,7 +163,7 @@ profileSchema.statics.showProfileById = function (profileId) {
 
                             } else {
 
-                                resolve(Object.assign({}, profile, {posts}));
+                                resolve(Object.assign({}, profile.toJSON(), {posts}));
 
                             }
 
