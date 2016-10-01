@@ -19,4 +19,8 @@ build:
 coverage:
 	$(BIN)/istanbul cover $(BIN)/_mocha ./test/specs/**/*.js
 
+clean:
+	mongoimport -d linear -c posts --drop --file data/posts.json
+	mongoimport -d linear -c profiles --drop --file data/profiles.json
+
 .PHONY: test coverage

@@ -1,0 +1,22 @@
+{
+    "_id": {
+        "$oid": "57f01aaed197e986d8ad69e0"
+    },
+    "contents": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "createdBy": {
+        "$oid": "57f019d9d197e986d8ad69df"
+    },
+    "slug": "welcome-to-linear-a-simple-setup-micro-forum-built-in-node-js-with-express-and-mongodb",
+    "title": "Welcome to Linear, a simple setup micro-forum built in Node.js with Express and MongoDB.",
+    "views": 0,
+    "updatedAt": {
+        "$date": "2016-10-01T20:21:02.565Z"
+    },
+    "pinned": false,
+    "messages": [],
+    "messageCount": 0,
+    "createdAt": {
+        "$date": "2016-10-01T20:21:02.565Z"
+    },
+    "__v": 0
+}
