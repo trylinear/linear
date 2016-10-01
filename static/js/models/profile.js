@@ -1,23 +1,17 @@
-define(function (require) {
+const Backbone = require('backbone');
 
-    'use strict';
+module.exports = Backbone.Model.extend({
 
-    var Backbone = require('backbone');
+    'initialize': function () {
 
-    return Backbone.Model.extend({
+        this.on('sync', function () {
 
-        urlRoot: '/api/v1/profiles/auth',
+            sessionStorage.setItem('profileId', this.get('_id'));
 
-        initialize: function () {
+        }.bind(this));
 
-            this.on('sync', function () {
+    },
 
-                sessionStorage.setItem('profileId', this.get('_id'));
-
-            }.bind(this));
-
-        }
-
-    });
+    'urlRoot': '/api/v1/profiles/auth'
 
 });

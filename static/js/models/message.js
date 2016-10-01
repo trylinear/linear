@@ -1,9 +1,3 @@
-define(function (require) {
+const Backbone = require('backbone');
 
-    'use strict';
-
-    var Backbone = require('backbone');
-
-    return Backbone.Model.extend({});
-
-});
+module.exports = Backbone.Model.extend({});

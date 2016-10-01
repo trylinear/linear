@@ -1,13 +1,9 @@
-define(function () {
+const navigation = document.querySelector('.navigation');
 
-    var navigation = document.querySelector('.navigation');
+document.querySelector('.toggle-navigation a').addEventListener('click', e => {
 
-    document.querySelector('.toggle-navigation a').addEventListener('click', function (e) {
+    e.preventDefault();
 
-        e.preventDefault();
-
-        navigation.style.display = navigation.style.display ? '' : 'block';
-
-    });
+    navigation.style.display = navigation.style.display ? '' : 'block';
 
 });

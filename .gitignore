@@ -1,8 +1,10 @@
 node_modules/
 
-static/bower_components/
+coverage/
 static/css/styles.css
-static/templates/compiled.js
+static/js/main.min.js
+static/js/main.min.js.map
+static/templates/partials.js
+static/templates/views.js
 
 .env
-coverage.html

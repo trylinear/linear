@@ -1,15 +1,7 @@
-define(function (require) {
+const Backbone = require('backbone');
 
-    'use strict';
+const MessageModel = require('../models/message');
 
-    var Backbone = require('backbone');
-
-    var MessageModel = require('models/message');
-
-    return Backbone.Collection.extend({
-
-        model: MessageModel
-
-    });
-
+module.exports = Backbone.Collection.extend({
+    'model': MessageModel
 });

@@ -1,51 +1,46 @@
-define(function (require) {
+const Marionette = require('backbone.marionette');
+const Handlebars = require('handlebars');
 
-    'use strict';
+require('../../templates/helpers');
+require('../../templates/partials');
+require('../../templates/views');
 
-    var Marionette = require('marionette'),
-        Handlebars = require('handlebars'),
-        templates = require('templates');
+const markdown = require('markdown-it')();
 
-    var markdown = require('markdown-it')();
+markdown.use(require('markdown-it-emoji'));
 
-    markdown.use(require('markdown-it-emoji'));
+module.exports = Marionette.View.extend({
 
-    templates.partials = Handlebars.partials;
+    events: {
+        'click a[href="#markdown-toggle"]': 'handleMarkdownToggle'
+    },
 
-    return Marionette.ItemView.extend({
+    template: Handlebars.partials.markdown_editor,
 
-        events: {
-            'click a[href="#markdown-toggle"]': 'handleMarkdownToggle'
-        },
+    handleMarkdownToggle: function (e) {
 
-        template: templates.partials.markdown_editor,
+        e.preventDefault();
 
-        handleMarkdownToggle: function (e) {
+        var $markdownContents = this.$el.find('.markdown-contents'),
+            $markdownPreview = this.$el.find('.markdown-preview');
 
-            e.preventDefault();
+        $markdownPreview.html(markdown.render($markdownContents.val()));
 
-            var $markdownContents = this.$el.find('.markdown-contents'),
-                $markdownPreview = this.$el.find('.markdown-preview');
+        $markdownContents.toggle();
+        $markdownPreview.toggle();
 
-            $markdownPreview.html(markdown.render($markdownContents.val()));
+    },
 
-            $markdownContents.toggle();
-            $markdownPreview.toggle();
+    reset: function () {
 
-        },
+        this.render();
 
-        reset: function () {
+    },
 
-            this.render();
+    value: function () {
 
-        },
+        return this.$el.find('.markdown-contents').val();
 
-        value: function () {
-
-            return this.$el.find('.markdown-contents').val();
-
-        }
-
-    });
+    }
 
 });

@@ -1,74 +1,76 @@
-define(function (require) {
+const Handlebars = require('handlebars');
 
-    'use strict';
+const markdown = require('markdown-it')({
+    'html': true,
+    'linkify': true
+});
 
-    var Handlebars = require('handlebars');
+markdown.use(require('markdown-it-emoji'));
 
-    var locales = JSON.parse(require('text!/api/v1/locales'));
+const moment = require('moment');
+const numeral = require('numeral');
 
-    var markdown = require('markdown-it')({
-        html: true,
-        linkify: true
-    });
+let locales = {};
 
-    markdown.use(require('markdown-it-emoji'));
+fetch('/api/v1/locales')
+    .then(response => response.json())
+    .then(json => {
 
-    var moment = require('moment');
-    var numeral = require('numeral');
-
-    Handlebars.registerHelper('__', function (key) {
-
-        return locales[key] || key;
+        locales = json;
 
     });
 
-    Handlebars.registerHelper('displayNumber', function (num) {
+Handlebars.registerHelper('__', function (key) {
 
-        return numeral(num).format('0,0a');
+    return locales[key] || key;
 
-    });
+});
 
-    Handlebars.registerHelper('ifCond', function (a, b, options) {
+Handlebars.registerHelper('displayNumber', function (num) {
 
-        return a === b ? options.fn(this) : options.inverse(this);
+    return numeral(num).format('0,0a');
 
-    });
+});
 
-    Handlebars.registerHelper('limitOutput', function (value, limit) {
+Handlebars.registerHelper('ifCond', function (a, b, options) {
 
-        value = markdown.render(value).replace(/<.+?>/g, '');
+    return a === b ? options.fn(this) : options.inverse(this);
 
-        if (value.length > limit) {
+});
 
-            value = value.substring(0, limit);
-            value = value.substring(0, value.lastIndexOf(' ')) + ' …';
+Handlebars.registerHelper('limitOutput', function (value, limit) {
 
-        }
+    value = markdown.render(value).replace(/<.+?>/g, '');
 
-        return value;
+    if (value.length > limit) {
 
-    });
+        value = value.substring(0, limit);
+        value = value.substring(0, value.lastIndexOf(' ')) + ' …';
 
-    Handlebars.registerHelper('markdown', function (value) {
+    }
 
-        if (value) {
+    return value;
 
-            return markdown.render(value);
+});
 
-        }
+Handlebars.registerHelper('markdown', function (value) {
 
-    });
+    if (value) {
 
-    Handlebars.registerHelper('relativeTime', function (date) {
+        return markdown.render(value);
 
-        return moment(date).fromNow();
+    }
 
-    });
+});
 
-    Handlebars.registerHelper('titleCase', function (value) {
+Handlebars.registerHelper('relativeTime', function (date) {
 
-        return value.replace(/\b\w/g, function (letter) { return letter.toUpperCase(); });
+    return moment(date).fromNow();
 
-    });
+});
+
+Handlebars.registerHelper('titleCase', function (value) {
+
+    return value.replace(/\b\w/g, function (letter) { return letter.toUpperCase(); });
 
 });

@@ -1,35 +1,29 @@
-define(function (require) {
+const MessageView = require('./message');
 
-    'use strict';
+const MessageModel = require('../models/message');
 
-    var MessageView = require('./message');
+module.exports = MessageView.extend({
 
-    var MessageModel = require('../models/message');
+    handleSaveMessage: function (e) {
 
-    return MessageView.extend({
+        const model = new MessageModel();
 
-        handleSaveMessage: function (e) {
+        model.url = this.parentPost.model.url() + '/messages/';
 
-            var model = new MessageModel();
+        e.preventDefault();
 
-            model.url = this.parentPost.model.url() + '/messages/';
+        model.save({
+            contents: this.$el.find('.markdown-contents').val()
+        }).done(function (data) {
 
-            e.preventDefault();
+            model.url = this.parentPost.model.url() + '/messages/' + data._id;
 
-            model.save({
-                contents: this.$el.find('.markdown-contents').val()
-            }).done(function (data) {
+            this.parentPost.subview.collection.add(model);
 
-                model.url = this.parentPost.model.url() + '/messages/' + data._id;
+            this.editor.reset();
 
-                this.parentPost.subview.collection.add(model);
+        }.bind(this));
 
-                this.editor.reset();
-
-            }.bind(this));
-
-        }
-
-    });
+    }
 
 });

@@ -1,23 +1,17 @@
-define(function (require) {
+const Marionette = require('backbone.marionette');
 
-    'use strict';
+const EditorView = require('./editor');
 
-    var Marionette = require('marionette');
+module.exports = Marionette.View.extend({
 
-    var EditorView = require('./editor');
+    'el': '.page-content .inner-wrapper',
 
-    return Marionette.ItemView.extend({
+    'initialize': function () {
 
-        el: '.page-content .inner-wrapper',
+        this.editor = new EditorView();
+        this.editor.setElement(this.$el.find('.markdown-editor'));
+        this.editor.delegateEvents();
 
-        initialize: function () {
-
-            this.editor = new EditorView();
-            this.editor.setElement(this.$el.find('.markdown-editor'));
-            this.editor.delegateEvents();
-
-        }
-
-    });
+    }
 
 });

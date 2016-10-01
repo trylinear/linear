@@ -1,22 +1,22 @@
 BIN=node_modules/.bin
 
 test:
-	# make lint
 	./test/bin/locales
 	$(BIN)/mocha ./test/specs/**/*.js
 
 lint:
 	$(BIN)/eslint ./src
+	$(BIN)/eslint ./static
 	$(BIN)/eslint ./test
 	$(BIN)/eslint main.js
 
-coverage:
-	$(BIN)/jscover src src-cov
-	mv src src-old
-	mv src-cov src
-	$(BIN)/mocha ./test/specs/**/*.js -R html-cov > coverage.html || exit 0;
-	$(BIN)/mocha ./test/specs/**/*.js -R mocha-reporter-cov-summary || exit 0;
-	rm -rf src
-	mv src-old src
+build:
+	$(BIN)/handlebars src/views/ -f static/templates/views.js -e hbs -c handlebars
+	$(BIN)/handlebars src/views/partials/ -f static/templates/partials.js -p -e hbs -c handlebars
+	$(BIN)/spire-of-babel static/js/router.js --bundle --output static/js/main.min.js
+	$(BIN)/node-sass static/css/styles.scss static/css/styles.css
 
-.PHONY: test
+coverage:
+	$(BIN)/istanbul cover $(BIN)/_mocha ./test/specs/**/*.js
+
+.PHONY: test coverage

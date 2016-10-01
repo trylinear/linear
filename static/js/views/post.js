@@ -1,57 +1,52 @@
-define(function (require) {
+const Marionette = require('backbone.marionette');
+const Handlebars = require('handlebars');
 
-    'use strict';
+require('../../templates/helpers');
+require('../../templates/partials');
+require('../../templates/views');
 
-    var Marionette = require('marionette'),
-        Handlebars = require('handlebars'),
-        templates = require('templates');
+const MessageCreateView = require('./message-create');
+const MessagesView = require('./messages');
+const MessageView = require('./message');
 
-    templates.partials = Handlebars.partials;
+module.exports = Marionette.View.extend({
 
-    var MessageCreateView = require('views/message-create');
-    var MessagesView = require('views/messages');
-    var MessageView = require('views/message');
+    el: '.page-content .inner-wrapper',
 
-    return Marionette.ItemView.extend({
+    initialize: function () {
 
-        el: '.page-content .inner-wrapper',
+        var createMessage = new MessageCreateView({
+            el: this.$el.find('.message-create')
+        });
 
-        initialize: function () {
+        createMessage.parentPost = this;
 
-            var createMessage = new MessageCreateView({
-                el: this.$el.find('.message-create')
-            });
+        this.listenToOnce(this.model, 'sync', function () {
 
-            createMessage.parentPost = this;
-
-            this.listenToOnce(this.model, 'sync', function () {
-
-                var post = new MessageView({
-                    el: this.$el.find('.post-header'),
-                    model: this.model,
-                    templates: {
-                        view: templates.partials.post_header,
-                        edit: templates.partials.post_header_form
-                    }
-                });
-                post.render();
-
-                if (this.model.get('messages')) {
-
-                    this.$el.find('.messages').empty();
-
-                    this.subview = new MessagesView({
-                        el: this.$el.find('.messages'),
-                        collection: this.model.get('messages')
-                    });
-                    this.subview.render();
-
+            var post = new MessageView({
+                el: this.$el.find('.post-header'),
+                model: this.model,
+                templates: {
+                    view: Handlebars.partials.post_header,
+                    edit: Handlebars.partials.post_header_form
                 }
+            });
+            post.render();
 
-            }.bind(this));
+            if (this.model.get('messages')) {
 
-        }
+                this.$el.find('.messages').empty();
 
-    });
+                this.subview = new MessagesView({
+                    el: this.$el.find('.messages'),
+                    collection: this.model.get('messages')
+                });
+                this.subview.render();
+
+            }
+
+        }.bind(this));
+
+    }
 
 });

@@ -1,15 +1,7 @@
-define(function (require) {
+const Marionette = require('backbone.marionette');
 
-    'use strict';
+const MessageView = require('./message');
 
-    var Marionette = require('marionette');
-
-    var MessageView = require('views/message');
-
-    return Marionette.CollectionView.extend({
-
-        childView: MessageView
-
-    });
-
+module.exports = Marionette.CollectionView.extend({
+    'childView': MessageView
 });

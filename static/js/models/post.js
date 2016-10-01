@@ -1,30 +1,24 @@
-define(function (require) {
+const Backbone = require('backbone');
 
-    'use strict';
+const MessagesCollection = require('../collections/messages');
 
-    var Backbone = require('backbone');
+module.exports = Backbone.Model.extend({
 
-    var MessagesCollection = require('collections/messages');
+    'initialize': function () {
 
-    return Backbone.Model.extend({
+        this.on('sync', function () {
 
-        urlRoot: '/api/v1/posts/',
+            if (this.attributes.messages) {
 
-        initialize: function () {
+                this.attributes.messages = new MessagesCollection(this.attributes.messages);
+                this.attributes.messages.url = `/api/v1/posts/${this.get('id')}/messages/`;
 
-            this.on('sync', function () {
+            }
 
-                if (this.attributes.messages) {
+        }.bind(this));
 
-                    this.attributes.messages = new MessagesCollection(this.attributes.messages);
-                    this.attributes.messages.url = '/api/v1/posts/' + this.get('id') + '/messages/';
+    },
 
-                }
-
-            }.bind(this));
-
-        }
-
-    });
+    'urlRoot': '/api/v1/posts/'
 
 });

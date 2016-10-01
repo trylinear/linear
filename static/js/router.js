@@ -1,48 +1,42 @@
-define(function (require) {
+const $ = require('jquery');
+const Backbone = require('backbone');
+const ProfileModel = require('./models/profile');
+const PostModel = require('./models/post');
+const PostCreateView = require('./views/post-create');
+const PostView = require('./views/post');
 
-    'use strict';
+var Router = Backbone.Router.extend({
 
-    var $ = require('jquery'),
-        Backbone = require('backbone'),
-        ProfileModel = require('./models/profile'),
-        PostModel = require('./models/post'),
-        PostCreateView = require('./views/post-create'),
-        PostView = require('./views/post');
+    routes: {
+        'post/new/': 'postCreate',
+        'post/(:name/):id/': 'postEdit'
+    },
 
-    var Router = Backbone.Router.extend({
+    postCreate: function (postName, postId) {
 
-        routes: {
-            'post/new/': 'postCreate',
-            'post/(:name/):id/': 'postEdit'
-        },
+        var view = new PostCreateView();
 
-        postCreate: function (postName, postId) {
+    },
 
-            var view = new PostCreateView();
+    postEdit: function (postName, postId) {
 
-        },
+        var profile = new ProfileModel(),
+            model = new PostModel({ id: postId }),
+            view = new PostView({ model: model });
 
-        postEdit: function (postName, postId) {
+        $.when(
+            profile.fetch(),
+            model.fetch()
+        ).done(function () {
 
-            var profile = new ProfileModel(),
-                model = new PostModel({ id: postId }),
-                view = new PostView({ model: model });
+        });
 
-            $.when(
-                profile.fetch(),
-                model.fetch()
-            ).done(function () {
-
-            });
-
-        }
-
-    });
-
-    var App = new Router();
-
-    Backbone.history.start({ pushState: true });
-
-    return App;
+    }
 
 });
+
+var App = new Router();
+
+Backbone.history.start({ pushState: true });
+
+module.exports = App;
