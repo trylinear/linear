@@ -12,6 +12,12 @@ module.exports = {
 
         return profileModel.showProfileById(profileId);
 
+    },
+
+    update (profileId, data) {
+
+        return profileModel.updateProfileById(profileId, data);
+
     }
 
 };
