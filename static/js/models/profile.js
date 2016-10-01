@@ -10,6 +10,12 @@ module.exports = Backbone.Model.extend({
 
         }.bind(this));
 
+        this.on('error', () => {
+
+            sessionStorage.removeItem('profileId');
+
+        });
+
     },
 
     'urlRoot': '/api/v1/profiles/auth'
