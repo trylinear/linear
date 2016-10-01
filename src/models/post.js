@@ -309,10 +309,8 @@ postSchema.statics.deleteMessageFromPostById = function (postId, messageId, prof
             {
                 '$pull': {
                     'messages': {
-                        '$elemMatch': {
-                            '_id': messageId,
-                            'createdBy': profileId
-                        }
+                        '_id': messageId,
+                        'createdBy': profileId
                     }
                 },
                 '$set': {
