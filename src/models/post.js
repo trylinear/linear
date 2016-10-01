@@ -114,7 +114,7 @@ postSchema.statics.updatePostById = function (postId, data, profileId) {
 
                 if (execError || !post) {
 
-                    logger.err('Error updating exiting post.', execError, data);
+                    logger.err('Error updating existing post.', execError, data);
 
                     reject({
                         'message': 'Internal Server Error',
@@ -141,7 +141,7 @@ postSchema.statics.updatePostById = function (postId, data, profileId) {
 
                         if (saveError || !results) {
 
-                            logger.err('Error updating exiting post.', saveError, data);
+                            logger.err('Error updating existing post.', saveError, data);
 
                             reject({
                                 'message': 'Internal Server Error',
@@ -190,7 +190,7 @@ postSchema.statics.addMessageToPostById = function (postId, data, profileId) {
 
                 if (updateError || !results) {
 
-                    logger.err('Error updating exiting message.', updateError, data);
+                    logger.err('Error updating existing message.', updateError, data);
 
                     reject({
                         'message': 'Internal Server Error',
@@ -239,7 +239,7 @@ postSchema.statics.updateMessageToPostById = function (postId, messageId, data, 
 
                 if (updateError || !results) {
 
-                    logger.err('Error updating exiting message.', updateError, data);
+                    logger.err('Error updating existing message.', updateError, data);
 
                     reject({
                         'message': 'Internal Server Error',
@@ -272,7 +272,7 @@ postSchema.statics.deletePostById = function (postId, profileId) {
 
                 if (removeError || !post) {
 
-                    logger.err('Error deleting exiting post.', removeError);
+                    logger.err('Error deleting existing post.', removeError);
 
                     reject({
                         'message': 'Internal Server Error',
@@ -327,7 +327,7 @@ postSchema.statics.deleteMessageFromPostById = function (postId, messageId, prof
 
                 if (updateError || !results) {
 
-                    logger.err('Error deleting exiting message.', updateError);
+                    logger.err('Error deleting existing message.', updateError);
 
                     reject({
                         'message': 'Internal Server Error',
