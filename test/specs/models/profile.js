@@ -3,6 +3,7 @@ const expect = require('chai').expect;
 const mongoose = require('mongoose');
 
 const profileModel = require('../../../src/models/profile');
+const profileController = require('../../../src/controllers/profile');
 
 describe('profile model', () => {
 
@@ -28,7 +29,7 @@ describe('profile model', () => {
 
     it('should create profile', done => {
 
-        profileModel.createProfile('twitter', {
+        profileController.create('twitter', {
             'avatar': 'https://pbs.twimg.com/profile_images/521442109727838209/IyeKD7Rx_bigger.jpeg',
             'id': '12603',
             'name': 'neogeek'
@@ -47,7 +48,7 @@ describe('profile model', () => {
 
     it('should error when trying to create profile without a name', done => {
 
-        profileModel.createProfile('twitter', {
+        profileController.create('twitter', {
             'avatar': '',
             'id': '',
             'name': ''
@@ -63,7 +64,7 @@ describe('profile model', () => {
 
     it('should update profile', done => {
 
-        profileModel.updateProfileById(profileId, {
+        profileController.update(profileId, {
             'locale': 'pt-br'
         }).then(profile => {
 
@@ -82,7 +83,7 @@ describe('profile model', () => {
 
     it('should error when trying to update profile with invalid profileId', done => {
 
-        profileModel.updateProfileById(mongoose.Types.ObjectId(), {
+        profileController.update(mongoose.Types.ObjectId(), {
             'locale': 'en-us'
         }).catch(err => {
 
@@ -96,7 +97,7 @@ describe('profile model', () => {
 
     it('should show profile', done => {
 
-        profileModel.showProfileById(profileId).then(profile => {
+        profileController.show(profileId).then(profile => {
 
             expect(profile).to.have.property('_id');
             expect(profile._id.equals(profileId)).to.equal(true);
@@ -111,7 +112,7 @@ describe('profile model', () => {
 
     it('should error on invalid profileId', done => {
 
-        profileModel.showProfileById('invalid').catch(err => {
+        profileController.show('invalid').catch(err => {
 
             expect(err.status).to.equal(404);
 
