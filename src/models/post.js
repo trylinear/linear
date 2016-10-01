@@ -199,7 +199,7 @@ postSchema.statics.addMessageToPostById = function (postId, data, profileId) {
 
                 } else {
 
-                    resolve(this.showMessageById(postId, results.messages[results.messages.length - 1]._id));
+                    resolve(this.showMessageById(postId, results.messages.slice(-1)[0]._id));
 
                 }
 
