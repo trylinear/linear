@@ -318,11 +318,28 @@ describe('post controller', () => {
 
     it('should be able to delete messages in a post by postId and messageId', done => {
 
-        messageController.delete(postId, messageId, profileId).then(messages => {
+        messageController.create(postId, {
+            'contents': 'test2'
+        }, profileId).then(message => {
 
-            expect(messages).to.have.length(0);
+            messageController.list(postId).then(beforeMessages => {
 
-            done();
+                messageController.delete(postId, message.id, profileId).then(() => {
+
+                    messageController.list(postId).then(afterMessages => {
+
+                        console.log(beforeMessages.length);
+                        console.log(afterMessages.length);
+
+                        expect(beforeMessages.length - 1).to.equal(afterMessages.length);
+
+                    });
+
+                    done();
+
+                });
+
+            });
 
         });
 

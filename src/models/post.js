@@ -336,7 +336,7 @@ postSchema.statics.deleteMessageFromPostById = function (postId, messageId, prof
 
                 } else {
 
-                    resolve([]);
+                    resolve({});
 
                 }
 
