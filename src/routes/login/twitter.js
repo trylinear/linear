@@ -3,7 +3,9 @@ const profileController = require('../../controllers/profile');
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
 
-if (process.env.TWITTER_CONSUMER_KEY && process.env.TWITTER_CONSUMER_SECRET && process.env.TWITTER_CALLBACK) {
+if (process.env.TWITTER_CONSUMER_KEY &&
+    process.env.TWITTER_CONSUMER_SECRET &&
+    process.env.TWITTER_CALLBACK) {
 
     passport.use(new TwitterStrategy({
         'callbackURL': process.env.TWITTER_CALLBACK,

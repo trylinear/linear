@@ -5,7 +5,9 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const AVATAR_DIMENSION = 200;
 
-if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && process.env.GOOGLE_CALLBACK) {
+if (process.env.GOOGLE_CLIENT_ID &&
+    process.env.GOOGLE_CLIENT_SECRET &&
+    process.env.GOOGLE_CALLBACK) {
 
     passport.use(new GoogleStrategy({
         'callbackURL': process.env.GOOGLE_CALLBACK,

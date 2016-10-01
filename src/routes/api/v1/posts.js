@@ -45,7 +45,11 @@ module.exports = router => {
 
     router.put('/:postId', requireLogin, (req, res) => {
 
-        postController.update(req.params.postId, req.body, req.user.id).then(post => {
+        postController.update(
+            req.params.postId,
+            req.body,
+            req.user.id
+        ).then(post => {
 
             res.json(post);
 
@@ -102,7 +106,11 @@ module.exports = router => {
 
     router.post('/:postId/messages', requireLogin, (req, res) => {
 
-        messageController.create(req.params.postId, req.body, req.user.id).then(message => {
+        messageController.create(
+            req.params.postId,
+            req.body,
+            req.user.id
+        ).then(message => {
 
             res.json(message);
 
@@ -121,7 +129,10 @@ module.exports = router => {
 
     router.get('/:postId/messages/:messageId', (req, res) => {
 
-        messageController.show(req.params.postId, req.params.messageId).then(message => {
+        messageController.show(
+            req.params.postId,
+            req.params.messageId
+        ).then(message => {
 
             res.json(message);
 
@@ -140,7 +151,12 @@ module.exports = router => {
 
     router.put('/:postId/messages/:messageId', (req, res) => {
 
-        messageController.update(req.params.postId, req.params.messageId, req.body, req.user.id).then(message => {
+        messageController.update(
+            req.params.postId,
+            req.params.messageId,
+            req.body,
+            req.user.id
+        ).then(message => {
 
             res.json(message);
 
@@ -159,7 +175,11 @@ module.exports = router => {
 
     router.delete('/:postId/messages/:messageId', (req, res) => {
 
-        messageController.delete(req.params.postId, req.params.messageId, req.user.id).then(message => {
+        messageController.delete(
+            req.params.postId,
+            req.params.messageId,
+            req.user.id
+        ).then(message => {
 
             res.json(message);
 

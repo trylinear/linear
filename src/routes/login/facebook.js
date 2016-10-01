@@ -3,7 +3,9 @@ const profileController = require('../../controllers/profile');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 
-if (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET && process.env.FACEBOOK_CALLBACK) {
+if (process.env.FACEBOOK_CLIENT_ID &&
+    process.env.FACEBOOK_CLIENT_SECRET &&
+    process.env.FACEBOOK_CALLBACK) {
 
     passport.use(new FacebookStrategy({
         'callbackURL': process.env.FACEBOOK_CALLBACK,
