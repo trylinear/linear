@@ -3,6 +3,8 @@
 
 const mongoose = require('mongoose');
 
+mongoose.Promise = global.Promise;
+
 const logger = require('../utils/logger');
 
 const messageSchema = new mongoose.Schema({

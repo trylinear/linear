@@ -4,6 +4,8 @@
 const mongoose = require('mongoose');
 const findOrCreate = require('mongoose-findorcreate');
 
+mongoose.Promise = global.Promise;
+
 const postModel = require('../models/post');
 
 const logger = require('../utils/logger');
