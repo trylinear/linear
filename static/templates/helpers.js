@@ -24,9 +24,15 @@ Handlebars.registerHelper('__', key => locales[key] || key);
 
 Handlebars.registerHelper('displayNumber', num => numeral(num).format('0,0a'));
 
-Handlebars.registerHelper('ifCond', function (a, b, options) {
+Handlebars.registerHelper('ifCond', function ifCond (a, b, options) {
 
-    return a === b ? options.fn(this) : options.inverse(this);
+    if (a === b) {
+
+        return options.fn(this);
+
+    }
+
+    return options.inverse(this);
 
 });
 
