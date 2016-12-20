@@ -1,9 +1,11 @@
-const navigation = document.querySelector('.navigation');
+const $ = require('jquery');
 
-document.querySelector('.toggle-navigation a').addEventListener('click', e => {
+const $navigation = $('.navigation');
+
+$('.toggle-navigation a').on('click', e => {
 
     e.preventDefault();
 
-    navigation.style.display = navigation.style.display ? '' : 'block';
+    $navigation.toggle();
 
 });

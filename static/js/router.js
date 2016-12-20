@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: 0 */
+
 const $ = require('jquery');
 const Backbone = require('backbone');
 const ProfileModel = require('./models/profile');
@@ -29,6 +31,8 @@ const Router = Backbone.Router.extend({
             profile.fetch(),
             model.fetch()
         ).done(() => {
+
+            // Started router
 
         });
 

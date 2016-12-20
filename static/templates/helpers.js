@@ -1,3 +1,5 @@
+/* eslint no-invalid-this: 0 */
+
 const Handlebars = require('handlebars');
 
 const markdown = require('markdown-it')({

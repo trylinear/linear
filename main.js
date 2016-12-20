@@ -1,3 +1,7 @@
+/* eslint max-statements: 0 */
+/* eslint no-param-reassign: 0 */
+/* eslint no-unused-vars: 0 */
+
 const express = require('express');
 
 const session = require('express-session');

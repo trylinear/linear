@@ -1,3 +1,5 @@
+/* eslint no-alert: 0 */
+
 const Marionette = require('backbone.marionette');
 const Handlebars = require('handlebars');
 
@@ -6,6 +8,9 @@ require('../../templates/partials');
 require('../../templates/views');
 
 const EditorView = require('./editor');
+
+const FADE_OUT_DURATION = 200;
+const KEY_CODE_ENTER_KEY = 13;
 
 window.Handlebars = Handlebars;
 
@@ -60,7 +65,7 @@ module.exports = Marionette.View.extend({
 
     remove () {
 
-        this.$el.fadeOut(200, () => {
+        this.$el.fadeOut(FADE_OUT_DURATION, () => {
 
             this.$el.remove();
 
@@ -70,7 +75,7 @@ module.exports = Marionette.View.extend({
 
     handleKeyDownEvent (e) {
 
-        if (e.metaKey && e.keyCode === 13) {
+        if (e.metaKey && e.keyCode === KEY_CODE_ENTER_KEY) {
 
             e.preventDefault();
 
@@ -79,6 +84,8 @@ module.exports = Marionette.View.extend({
             return false;
 
         }
+
+        return true;
 
     },
 
