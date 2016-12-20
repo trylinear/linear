@@ -34,8 +34,8 @@ const Router = Backbone.Router.extend({
     },
 
     'routes': {
-        'post/(:name/):id/': 'postEdit',
-        'post/new/': 'postCreate'
+        'post/new/': 'postCreate',
+        'post/(:name/):id/': 'postEdit'
     }
 
 });
