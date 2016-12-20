@@ -77,7 +77,7 @@ postSchema.statics.createPost = function (data, profileId) {
             'createdBy': profileId,
             'slug': data.title.toLowerCase()
                 .replace(/[^a-z]+/g, '-')
-                .replace(/^\-|\-$/g, ''),
+                .replace(/^-|-$/g, ''),
             'title': data.title
         });
 
