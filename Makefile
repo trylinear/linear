@@ -1,7 +1,7 @@
 BIN=node_modules/.bin
 
 test:
-	. test/bin/locales
+	# . test/bin/locales
 	$(BIN)/mocha 'test/specs/**/*.js'
 
 lint:
