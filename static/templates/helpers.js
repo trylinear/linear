@@ -32,12 +32,18 @@ Handlebars.registerHelper('ifCond', function (a, b, options) {
 
 Handlebars.registerHelper('limitOutput', (value, limit) => {
 
-    let newValue = markdown.render(value).replace(/<.+?>/g, '');
+    if (value) {
 
-    if (newValue.length > limit) {
+        let modifiedValue = markdown.render(value).replace(/<.+?>/g, '');
 
-        newValue = newValue.substring(0, limit);
-        newValue = `${newValue.substring(0, newValue.lastIndexOf(' '))} …`;
+        if (value.length > limit) {
+
+            modifiedValue = modifiedValue.substring(0, limit);
+            modifiedValue = `${modifiedValue.substring(0, modifiedValue.lastIndexOf(' '))} …`;
+
+        }
+
+        return modifiedValue;
 
     }
 
@@ -49,15 +55,26 @@ Handlebars.registerHelper('markdown', value => {
 
     if (value) {
 
-        return markdown.render(value);
+        return sanitizeHtml(markdown.render(value), {
+            'allowedTags': sanitizeHtml.defaults.allowedTags.concat(['img'])
+        });
 
     }
 
-    return null;
+    return false;
 
 });
 
 Handlebars.registerHelper('relativeTime', date => moment(date).fromNow());
 
-Handlebars.registerHelper('titleCase', value =>
-    value.replace(/\b\w/g, letter => letter.toUpperCase()));
+Handlebars.registerHelper('titleCase', value => {
+
+    if (value) {
+
+        return value.replace(/\b\w/g, letter => letter.toUpperCase());
+
+    }
+
+    return false;
+
+});

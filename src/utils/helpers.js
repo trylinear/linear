@@ -14,17 +14,9 @@ module.exports = Handlebars => {
 
     Handlebars.registerHelper('displayNumber', num => numeral(num).format('0,0a'));
 
-    Handlebars.registerHelper('ifCond', (a, b, options) => {
+    Handlebars.registerHelper('ifCond', function (a, b, options) {
 
-        if (a === b) {
-
-            options.fn();
-
-        } else {
-
-            options.inverse();
-
-        }
+        return a === b ? options.fn(this) : options.inverse(this);
 
     });
 
