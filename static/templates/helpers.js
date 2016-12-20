@@ -61,9 +61,7 @@ Handlebars.registerHelper('markdown', value => {
 
     if (value) {
 
-        return sanitizeHtml(markdown.render(value), {
-            'allowedTags': sanitizeHtml.defaults.allowedTags.concat(['img'])
-        });
+        return markdown.render(value);
 
     }
 
