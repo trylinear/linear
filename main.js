@@ -120,7 +120,7 @@ module.exports = {
 
             if (req.user) {
 
-                res.setLocale(req.user.locale);
+                req.setLocale(req.user.locale);
 
             }
 
