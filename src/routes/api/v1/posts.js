@@ -68,7 +68,10 @@ module.exports = router => {
 
     router.delete('/:postId', (req, res) => {
 
-        postController.delete(req.params.postId).then(post => {
+        postController.delete(
+            req.params.postId,
+            req.user.id
+        ).then(post => {
 
             res.json(post);
 
