@@ -11,6 +11,7 @@ form {
         input,
         textarea,
         select {
+            position: relative;
             margin: 1em 0;
             padding: .5em;
             font-family: inherit;
