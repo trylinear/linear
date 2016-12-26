@@ -115,7 +115,19 @@ module.exports = Marionette.View.extend({
 
         if (window.confirm('Are you sure you want to delete this message?')) {
 
-            this.model.destroy();
+            const isPost = Boolean(this.model.get('views'));
+
+            this.model.destroy({
+                success () {
+
+                    if (isPost) {
+
+                        window.location.href = window.location.href.replace(/\/post\/.+$/, '');
+
+                    }
+
+                }
+            });
 
         }
 
