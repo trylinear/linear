@@ -1,22 +1,43 @@
 {
     "_id": {
-        "$oid": "57f01aaed197e986d8ad69e0"
+        "$oid": "5861a446387acf12699754e8"
     },
-    "contents": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "contents": "Linear is a simple setup micro-forum built in Node.js with Express and MongoDB. This site is for questions, comments or suggestions about Linear. If you are having issues installing Linear on your server be sure to checkout the wiki at https://github.com/trylinear/linear/wiki.\\n\\nPlease report any issues on the GitHub repo at https://github.com/trylinear/linear/issues.",
     "createdBy": {
         "$oid": "57f019d9d197e986d8ad69df"
     },
-    "slug": "welcome-to-linear-a-simple-setup-micro-forum-built-in-node-js-with-express-and-mongodb",
-    "title": "Welcome to Linear, a simple setup micro-forum built in Node.js with Express and MongoDB.",
-    "views": 0,
+    "slug": "welcome-to-trylinear-com",
+    "title": "Welcome to trylinear.com!",
+    "views": 3,
     "updatedAt": {
-        "$date": "2016-10-01T20:21:02.565Z"
+        "$date": "2016-12-26T23:14:14.310Z"
     },
     "pinned": false,
     "messages": [],
     "messageCount": 0,
     "createdAt": {
-        "$date": "2016-10-01T20:21:02.565Z"
+        "$date": "2016-12-26T23:14:14.310Z"
+    },
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "5861a456387acf12699754e9"
+    },
+    "contents": "Installing Linear is the first step for getting your own forum up and running, the next is to allow your users to be able to login. Linear doesn't support username/password type login as adding an additional user account for people to remember and storing passwords in a database are not part of Linear's goals as an easy to install/use forum.\\n\\nTo setup Twitter/Facebook logins checkout https://github.com/trylinear/linear/wiki/Social-Setup.",
+    "createdBy": {
+        "$oid": "57f019d9d197e986d8ad69df"
+    },
+    "slug": "setting-up-twitter-facebook-login",
+    "title": "Setting up Twitter/Facebook Login",
+    "views": 3,
+    "updatedAt": {
+        "$date": "2016-12-26T23:14:30.332Z"
+    },
+    "pinned": false,
+    "messages": [],
+    "messageCount": 0,
+    "createdAt": {
+        "$date": "2016-12-26T23:14:30.332Z"
     },
     "__v": 0
 }
