@@ -2,13 +2,13 @@
     "_id": {
         "$oid": "5861a446387acf12699754e8"
     },
-    "contents": "Linear is a simple setup micro-forum built in Node.js with Express and MongoDB. This site is for questions, comments or suggestions about Linear. If you are having issues installing Linear on your server be sure to checkout the wiki at https://github.com/trylinear/linear/wiki.\\n\\nPlease report any issues on the GitHub repo at https://github.com/trylinear/linear/issues.",
+    "contents": "Linear is a simple setup micro-forum built in Node.js with Express and MongoDB. This site is for questions, comments or suggestions about Linear. If you are having issues installing Linear on your server be sure to checkout the wiki at https://github.com/trylinear/linear/wiki.\n\nPlease report any issues on the GitHub repo at https://github.com/trylinear/linear/issues.",
     "createdBy": {
         "$oid": "57f019d9d197e986d8ad69df"
     },
     "slug": "welcome-to-trylinear-com",
     "title": "Welcome to trylinear.com!",
-    "views": 3,
+    "views": 0,
     "updatedAt": {
         "$date": "2016-12-26T23:14:14.310Z"
     },
@@ -23,13 +23,13 @@
     "_id": {
         "$oid": "5861a456387acf12699754e9"
     },
-    "contents": "Installing Linear is the first step for getting your own forum up and running, the next is to allow your users to be able to login. Linear doesn't support username/password type login as adding an additional user account for people to remember and storing passwords in a database are not part of Linear's goals as an easy to install/use forum.\\n\\nTo setup Twitter/Facebook logins checkout https://github.com/trylinear/linear/wiki/Social-Setup.",
+    "contents": "Installing Linear is the first step for getting your own forum up and running, the next is to allow your users to be able to login. Linear doesn't support username/password type login as adding an additional user account for people to remember and storing passwords in a database are not part of Linear's goals as an easy to install/use forum.\n\nTo setup Twitter/Facebook logins checkout https://github.com/trylinear/linear/wiki/Social-Setup.",
     "createdBy": {
         "$oid": "57f019d9d197e986d8ad69df"
     },
     "slug": "setting-up-twitter-facebook-login",
     "title": "Setting up Twitter/Facebook Login",
-    "views": 3,
+    "views": 0,
     "updatedAt": {
         "$date": "2016-12-26T23:14:30.332Z"
     },
