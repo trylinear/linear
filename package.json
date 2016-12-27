@@ -35,7 +35,8 @@
     "passport-google-oauth": "1.0.0",
     "passport-twitter": "1.0.4",
     "sanitize-html": "1.13.0",
-    "spire-of-babel": "1.1.18"
+    "spire-of-babel": "1.1.18",
+    "whatwg-fetch": "2.0.1"
   },
   "devDependencies": {
     "@neogeek/eslint-config-standards": "1.10.0",

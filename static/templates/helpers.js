@@ -1,5 +1,7 @@
 /* eslint no-invalid-this: 0 */
 
+require('whatwg-fetch');
+
 const Handlebars = require('handlebars');
 
 const markdown = require('markdown-it')({
