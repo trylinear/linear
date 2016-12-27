@@ -15,7 +15,7 @@ module.exports = router => {
 
     router.post('/', requireLogin, (req, res, next) => {
 
-        settingsController.update(req.body, req.user.id).then(() => {
+        settingsController.update(req.user.id, req.body).then(() => {
 
             res.redirect('/settings/');
 
