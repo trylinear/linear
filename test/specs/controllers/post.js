@@ -9,9 +9,10 @@ const searchController = require('../../../src/controllers/search');
 
 describe('post controller', () => {
 
+    const profileId = mongoose.Types.ObjectId();
+
     let postId = null;
     let messageId = null;
-    const profileId = mongoose.Types.ObjectId();
 
     before(done => {
 
@@ -109,7 +110,7 @@ describe('post controller', () => {
 
     it('should error on invalid postId', done => {
 
-        postController.show('invalid').catch(err => {
+        postController.show(mongoose.Types.ObjectId()).catch(err => {
 
             expect(err.status).to.equal(404);
 
@@ -170,7 +171,7 @@ describe('post controller', () => {
 
     it('should error on invalid postId for message list', done => {
 
-        messageController.list('invalid').catch(err => {
+        messageController.list(mongoose.Types.ObjectId()).catch(err => {
 
             expect(err.status).to.equal(404);
 
@@ -347,9 +348,7 @@ describe('post controller', () => {
 
     it('should error when trying to delete messages in a post by invalid postId', done => {
 
-        messageController.delete(mongoose.Types.ObjectId(), messageId, {
-            'contents': 'test'
-        }, profileId).catch(err => {
+        messageController.delete(mongoose.Types.ObjectId(), messageId, profileId).catch(err => {
 
             expect(err.status).to.equal(500);
 
@@ -361,9 +360,7 @@ describe('post controller', () => {
 
     it('should error when trying to delete messages in a post by invalid messageId', done => {
 
-        messageController.delete(postId, mongoose.Types.ObjectId(), {
-            'contents': 'test'
-        }, profileId).catch(err => {
+        messageController.delete(postId, mongoose.Types.ObjectId(), profileId).catch(err => {
 
             expect(err.status).to.equal(500);
 
