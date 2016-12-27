@@ -1,4 +1,7 @@
 coverage/
+
 test/
+
 .travis.yml
+
 Makefile
