@@ -48,7 +48,7 @@
   },
   "scripts": {
     "postinstall": "npm run build",
-    "test": "make test",
+    "test": "make lint && make coverage",
     "build": "npm run build:css && npm run build:handlebars && npm run build:javascript",
     "build:css": "node-sass static/css/styles.scss static/css/styles.css",
     "build:handlebars": "handlebars src/views/ -f static/templates/views.js -e hbs -c handlebars && handlebars src/views/partials/ -f static/templates/partials.js -p -e hbs -c handlebars",
