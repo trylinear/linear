@@ -560,11 +560,11 @@ postSchema.post('findOneAndUpdate', (doc, next) => {
 
         doc.messageCount = doc.messages.length;
 
-        doc.save(next);
+        return doc.save(next);
 
     }
 
-    next();
+    return next();
 
 });
 
