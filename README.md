@@ -1,12 +1,12 @@
+# linear
+
+> A simple setup micro-forum built in Node.js with Express and MongoDB.
+
 [![Build Status](https://travis-ci.org/trylinear/linear.svg)](https://travis-ci.org/trylinear/linear)
 [![Code Climate](https://codeclimate.com/github/trylinear/linear/badges/gpa.svg)](https://codeclimate.com/github/trylinear/linear)
 [![Dependency Status](https://david-dm.org/trylinear/linear.svg?style=flat)](https://david-dm.org/trylinear/linear/)
 [![devDependency Status](https://david-dm.org/trylinear/linear/dev-status.svg?style=flat)](https://david-dm.org/trylinear/linear/#info=devDependencies)
 [![NPM Version](http://img.shields.io/npm/v/linear.svg?style=flat)](https://www.npmjs.org/package/linear/)
-
-# linear
-
-> A simple setup micro-forum built in Node.js with Express and MongoDB.
 
 ## Install
 
@@ -36,7 +36,7 @@ Name used in both `header` and `title` tags throughout the site.
 ### directories
 
 Type: `Object`  
-Default: `{ 'static': './static' }`
+Default: `{'static': './static'}`
 
 Directories used to overwrite the assets included with linear.
 
