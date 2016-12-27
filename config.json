@@ -1,8 +1,7 @@
 {
     "site_name": "Sample Forum",
     "languages": {
-        "en-us": "English",
-        "pt-br": "Português - Portuguese"
+        "en-us": "English"
     },
     "directories": {
         "static": "./static"

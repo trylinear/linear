@@ -1,5 +1,13 @@
 node_modules/
 
+coverage/
+
 static/css/styles.css
+
+static/js/main.min.js
+static/js/main.min.js.map
+
+static/templates/partials.js
+static/templates/views.js
 
 .env

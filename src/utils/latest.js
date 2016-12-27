@@ -1,40 +1,48 @@
-var cacheManager = require('cache-manager');
-var memoryCache = cacheManager.caching({ store: 'memory', max: 100, ttl: 60 * 60 * 12 });
+const cacheManager = require('cache-manager');
+const memoryCache = cacheManager.caching({
+    'max': 100,
+    'store': 'memory',
+    'ttl': 43200
+});
 
-var latestVersion = require('latest-version');
+const latestVersion = require('latest-version');
 
-var logger = require('./logger');
+const logger = require('./logger');
 
-var pkg = require('../../package.json');
+const pkg = require('../../package.json');
 
-var latest;
+module.exports = () => {
 
-module.exports = function () {
+    let version = null;
 
-    memoryCache.get('package-version', function (err, version) {
+    memoryCache.get('package-version', (err, cachedVersion) => {
 
-        if (!version) {
+        if (!cachedVersion) {
 
             logger.info('Checking for new version of linear.');
 
-            latestVersion('linear', function (err, version) {
+            latestVersion('linear').then(currentVersion => {
 
-                memoryCache.set('package-version', version);
+                memoryCache.set('package-version', currentVersion);
 
-                if (version !== pkg.version) {
+                if (currentVersion !== pkg.version) {
 
-                    logger.info('New version (' + version + ') found!');
+                    logger.info(`New version (${currentVersion}) found!`);
 
-                    latest = version;
+                    version = currentVersion;
 
                 }
 
             });
 
+        } else if (err) {
+
+            throw new Error(err);
+
         }
 
     });
 
-    return latest;
+    return version;
 
 };

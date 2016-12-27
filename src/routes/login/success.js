@@ -1,8 +1,8 @@
-module.exports = function (router) {
+module.exports = router => {
 
-    router.get('/', function (req, res) {
+    router.get('/', (req, res) => {
 
-        var referer = req.session.referer || '/';
+        const referer = req.session.referer || '/';
 
         req.session.referer = null;
 

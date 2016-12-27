@@ -1,8 +1,8 @@
-var postModel = require('../models/post');
+const postModel = require('../models/post');
 
 module.exports = {
 
-    show: function (query) {
+    show (query) {
 
         return postModel.searchPosts(query);
 

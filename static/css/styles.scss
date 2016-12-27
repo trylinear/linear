@@ -1,16 +1,15 @@
-@import "fonts";
-@import "variables";
-@import "form";
+@import 'fonts';
+@import 'mixins';
+@import 'variables';
+@import 'form';
 
 * {
     margin: 0; padding: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    @include prefix('box-sizing', 'border-box');
 }
 
 body {
-    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-family: system, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Arial', sans-serif;
     font-size: 1em;
     line-height: 1.3em;
     color: #333;
@@ -29,7 +28,7 @@ h1 {
 p,
 ul,
 ol {
-    margin: 1em 0;
+    margin: 0 0 1em 0;
 }
 
 ul,
@@ -49,24 +48,16 @@ ol {
 .page-footer {
 
     .inner-wrapper {
-
         margin: 0 auto;
         padding: 1em;
-
-        @media screen and (min-width: 56.250em) {
-
-            & {
-                max-width: 56.250em;
-            }
-
-        }
-
+        max-width: 56.250em;
     }
 
 }
 
 .page-header {
 
+    position: relative;
     color: #fff;
     background-color: $theme-color;
 
@@ -76,22 +67,64 @@ ol {
     }
 
     .inner-wrapper {
-        display: flex;
-        display: -webkit-flex;
+        @include prefix-value('display', 'flex');
+        @include prefix('align-items', 'center');
     }
 
-    .logo,
-    .navigation {
-        flex: 1;
-        -webkit-flex: 1;
+    .logo {
+        @include prefix('flex', '1');
     }
 
-    .navigation {
+    @media screen and (min-width: 37.500em) {
 
-        text-align: right;
+        .toggle-navigation {
+            display: none;
+        }
 
-        a {
-            margin-left: 1em;
+        .navigation {
+
+            display: block !important;
+            @include prefix('flex', '1');
+            text-align: right;
+
+            a {
+                margin-left: 1em;
+            }
+
+        }
+
+    }
+
+    @media screen and (max-width: 37.500em) {
+
+        .inner-wrapper {
+            padding: .75em;
+        }
+
+        .toggle-navigation {
+            text-align: right;
+            a {
+                display: inline-block;
+                padding: .4em;
+                font-size: 1.6em;
+                border-radius: .25em;
+                background-color: darken($theme-color, 8);
+            }
+        }
+
+        .navigation {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: rgba($theme-color, 0.95);
+        }
+
+        .navigation a {
+            display: block;
+            padding: 1em;
+            text-align: center;
         }
 
     }
@@ -102,12 +135,10 @@ ol {
 .post-list-item,
 .message {
 
-    display: flex;
-    display: -webkit-flex;
+    @include prefix-value('display', 'flex');
 
     .avatar {
-        flex: none;
-        -webkit-flex: none;
+        @include prefix('flex', 'none');
     }
 
     .wrapper {
@@ -125,7 +156,7 @@ ol {
             margin: 0 0 0.5em;
             color: #444;
 
-            @import "content";
+            @import 'content';
 
         }
 
@@ -150,6 +181,14 @@ ol {
                 color: $theme-color;
                 text-decoration: underline;
             }
+        }
+
+    }
+
+    .admin-links {
+
+        a {
+            color: $theme-color;
         }
 
     }
@@ -199,14 +238,11 @@ ol {
         @media screen and (min-width: 37.500em) {
 
             & {
-                display: flex;
-                display: -webkit-flex;
+                @include prefix-value('display', 'flex');
                 .posted-by,
                 .stats {
-                    flex: 1;
-                    -webkit-flex: 1;
-                    align-self: flex-end;
-                    -webkit-align-self: flex-end;
+                    @include prefix('flex', '1');
+                    @include prefix('align-self', 'flex-end');
                 }
             }
 

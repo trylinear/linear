@@ -1,63 +1,76 @@
-var markdown = require('markdown-it')({
-    html: true,
-    linkify: true
+const Handlebars = require('express-hbs');
+
+const markdown = require('markdown-it')({
+    'html': true,
+    'linkify': true
 });
 
-var emoji = require('markdown-it-emoji');
-markdown.use(emoji);
+markdown.use(require('markdown-it-emoji'));
 
-var sanitizeHtml = require('sanitize-html');
+const sanitizeHtml = require('sanitize-html');
 
-var moment = require('moment');
-var numeral = require('numeral');
+const moment = require('moment');
+const numeral = require('numeral');
 
-module.exports = function (Handlebars) {
+Handlebars.registerHelper('displayNumber', num => numeral(num).format('0,0a'));
 
-    Handlebars.registerHelper('displayNumber', function (num) {
+Handlebars.registerHelper('ifCond', function ifCond (a, b, options) {
 
-        return numeral(num).format('0,0a');
+    if (a === b) {
 
-    });
+        return options.fn(this);
 
-    Handlebars.registerHelper('ifCond', function (a, b, options) {
+    }
 
-        return a === b ? options.fn(this) : options.inverse(this);
+    return options.inverse(this);
 
-    });
+});
 
-    Handlebars.registerHelper('limitOutput', function (value, limit) {
+Handlebars.registerHelper('limitOutput', (value, limit) => {
 
-        value = markdown.render(value).replace(/<.+?>/g, '');
+    if (value) {
+
+        let modifiedValue = markdown.render(value).replace(/<.+?>/g, '');
 
         if (value.length > limit) {
 
-            value = value.substring(0, limit);
-            value = value.substring(0, value.lastIndexOf(' ')) + ' …';
+            modifiedValue = modifiedValue.substring(0, limit);
+            modifiedValue = `${modifiedValue.substring(0, modifiedValue.lastIndexOf(' '))} …`;
 
         }
 
-        return value;
+        return modifiedValue;
 
-    });
+    }
 
-    Handlebars.registerHelper('markdown', function (value) {
+    return value;
+
+});
+
+Handlebars.registerHelper('markdown', value => {
+
+    if (value) {
 
         return sanitizeHtml(markdown.render(value), {
-            allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
+            'allowedTags': sanitizeHtml.defaults.allowedTags.concat(['img'])
         });
 
-    });
+    }
 
-    Handlebars.registerHelper('relativeTime', function (date) {
+    return false;
 
-        return moment(date).fromNow();
+});
 
-    });
+Handlebars.registerHelper('relativeTime', date => moment(date).fromNow());
 
-    Handlebars.registerHelper('titleCase', function (value) {
+Handlebars.registerHelper('titleCase', value => {
 
-        return value.replace(/\b\w/g, function (letter) { return letter.toUpperCase(); });
+    if (value) {
 
-    });
+        return value.replace(/\b\w/g, letter => letter.toUpperCase());
 
-};
+    }
+
+    return false;
+
+});

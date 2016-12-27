@@ -1,21 +1,23 @@
-var profileModel = require('../../models/profile');
+const profileController = require('../../controllers/profile');
 
-var passport = require('passport'),
-    FacebookStrategy = require('passport-facebook').Strategy;
+const passport = require('passport');
+const FacebookStrategy = require('passport-facebook').Strategy;
 
-if (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET && process.env.FACEBOOK_CALLBACK) {
+if (process.env.FACEBOOK_CLIENT_ID &&
+    process.env.FACEBOOK_CLIENT_SECRET &&
+    process.env.FACEBOOK_CALLBACK) {
 
     passport.use(new FacebookStrategy({
-        clientID: process.env.FACEBOOK_CLIENT_ID,
-        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL: process.env.FACEBOOK_CALLBACK
-    }, function (accessToken, refreshToken, data, done) {
+        'callbackURL': process.env.FACEBOOK_CALLBACK,
+        'clientID': process.env.FACEBOOK_CLIENT_ID,
+        'clientSecret': process.env.FACEBOOK_CLIENT_SECRET
+    }, (accessToken, refreshToken, data, done) => {
 
-        profileModel.createProfile('facebook', {
-            id: data.id,
-            name: data.displayName,
-            avatar: 'https://graph.facebook.com/' + data.id + '/picture?type=large'
-        }).then(function (profile) {
+        profileController.create('facebook', {
+            'avatar': `https://graph.facebook.com/${data.id}/picture?type=large`,
+            'id': data.id,
+            'name': data.displayName
+        }).then(profile => {
 
             done(null, profile);
 
@@ -23,12 +25,12 @@ if (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET && proc
 
     }));
 
-    module.exports = function (router) {
+    module.exports = router => {
 
         router.get('/', passport.authenticate('facebook'));
         router.get('/callback', passport.authenticate('facebook', {
-            successRedirect: '/login/success/',
-            failureRedirect: '/login/'
+            'failureRedirect': '/login/',
+            'successRedirect': '/login/success/'
         }));
 
     };

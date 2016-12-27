@@ -1,24 +1,26 @@
-var requireLogin = require('../utils/auth').requireLogin;
+const requireLogin = require('../utils/auth').requireLogin;
 
-var settings = require('../controllers/settings');
+const settingsController = require('../controllers/settings');
 
-module.exports = function (router) {
+module.exports = router => {
 
-    router.get('/', requireLogin, function (req, res) {
+    router.get('/', requireLogin, (req, res) => {
 
         res.render('settings', {
-            title: req.__('Settings')
+            'page_title': req.__('Settings'),
+            'style': 'settings'
         });
 
     });
 
-    router.post('/', requireLogin, function (req, res, next) {
+    router.post('/', requireLogin, (req, res, next) => {
 
-        settings.update(req.body, req.user.id).then(function (profile) {
+        settingsController.update(req.user.id, req.body).then(() => {
 
             res.redirect('/settings/');
 
-        }).catch(next);
+        })
+        .catch(next);
 
     });
 

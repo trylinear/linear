@@ -1,148 +1,189 @@
-var q = require('q');
+const mongoose = require('mongoose');
+const findOrCreate = require('mongoose-findorcreate');
 
-var _ = require('lodash');
+mongoose.Promise = global.Promise;
 
-var mongoose = require('mongoose');
-var findOrCreate = require('mongoose-findorcreate');
+const postModel = require('../models/post');
 
-var postModel = require('../models/post');
+const logger = require('../utils/logger');
 
-var logger = require('../utils/logger');
-
-var socialSchema = new mongoose.Schema({
-    type: String,
-    id: String
+const socialSchema = new mongoose.Schema({
+    '_id': false,
+    'id': String,
+    'type': String
 });
 
-var profileSchema = new mongoose.Schema({
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
-    name: String,
-    avatar: String,
-    social: [socialSchema],
-    locale: { type: String, default: 'en-us' }
+const profileSchema = new mongoose.Schema({
+    'avatar': String,
+    'createdAt': {
+        'default': Date.now,
+        'type': Date
+    },
+    'locale': {
+        'default': 'en-us',
+        'type': String
+    },
+    'name': {
+        'required': true,
+        'type': String
+    },
+    'social': [socialSchema],
+    'updatedAt': {
+        'default': Date.now,
+        'type': Date
+    }
 });
 
 profileSchema.plugin(findOrCreate);
 
 profileSchema.statics.createProfile = function (type, data) {
 
-    var deferred = new q.defer();
+    return new Promise((resolve, reject) => {
 
-    this.findOrCreate(
-        { 'social.type': type, 'social.id': data.id },
-        {
-            name: data.name,
-            avatar: data.avatar,
-            social: [ { type: type, id: data.id } ]
-        },
-        { upsert: true },
-        function (err, profile) {
+        this.findOrCreate(
+            {
+                'social.id': data.id,
+                'social.type': type
+            },
+            {
+                'avatar': data.avatar,
+                'name': data.name,
+                'social': [
+                    {
+                        'id': data.id,
+                        type
+                    }
+                ]
+            },
+            {
+                'upsert': true
+            },
+            (createError, results) => {
 
-            if (err || !profile) {
+                if (createError || !results) {
 
-                logger.err('Error saving profile.', err, data);
+                    logger.err('Error saving profile.', createError, data);
 
-                deferred.reject({
-                    status: 500,
-                    message: 'Internal Server Error'
-                });
+                    reject({
+                        'message': 'Internal Server Error',
+                        'status': 500
+                    });
 
-            } else { deferred.resolve(profile); }
+                } else {
 
-        }
-    );
+                    resolve(results);
 
-    return deferred.promise;
+                }
+
+            }
+        );
+
+    });
 
 };
 
 profileSchema.statics.updateProfileById = function (profileId, data) {
 
-    var deferred = new q.defer();
+    return new Promise((resolve, reject) => {
 
-    this.findById(profileId)
-        .exec(function (err, profile) {
+        this.findOneAndUpdate(
+            {
+                '_id': profileId
+            },
+            {
+                '$set': {
+                    'locale': data.locale,
+                    'updatedAt': Date.now()
+                }
+            },
+            {
+                'new': true
+            },
+            (updateError, results) => {
 
-            if (data.locale) {
+                if (updateError || !results) {
 
-                profile.locale = data.locale;
+                    logger.err(`Error saving profile ${profileId}.`, updateError, data);
 
-            }
-
-            profile.save(function (err, profile) {
-
-                if (err || !profile) {
-
-                    logger.err('Error saving profile ' + profileId + '.', err, data);
-
-                    deferred.reject({
-                        status: 500,
-                        message: 'Internal Server Error'
+                    reject({
+                        'message': 'Internal Server Error',
+                        'status': 500
                     });
 
-                } else { deferred.resolve(profile); }
+                } else {
 
-            });
+                    resolve(results);
 
-        });
+                }
 
-    return deferred.promise;
+            }
+        );
+
+    });
 
 };
 
 profileSchema.statics.showProfileById = function (profileId) {
 
-    var deferred = new q.defer();
+    return new Promise((resolve, reject) => {
 
-    this.findById(profileId)
-        .lean()
-        .exec(function (err, profile) {
+        this.findById(profileId)
+            .exec((findByIdError, profile) => {
 
-            if (err || !profile) {
+                if (findByIdError || !profile) {
 
-                logger.err('Profile id ' + profileId + ' not found.');
+                    logger.err(`Profile id ${profileId} not found.`);
 
-                deferred.reject({
-                    status: 404,
-                    message: 'Profile not found.'
-                });
-
-            } else {
-
-                postModel.find({ createdBy: profileId })
-                    .populate('createdBy')
-                    .sort({ createdAt: -1 })
-                    .select('createdAt updatedAt views title slug contents messageCount createdBy')
-                    .exec(function (err, posts) {
-
-                        if (err || !posts) {
-
-                            logger.err('Error retriving posts for profile id ' + profileId + '.');
-
-                            deferred.reject({
-                                status: 500,
-                                message: 'Internal Server Error'
-                            });
-
-                        } else { deferred.resolve(_.assign(profile, { posts: posts })); }
-
+                    reject({
+                        'message': 'Profile not found.',
+                        'status': 404
                     });
 
-            }
+                } else {
 
-        });
+                    postModel.find({
+                        'createdBy': profileId
+                    })
+                        .populate('createdBy')
+                        .sort({
+                            'createdAt': -1
+                        })
+                        .select('createdAt updatedAt views title slug contents messageCount createdBy')
+                        .exec((findError, posts) => {
 
-    return deferred.promise;
+                            if (findError || !posts) {
+
+                                logger.err(`Error retriving posts for profile id ${profileId}.`);
+
+                                reject({
+                                    'message': 'Internal Server Error',
+                                    'status': 500
+                                });
+
+                            } else {
+
+                                resolve(Object.assign({}, profile.toJSON(), {posts}));
+
+                            }
+
+                        });
+
+                }
+
+            });
+
+    });
 
 };
 
-profileSchema.pre('save', function (next) {
+profileSchema.virtual('id').get(function () {
 
-    this.updatedAt = Date.now();
+    return this._id.toHexString();
 
-    next();
+});
 
+profileSchema.set('toJSON', {
+    'virtuals': true
 });
 
 module.exports = mongoose.model('profile', profileSchema);

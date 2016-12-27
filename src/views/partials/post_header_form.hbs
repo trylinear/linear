@@ -1,0 +1,47 @@
+<div {{#if _id}}id="post-{{_id}}" data-id="{{_id}}" class="post"{{else}} class="post post-create"{{/if}}>
+
+    {{#if createdBy}}
+
+    <img src="{{createdBy.avatar}}" width="50" height="50" class="avatar">
+
+    {{else}}
+
+        {{#if user}}
+
+        <img src="{{user.avatar}}" width="50" height="50" class="avatar">
+
+        {{/if}}
+
+    {{/if}}
+
+    <form action="" method="post" id="post" class="wrapper">
+
+        {{#if _id}}
+
+        <input type="hidden" name="_id" value="{{_id}}">
+
+        {{/if}}
+
+        <input type="hidden" name="_csrf" value="{{_csrf}}">
+
+        <fieldset>
+
+            <input type="text" name="title" value="{{title}}" required>
+
+            {{> markdown_editor}}
+
+        </fieldset>
+
+        {{#if _id}}
+
+        <button type="submit" class="button">{{__ 'Update Post'}}</button> {{__ 'or'}} <a href="#cancel-edit">{{__ 'Cancel'}}</a>
+
+        {{else}}
+
+        <button type="submit" class="button">{{__ 'Create New Post'}}</button>
+
+        {{/if}}
+
+    </form>
+
+</div>

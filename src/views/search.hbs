@@ -1,43 +1,35 @@
-<div class="page-content search">
+<h1>{{__ 'Search'}}</h1>
 
-    <div class="inner-wrapper">
+<form action="" method="get">
 
-        <h1>{{__ 'Search'}}</h1>
+    <fieldset>
 
-        <form action="" method="get">
+        <input type="text" name="q" id="search" placeholder="{{__ 'search posts by title'}}" value="{{query}}">
 
-            <fieldset>
+    </fieldset>
 
-                <input type="text" name="q" id="search" placeholder="{{__ 'search posts by title'}}" value="{{query}}">
+</form>
 
-            </fieldset>
+{{#if query}}
 
-        </form>
+{{#if results}}
 
-        {{#if query}}
+<p>{{{__ 'Found %s results for <b>%s</b>.' results.length query}}}</p>
 
-        {{#if results}}
+<ul>
 
-        <p>{{{__ 'Found %s results for <b>%s</b>.' results.length query}}}</p>
+    {{#each results}}
 
-        <ul>
+    <li><a href="/post/{{slug}}/{{_id}}/">{{title}}</a></li>
 
-            {{#each results}}
+    {{/each}}
 
-            <li><a href="/post/{{slug}}/{{id}}/">{{title}}</a></li>
+</ul>
 
-            {{/each}}
+{{else}}
 
-        </ul>
+<p>{{__ 'No results found.'}}</p>
 
-        {{else}}
+{{/if}}
 
-        <p>{{__ 'No results found.'}}</p>
-
-        {{/if}}
-
-        {{/if}}
-
-    </div>
-
-</div>
+{{/if}}

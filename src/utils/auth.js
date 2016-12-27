@@ -1,14 +1,17 @@
 module.exports = {
 
-    requireLogin: function (req, res, next) {
+    requireLogin (req, res, next) {
 
         if (!req.user) {
 
-            return next({ status: 401, message: 'Login Required' });
+            return next({
+                'message': 'Login Required',
+                'status': 401
+            });
 
         }
 
-        next();
+        return next();
 
     }
 

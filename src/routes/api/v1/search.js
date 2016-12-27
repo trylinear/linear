@@ -1,17 +1,21 @@
-var search = require('../../../controllers/search');
+const searchController = require('../../../controllers/search');
 
-module.exports = function (router) {
+module.exports = router => {
 
-    router.get('/', function (req, res) {
+    router.get('/', (req, res) => {
 
-        search.show(req.query.q).then(function (results) {
+        searchController.show(req.query.q).then(results => {
 
             res.json(results);
 
-        }).catch(function (err) {
+        })
+        .catch(err => {
 
             res.status(err.status);
-            res.json({ status: err.status, message: err.message });
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
 
         });
 

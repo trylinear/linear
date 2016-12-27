@@ -1,197 +1,581 @@
-var q = require('q');
+const mongoose = require('mongoose');
 
-var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
-var logger = require('../utils/logger');
+const logger = require('../utils/logger');
 
-var messageSchema = new mongoose.Schema({
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
-    contents: { type: String, required: true },
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'profile' }
+const messageSchema = new mongoose.Schema({
+    'contents': {
+        'required': true,
+        'type': String
+    },
+    'createdAt': {
+        'default': Date.now,
+        'type': Date
+    },
+    'createdBy': {
+        'ref': 'profile',
+        'type': mongoose.Schema.Types.ObjectId
+    },
+    'editedBy': {
+        'ref': 'profile',
+        'type': mongoose.Schema.Types.ObjectId
+    },
+    'updatedAt': {
+        'default': Date.now,
+        'type': Date
+    }
 });
 
-var postSchema = new mongoose.Schema({
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
-    views: { type: Number, default: 0 },
-    title: { type: String, required: true },
-    slug: String,
-    contents: String,
-    messageCount: { type: Number, default: 0 },
-    messages: [messageSchema],
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'profile' }
+const postSchema = new mongoose.Schema({
+    'contents': String,
+    'createdAt': {
+        'default': Date.now,
+        'type': Date
+    },
+    'createdBy': {
+        'ref': 'profile',
+        'type': mongoose.Schema.Types.ObjectId
+    },
+    'editedBy': {
+        'ref': 'profile',
+        'type': mongoose.Schema.Types.ObjectId
+    },
+    'messageCount': {
+        'default': 0,
+        'type': Number
+    },
+    'messages': [messageSchema],
+    'pinned': {
+        'default': false,
+        'type': Boolean
+    },
+    'slug': String,
+    'title': {
+        'required': true,
+        'type': String
+    },
+    'updatedAt': {
+        'default': Date.now,
+        'type': Date
+    },
+    'views': {
+        'default': 0,
+        'type': Number
+    }
 });
 
-postSchema.statics.createPost = function (data) {
+postSchema.statics.createPost = function (data, profileId) {
 
-    var deferred = new q.defer();
+    return new Promise((resolve, reject) => {
 
-    var post = new this({
-        title: data.title,
-        slug: data.title.toLowerCase().replace(/[^a-z]+/g, '-').replace(/^\-|\-$/g, ''),
-        contents: data.contents,
-        createdBy: data.createdBy
-    });
+        const post = new this({
+            'contents': data.contents,
+            'createdBy': profileId,
+            'slug': data.title.toLowerCase()
+                .replace(/[^a-z]+/g, '-')
+                .replace(/^-|-$/g, ''),
+            'title': data.title
+        });
 
-    post.save(function (err, post) {
+        post.save((err, results) => {
 
-        if (err || !post) {
+            if (err || !results) {
 
-            logger.err('Error creating new post.', err, data);
+                logger.err('Error creating new post.', err, data);
 
-            deferred.reject({
-                status: 500,
-                message: 'Internal Server Error'
-            });
+                reject({
+                    'message': 'Internal Server Error',
+                    'status': 500
+                });
 
-        } else { deferred.resolve(post); }
+            } else {
 
-    });
+                resolve(this.showPostById(results._id));
 
-    return deferred.promise;
-
-};
-
-postSchema.statics.addMessageToPostById = function (postId, data) {
-
-    var deferred = new q.defer();
-
-    this.findById(postId)
-        .exec(function (err, post) {
-
-            post.messages.push({
-                contents: data.contents,
-                createdBy: data.createdBy
-            });
-
-            post.save(function (err, post) {
-
-                if (err || !post) {
-
-                    logger.err('Error creating new message.', err, data);
-
-                    deferred.reject({
-                        status: 500,
-                        message: 'Internal Server Error'
-                    });
-
-                } else { deferred.resolve(post); }
-
-            });
+            }
 
         });
 
-    return deferred.promise;
+    });
+
+};
+
+postSchema.statics.updatePostById = function (postId, data, profileId) {
+
+    return new Promise((resolve, reject) => {
+
+        this.findOne({
+            '_id': postId,
+            'createdBy': profileId
+        })
+            .exec((execError, post) => {
+
+                if (execError || !post) {
+
+                    logger.err('Error updating existing post.', execError, data);
+
+                    reject({
+                        'message': 'Internal Server Error',
+                        'status': 500
+                    });
+
+                } else {
+
+                    if (typeof data.title !== 'undefined') {
+
+                        post.title = data.title;
+
+                    }
+
+                    if (typeof data.contents !== 'undefined') {
+
+                        post.contents = data.contents;
+
+                    }
+
+                    post.editedBy = profileId;
+
+                    post.save((saveError, results) => {
+
+                        if (saveError || !results) {
+
+                            logger.err('Error updating existing post.', saveError, data);
+
+                            reject({
+                                'message': 'Internal Server Error',
+                                'status': 500
+                            });
+
+                        } else {
+
+                            resolve(this.showPostById(postId));
+
+                        }
+
+                    });
+
+                }
+
+            });
+
+    });
+
+};
+
+postSchema.statics.addMessageToPostById = function (postId, data, profileId) {
+
+    return new Promise((resolve, reject) => {
+
+        this.findOneAndUpdate(
+            {
+                '_id': postId
+            },
+            {
+                '$push': {
+                    'messages': {
+                        'contents': data.contents,
+                        'createdBy': profileId
+                    }
+                },
+                '$set': {
+                    'updatedAt': Date.now()
+                }
+            },
+            {
+                'new': true
+            },
+            (updateError, results) => {
+
+                if (updateError || !results) {
+
+                    logger.err('Error updating existing message.', updateError, data);
+
+                    reject({
+                        'message': 'Internal Server Error',
+                        'status': 500
+                    });
+
+                } else {
+
+                    resolve(this.showMessageById(postId, results.messages.slice(-1)[0]._id));
+
+                }
+
+            }
+        );
+
+    });
+
+};
+
+postSchema.statics.updateMessageToPostById = function (postId, messageId, data, profileId) {
+
+    return new Promise((resolve, reject) => {
+
+        this.findOneAndUpdate(
+            {
+                '_id': postId,
+                'messages': {
+                    '$elemMatch': {
+                        '_id': messageId,
+                        'createdBy': profileId
+                    }
+                }
+            },
+            {
+                '$set': {
+                    'messages.$.contents': data.contents,
+                    'messages.$.editedBy': profileId,
+                    'messages.$.updatedAt': Date.now(),
+                    'updatedAt': Date.now()
+                }
+            },
+            {
+                'new': true
+            },
+            (updateError, results) => {
+
+                if (updateError || !results) {
+
+                    logger.err('Error updating existing message.', updateError, data);
+
+                    reject({
+                        'message': 'Internal Server Error',
+                        'status': 500
+                    });
+
+                } else {
+
+                    resolve(this.showMessageById(postId, messageId));
+
+                }
+
+            }
+        );
+
+    });
+
+};
+
+postSchema.statics.deletePostById = function (postId, profileId) {
+
+    return new Promise((resolve, reject) => {
+
+        this.findOneAndRemove(
+            {
+                '_id': postId,
+                'createdBy': profileId
+            },
+            (removeError, post) => {
+
+                if (removeError || !post) {
+
+                    logger.err('Error deleting existing post.', removeError);
+
+                    reject({
+                        'message': 'Internal Server Error',
+                        'status': 500
+                    });
+
+                } else {
+
+                    resolve([]);
+
+                }
+
+            }
+        );
+
+    });
+
+};
+
+postSchema.statics.deleteMessageFromPostById = function (postId, messageId, profileId) {
+
+    return new Promise((resolve, reject) => {
+
+        this.findOneAndUpdate(
+            {
+                '_id': postId,
+                'messages': {
+                    '$elemMatch': {
+                        '_id': messageId,
+                        'createdBy': profileId
+                    }
+                }
+            },
+            {
+                '$pull': {
+                    'messages': {
+                        '_id': messageId,
+                        'createdBy': profileId
+                    }
+                },
+                '$set': {
+                    'updatedAt': Date.now()
+                }
+            },
+            {
+                'new': true
+            },
+            (updateError, results) => {
+
+                if (updateError || !results) {
+
+                    logger.err('Error deleting existing message.', updateError);
+
+                    reject({
+                        'message': 'Internal Server Error',
+                        'status': 500
+                    });
+
+                } else {
+
+                    resolve({});
+
+                }
+
+            }
+        );
+
+    });
 
 };
 
 postSchema.statics.showPostById = function (postId) {
 
-    var deferred = new q.defer();
+    return new Promise((resolve, reject) => {
 
-    this.findByIdAndUpdate(postId, { $inc: { views: 1 } })
-        .populate('createdBy')
-        .populate('messages.createdBy')
-        .exec(function (err, post) {
+        this.findByIdAndUpdate(postId, {
+            '$inc': {
+                'views': 1
+            }
+        })
+            .populate('createdBy')
+            .populate('editedBy')
+            .populate('messages.createdBy')
+            .populate('messages.editedBy')
+            .exec((updateError, results) => {
 
-            if (err || !post) {
+                if (updateError || !results) {
 
-                logger.err('Post id ' + postId + ' not found.');
+                    logger.err(`Post id ${postId} not found.`);
 
-                deferred.reject({
-                    status: 404,
-                    message: 'Post not found.'
-                });
+                    reject({
+                        'message': 'Post not found.',
+                        'status': 404
+                    });
 
-            } else { deferred.resolve(post); }
+                } else {
 
-        });
+                    resolve(results);
 
-    return deferred.promise;
+                }
+
+            });
+
+    });
+
+};
+
+postSchema.statics.showMessageById = function (postId, messageId) {
+
+    return new Promise((resolve, reject) => {
+
+        this.find({
+            '_id': postId,
+            'messages._id': messageId
+        }, {
+            'messages.$': true
+        })
+            .populate('messages.createdBy')
+            .populate('messages.editedBy')
+            .exec((findError, results) => {
+
+                if (findError || !results || !results[0] || !results[0].messages) {
+
+                    logger.err(`Message id ${messageId} not found.`);
+
+                    reject({
+                        'message': 'Message not found.',
+                        'status': 404
+                    });
+
+                } else {
+
+                    resolve(results[0].messages[0]);
+
+                }
+
+            });
+
+    });
 
 };
 
 postSchema.statics.listPosts = function () {
 
-    var deferred = new q.defer();
+    return new Promise((resolve, reject) => {
 
-    this.find()
-        .populate('createdBy')
-        .sort({ updatedAt: -1 })
-        .select('createdAt updatedAt views title slug contents messageCount createdBy')
-        .exec(function (err, posts) {
+        this.find()
+            .populate('createdBy')
+            .populate('editedBy')
+            .sort({
+                'pinned': -1,
+                'updatedAt': -1
+            })
+            .select('createdAt updatedAt views title slug contents messageCount createdBy editedBy')
+            .exec((findError, results) => {
 
-            if (err || !posts) {
+                if (findError || !results) {
 
-                logger.err('Error retrieving post list.', err);
+                    logger.err('Error retrieving post list.', findError);
 
-                deferred.reject({
-                    status: 500,
-                    message: 'Internal Server Error'
-                });
+                    reject({
+                        'message': 'Internal Server Error',
+                        'status': 500
+                    });
 
-            } else { deferred.resolve(posts); }
+                } else {
 
-        });
+                    resolve(results);
 
-    return deferred.promise;
+                }
+
+            });
+
+    });
+
+};
+
+postSchema.statics.listMessagesByPostId = function (postId) {
+
+    return new Promise((resolve, reject) => {
+
+        this.findByIdAndUpdate(postId, {
+            '$inc': {
+                'views': 1
+            }
+        })
+            .populate('createdBy')
+            .populate('editedBy')
+            .populate('messages.createdBy')
+            .populate('messages.editedBy')
+            .exec((updateError, results) => {
+
+                if (updateError || !results) {
+
+                    logger.err(`Post id ${postId} not found.`);
+
+                    reject({
+                        'message': 'Post not found.',
+                        'status': 404
+                    });
+
+                } else {
+
+                    resolve(results.messages);
+
+                }
+
+            });
+
+    });
 
 };
 
 postSchema.statics.searchPosts = function (query) {
 
-    var deferred = new q.defer();
-
-    if (query) {
-
-        query = query.trim().toLowerCase();
-        query = query.replace(/[^0-9a-z]+/, '|').replace(/^\||\|$/, '');
+    return new Promise((resolve, reject) => {
 
         if (query) {
 
-            this.find({ title: { $regex: new RegExp(query, 'i') } })
-                .populate('createdBy')
-                .sort({ updatedAt: -1 })
-                .select('createdAt updatedAt views title slug contents messageCount createdBy')
-                .exec(function (err, posts) {
+            let modifiedQuery = query;
 
-                    if (err || !posts) {
+            modifiedQuery = modifiedQuery.trim().toLowerCase();
+            modifiedQuery = modifiedQuery.replace(/[^0-9a-z]+/, '|').replace(/^\||\|$/, '');
 
-                        logger.err('Error retrieving search results.', err, query);
+            if (modifiedQuery) {
 
-                        deferred.reject({
-                            status: 500,
-                            message: 'Internal Server Error'
-                        });
+                this.find({
+                    'title': {
+                        '$regex': new RegExp(modifiedQuery, 'i')
+                    }
+                })
+                    .populate('createdBy')
+                    .populate('editedBy')
+                    .sort({
+                        'updatedAt': -1
+                    })
+                    .select('createdAt updatedAt views title slug contents messageCount createdBy editedBy')
+                    .exec((findError, results) => {
 
-                    } else { deferred.resolve(posts); }
+                        if (findError || !results) {
 
-                });
+                            logger.err('Error retrieving search results.', findError, query);
+
+                            reject({
+                                'message': 'Internal Server Error',
+                                'status': 500
+                            });
+
+                        } else {
+
+                            resolve(results);
+
+                        }
+
+                    });
+
+            } else {
+
+                resolve([]);
+
+            }
 
         } else {
 
-            deferred.resolve([]);
+            resolve([]);
 
         }
 
-    } else {
-
-        deferred.resolve([]);
-
-    }
-
-    return deferred.promise;
+    });
 
 };
 
-postSchema.pre('save', function (next) {
+messageSchema.virtual('id').get(function () {
 
-    this.updatedAt = Date.now();
-    this.messageCount = this.messages.length;
+    return this._id.toHexString();
 
-    next();
+});
 
+messageSchema.set('toJSON', {
+    'virtuals': true
+});
+
+postSchema.post('findOneAndUpdate', (doc, next) => {
+
+    if (doc && doc.messageCount !== doc.messages.length) {
+
+        doc.messageCount = doc.messages.length;
+
+        return doc.save(next);
+
+    }
+
+    return next();
+
+});
+
+postSchema.virtual('id').get(function () {
+
+    return this._id.toHexString();
+
+});
+
+postSchema.set('toJSON', {
+    'virtuals': true
 });
 
 module.exports = mongoose.model('post', postSchema);

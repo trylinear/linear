@@ -1,28 +1,3 @@
-<div class="page-content">
+<h1>{{__ 'Create New Post'}}</h1>
 
-    <div class="inner-wrapper">
-
-        <h1>{{__ 'Create New Post'}}</h1>
-
-        <div class="create-new">
-
-            <form action="" method="post">
-
-                <input type="hidden" name="_csrf" value="{{_csrf}}">
-
-                <fieldset>
-
-                    <input type="text" name="title" required>
-                    <textarea name="contents" rows="8"></textarea>
-
-                </fieldset>
-
-                <button type="submit" class="button">{{__ 'Create New Post'}}</button>
-
-            </form>
-
-        </div>
-
-    </div>
-
-</div>
+{{> post_header_form}}

@@ -1,26 +1,34 @@
-var postModel = require('../models/post');
+const postModel = require('../models/post');
 
 module.exports = {
 
-    create: function (data, profileId) {
+    create (data, profileId) {
 
-        return postModel.createPost({
-            title: data ? data.title : '',
-            contents: data ? data.contents : '',
-            createdBy: profileId
-        });
+        return postModel.createPost(data, profileId);
 
     },
 
-    list: function () {
+    delete (postId, profileId) {
+
+        return postModel.deletePostById(postId, profileId);
+
+    },
+
+    list () {
 
         return postModel.listPosts();
 
     },
 
-    show: function (postId) {
+    show (postId) {
 
         return postModel.showPostById(postId);
+
+    },
+
+    update (postId, data, profileId) {
+
+        return postModel.updatePostById(postId, data, profileId);
 
     }
 

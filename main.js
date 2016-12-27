@@ -1,78 +1,105 @@
-require('with-env')();
+/* eslint max-statements: 0 */
+/* eslint no-param-reassign: 0 */
+/* eslint no-unused-vars: 0 */
 
-var _ = require('lodash');
+const express = require('express');
 
-var express = require('express');
+const session = require('express-session');
+const bodyParser = require('body-parser');
 
-var session = require('express-session');
-var lusca = require('lusca');
-var bodyParser = require('body-parser');
-var enrouten = require('express-enrouten');
+const lusca = require('lusca');
+const enrouten = require('express-enrouten');
+const meddleware = require('meddleware');
 
-var passport = require('passport');
+const passport = require('passport');
 
-var hbs = require('express-hbs');
-var hbs_helpers = require('./src/utils/helpers')(hbs);
+const hbs = require('express-hbs');
 
-var i18n = require('i18n');
-var moment = require('moment');
+require('./src/utils/helpers');
 
-var mongoose = require('mongoose');
+const i18n = require('i18n');
+const moment = require('moment');
 
-var defaultConfig = require('./config.json');
+const mongoose = require('mongoose');
 
-var profileModel = require('./src/models/profile');
+const defaultConfig = require('./config.json');
 
-var latest = require('./src/utils/latest');
-var env = require('./src/utils/env');
+const profileController = require('./src/controllers/profile');
+
+const latest = require('./src/utils/latest');
+const env = require('./src/utils/env');
+
+const HTTP_INTERNAL_SERVER_ERROR = 500;
+const HTTP_NOT_FOUND = 404;
 
 module.exports = {
 
-    startWithConfig: function (config) {
+    'startWithConfig': config => {
 
-        var app = express();
+        const app = express();
 
         app.disable('x-powered-by');
 
-        config = _.assign(defaultConfig, config);
+        config = Object.assign({}, defaultConfig, config);
 
         mongoose.connect(env.mongodb());
 
         app.use(session({
-            secret: process.env.SECRET || 'secret',
-            resave: true,
-            saveUninitialized: true
+            'resave': true,
+            'saveUninitialized': true,
+            'secret': process.env.SECRET || 'secret'
         }));
 
-        app.use(bodyParser.urlencoded({ extended: true }));
+        app.use(bodyParser.urlencoded({
+            'extended': true
+        }));
 
-        app.use(lusca({
-            csrf: true,
-            xframe: 'SAMEORIGIN',
-            hsts: { maxAge: 31536000 },
-            xssProtection: true
+        app.use(bodyParser.json());
+
+        app.use(meddleware({
+            'security': {
+                'enabled': true,
+                'module': {
+                    'arguments': [
+                        {
+                            'csrf': true,
+                            'hsts': {
+                                'maxAge': 31536000
+                            },
+                            'xframe': 'SAMEORIGIN',
+                            'xssProtection': true
+                        }
+                    ],
+                    'name': 'lusca'
+                },
+                'route': '/((?!api))*'
+            }
         }));
 
         app.use(passport.initialize());
         app.use(passport.session());
 
-        passport.serializeUser(function (user, done) {
+        passport.serializeUser((user, done) => {
 
-            done(null, user.id);
+            done(null, user._id);
 
         });
 
-        passport.deserializeUser(function (id, done) {
+        passport.deserializeUser((id, done) => {
 
-            profileModel.findById(id, done);
+            profileController.show(id).then(profile => {
+
+                done(null, profile);
+
+            });
 
         });
 
         i18n.configure({
-            indent: '  ',
-            directory: config.directories.locales || __dirname + '/locales',
-            locales: Object.keys(config.languages),
-            defaultLocale: Object.keys(config.languages)[0]
+            'defaultLocale': Object.keys(config.languages)[0],
+            'directory': `${config.directories.locales || __dirname}/locales`,
+            'indent': '  ',
+            'locales': Object.keys(config.languages)
         });
 
         app.use(i18n.init);
@@ -83,25 +110,21 @@ module.exports = {
 
         }
 
-        app.use(express.static(__dirname + '/static'));
+        app.use(express.static(`${__dirname}/static`));
 
-        app.use(function (req, res, next) {
+        app.use((req, res, next) => {
 
             res.locals.layout = 'template';
-            res.locals.latest_version = latest();
+            res.locals.latestVersion = latest();
             res.locals.config = config;
             res.locals.user = req.user;
-            res.locals.url = req.protocol + '://' + req.get('host') + req.originalUrl;
+            res.locals.url = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
 
-            hbs.registerHelper('__', function () {
-
-                return i18n.__.apply(req, arguments);
-
-            });
+            hbs.registerHelper('__', (...args) => i18n.__.apply(req, args));
 
             if (req.user) {
 
-                res.setLocale(req.user.locale);
+                req.setLocale(req.user.locale);
 
             }
 
@@ -113,35 +136,51 @@ module.exports = {
 
         });
 
-        app.use(enrouten({ directory: 'src/routes' }));
+        app.use(enrouten({
+            'directory': 'src/routes'
+        }));
 
-        app.use(function (err, req, res, next) {
+        app.use((err, req, res, next) => {
 
-            res.status(err.status);
-            res.render('error', { status: err.status, message: err.message });
-
-        });
-
-        app.use(function (req, res, next) {
-
-            res.status(404);
-            res.render('error', { status: 404, message: req.__('Page Not Found') });
+            res.status(err.status || HTTP_INTERNAL_SERVER_ERROR);
+            res.render('error', {
+                'message': err.message,
+                'status': err.status || HTTP_INTERNAL_SERVER_ERROR
+            });
 
         });
 
-        app.engine('hbs', hbs.express3());
+        app.use((req, res, next) => {
 
-        app.set('view engine', 'hbs');
+            res.status(HTTP_NOT_FOUND);
+            res.render('error', {
+                'message': req.__('Page Not Found'),
+                'status': HTTP_NOT_FOUND
+            });
+
+        });
 
         if (config.directories.views) {
 
-            app.set('views', [config.directories.views, __dirname + '/src/views']);
+            app.engine('hbs', hbs.express4({
+                'onCompile': (exhbs, source) => exhbs.handlebars.compile(source, {'preventIndent': true}),
+                'partialsDir': [`${config.directories.views}/partials`, `${__dirname}/src/views/partials`]
+            }));
+
+            app.set('views', [config.directories.views, `${__dirname}/src/views`]);
 
         } else {
 
-            app.set('views', __dirname + '/src/views');
+            app.engine('hbs', hbs.express4({
+                'onCompile': (exhbs, source) => exhbs.handlebars.compile(source, {'preventIndent': true}),
+                'partialsDir': `${__dirname}/src/views/partials`
+            }));
+
+            app.set('views', `${__dirname}/src/views`);
 
         }
+
+        app.set('view engine', 'hbs');
 
         app.listen(env.port(), env.ipaddress());
 

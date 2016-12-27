@@ -11,6 +11,7 @@ form {
         input,
         textarea,
         select {
+            position: relative;
             margin: 1em 0;
             padding: .5em;
             font-family: inherit;
@@ -31,7 +32,7 @@ form {
             margin: 0 0 1em 0;
             resize: vertical;
             line-height: 1.3em;
-            -webkit-appearance: textfield;
+            @include prefix('appearance', 'textfield');
         }
 
     }
@@ -50,8 +51,8 @@ form {
     border: 0;
     border-radius: 1.5em;
     cursor: pointer;
-    -webkit-appearance: none;
-    -webkit-font-smoothing: antialiased;
+    @include prefix('appearance', 'none');
+    @include prefix('font-smoothing', 'antialiased');
 }
 
 .button.facebook {
@@ -64,4 +65,39 @@ form {
 
 .button.twitter {
     background-color: $social-color-twitter;
+}
+
+.markdown-editor {
+
+    .markdown-contents,
+    .markdown-preview {
+        min-height: 150px;
+    }
+
+    .markdown-contents {
+        margin: 0;
+        border: 1px solid #eee;
+    }
+
+    .markdown-preview {
+        display: none;
+        padding: calc(.5em + 1px);
+    }
+
+    .markdown-toolbar {
+        overflow: auto;
+        padding: .75em;
+        background-color: #eee;
+        border-radius: 0 0 5px 5px;
+        text-align: right;
+        .icon {
+            opacity: .75;
+            img {
+                margin: 0 0 0 .5em;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+    }
+
 }

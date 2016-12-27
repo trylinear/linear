@@ -1,0 +1,8 @@
+<h1>{{__ 'Recent Posts'}}</h1>
+{{#if user}}<div><a href="/post/new/" class="button">{{__ 'Create New Post'}}</a></div>{{/if}}
+
+{{#each posts}}
+
+{{> post_list_item}}
+
+{{/each}}

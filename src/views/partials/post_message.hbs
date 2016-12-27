@@ -1,0 +1,40 @@
+<div id="message-{{_id}}" data-id="{{_id}}" class="message">
+
+    <img src="{{createdBy.avatar}}" width="50" height="50" class="avatar">
+
+    <div class="wrapper">
+
+        <div class="description">{{{markdown contents}}}</div>
+
+        <div class="info">
+
+            <div class="posted-by">
+
+                {{#if createdBy._id}}
+                <a href="/profile/{{createdBy._id}}/" class="name">{{createdBy.name}}</a>
+                {{else}}
+                <i>{{__ 'deleted'}}</i>
+                {{/if}}
+
+                <span class="date">
+                    {{#if updatedAt}}
+                    {{__ 'updated'}} <a href="#message-{{_id}}">{{relativeTime updatedAt}}</a>
+                    {{else}}
+                    {{__ 'posted'}} <a href="#message-{{_id}}">{{relativeTime createdAt}}</a>
+                    {{/if}}
+                </span>
+
+                {{#if editable}}
+                <span class="admin-links">
+                    &mdash;
+                    <a href="#edit">Edit</a> <a href="#delete">Delete</a>
+                </span>
+                {{/if}}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

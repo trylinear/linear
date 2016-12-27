@@ -1,22 +1,27 @@
-var profileModel = require('../../models/profile');
+const profileController = require('../../controllers/profile');
 
-var passport = require('passport'),
-    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
-if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && process.env.GOOGLE_CALLBACK) {
+const AVATAR_DIMENSION = 200;
+
+if (process.env.GOOGLE_CLIENT_ID &&
+    process.env.GOOGLE_CLIENT_SECRET &&
+    process.env.GOOGLE_CALLBACK) {
 
     passport.use(new GoogleStrategy({
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: process.env.GOOGLE_CALLBACK,
-        scope: 'profile'
-    }, function (accessToken, refreshToken, data, done) {
+        'callbackURL': process.env.GOOGLE_CALLBACK,
+        'clientID': process.env.GOOGLE_CLIENT_ID,
+        'clientSecret': process.env.GOOGLE_CLIENT_SECRET,
+        'scope': 'profile'
+    }, (accessToken, refreshToken, data, done) => {
 
-        profileModel.createProfile('google', {
-            id: data.id,
-            name: data.displayName,
-            avatar: data.photos[0].value.replace(/50$/, 200)
-        }).then(function (profile) {
+        profileController.create('google', {
+            'avatar': data.photos[0].value.replace(/50$/, AVATAR_DIMENSION),
+            'id': data.id,
+            'name': data.displayName
+        })
+        .then(profile => {
 
             done(null, profile);
 
@@ -24,12 +29,12 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && process.
 
     }));
 
-    module.exports = function (router) {
+    module.exports = router => {
 
         router.get('/', passport.authenticate('google'));
         router.get('/callback', passport.authenticate('google', {
-            successRedirect: '/login/success/',
-            failureRedirect: '/login/'
+            'failureRedirect': '/login/',
+            'successRedirect': '/login/success/'
         }));
 
     };

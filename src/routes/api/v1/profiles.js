@@ -1,17 +1,42 @@
-var profile = require('../../../controllers/profile');
+const requireLogin = require('../../../utils/auth').requireLogin;
 
-module.exports = function (router) {
+const profileController = require('../../../controllers/profile');
 
-    router.get('/:id', function (req, res) {
+module.exports = router => {
 
-        profile.show(req.params.id).then(function (profile) {
+    router.get('/auth', requireLogin, (req, res) => {
+
+        profileController.show(req.user.id).then(profile => {
 
             res.json(profile);
 
-        }).catch(function (err) {
+        })
+        .catch(err => {
 
             res.status(err.status);
-            res.json({ status: err.status, message: err.message });
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
+
+        });
+
+    });
+
+    router.get('/:profileId', (req, res) => {
+
+        profileController.show(req.params.profileId).then(profile => {
+
+            res.json(profile);
+
+        })
+        .catch(err => {
+
+            res.status(err.status);
+            res.json({
+                'message': err.message,
+                'status': err.status
+            });
 
         });
 

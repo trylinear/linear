@@ -1,18 +1,20 @@
-var search = require('../controllers/search');
+const searchController = require('../controllers/search');
 
-module.exports = function (router) {
+module.exports = router => {
 
-    router.get('/', function (req, res, next) {
+    router.get('/', (req, res, next) => {
 
-        search.show(req.query.q).then(function (results) {
+        searchController.show(req.query.q).then(results => {
 
             res.render('search', {
-                title: req.__('Search'),
-                query: req.query.q,
-                results: results
+                'page_title': req.__('Search'),
+                'query': req.query.q,
+                results,
+                'style': 'search'
             });
 
-        }).catch(next);
+        })
+        .catch(next);
 
     });
 

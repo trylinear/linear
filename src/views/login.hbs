@@ -1,33 +1,25 @@
-<div class="page-content login">
+<h1>{{__ 'Login / Register'}}</h1>
 
-    <div class="inner-wrapper">
+{{#if social.length}}
 
-        <h1>{{__ 'Login / Register'}}</h1>
+    <p>{{{__ 'Logging in using the social networks below will associate your name and avatar to your forum content, however <b>it will never post to any social networks on your behalf.</b>'}}}</p>
 
-        {{#if social.length}}
+    <div class="social-networks">
 
-            <p>{{{__ 'Logging in using the social networks below will associate your name and avatar to your forum content, however <b>it will never post to any social networks on your behalf.</b>'}}}</p>
+        {{#each social}}
 
-            <div class="social-networks">
+        <a href="/login/{{this}}/" class="button {{this}}">
+            <span class="icon-{{this}}"></span> {{__ 'Login With'}} {{titleCase this}}
+        </a>
 
-                {{#each social}}
-
-                <a href="/login/{{this}}/" class="button {{this}}">
-                    <span class="icon-{{this}}"></span> {{__ 'Login With'}} {{titleCase this}}
-                </a>
-
-                {{/each}}
-
-            </div>
-
-        {{else}}
-
-            <p>{{{__ '<b>Error:</b> No social networks have been setup. Please see <a href="https://github.com/trylinear/linear">https://github.com/trylinear/linear</a> for more information.'}}}</p>
-
-        {{/if}}
-
-        </div>
+        {{/each}}
 
     </div>
+
+{{else}}
+
+    <p>{{{__ '<b>Error:</b> No social networks have been setup. Please see <a href="https://github.com/trylinear/linear">https://github.com/trylinear/linear</a> for more information.'}}}</p>
+
+{{/if}}
 
 </div>

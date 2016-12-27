@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "@neogeek/eslint-config-standards"
+  ],
+  "rules": {
+    "func-names": 0,
+    "id-length": 0,
+    "max-params": 0,
+    "new-cap": 0,
+    "no-invalid-this": 0,
+    "no-underscore-dangle": 0,
+    "sort-keys": 0
+  }
+}

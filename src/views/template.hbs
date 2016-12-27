@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="initial-scale=1, user-scalable=0">
-<title>{{#if title}}{{title}} &mdash; {{/if}}{{config.site_name}}</title>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/octicons/2.2.0/octicons.css">
+<title>{{#if page_title}}{{page_title}} &mdash; {{/if}}{{config.site_name}}</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css">
 <link rel="stylesheet" href="/css/styles.css">
 <link rel="canonical" href="{{url}}">
 
@@ -27,6 +27,7 @@
     <div class="inner-wrapper">
 
         <div class="logo"><a href="/">{{config.site_name}}</a></div>
+        <div class="toggle-navigation"><a href="#navigation">☰</a></div>
         <nav class="navigation">
             <a href="/search/">{{__ 'Search'}}</a>
             {{#if user}}
@@ -41,20 +42,30 @@
 
 </header>
 
-{{{body}}}
+<div class="page-content {{style}}">
+
+    <div class="inner-wrapper">
+
+        {{{body}}}
+
+    </div>
+
+</div>
 
 <footer class="page-footer">
 
     <div class="inner-wrapper">
 
         <p>{{__ 'Powered by'}} <a href="https://github.com/trylinear/linear">linear</a></p>
-        {{#if latest_version}}
-        <p>{{{__ 'A new version (%s) of linear is available. <a href="https://github.com/trylinear/linear/releases">Review the changelog.</a>' latest_version }}}</p>
+        {{#if latestVersion}}
+        <p>{{{__ 'A new version (%s) of linear is available. <a href="https://github.com/trylinear/linear/releases">Review the changelog.</a>' latestVersion }}}</p>
         {{/if}}
 
     </div>
 
 </footer>
+
+<script src="/js/main.min.js" async></script>
 
 {{#if config.ga}}
 

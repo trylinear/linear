@@ -1,30 +1,22 @@
-<div class="page-content settings">
+<h1>{{__ 'Settings'}}</h1>
 
-    <div class="inner-wrapper">
+<form action="" method="post">
 
-        <h1>{{__ 'Settings'}}</h1>
+    <input type="hidden" name="_csrf" value="{{_csrf}}">
 
-        <form action="" method="post">
+    <fieldset>
 
-            <input type="hidden" name="_csrf" value="{{_csrf}}">
+        <label for="locale">{{__ 'Language'}}</label>
+        <select name="locale" id="locale">
 
-            <fieldset>
+        {{#each config.languages}}
+        <option value="{{@key}}"{{#ifCond @key ../user.locale}}selected="selected"{{/ifCond}}>{{this}}</option>
+        {{/each}}
 
-                <label for="locale">{{__ 'Language'}}</label>
-                <select name="locale" id="locale">
+        </select>
 
-                {{#each config.languages}}
-                <option value="{{@key}}"{{#ifCond @key ../user.locale}}selected="selected"{{/ifCond}}>{{this}}</option>
-                {{/each}}
+    </fieldset>
 
-                </select>
+    <button type="submit" class="button">{{__ 'Save Changes'}}</button>
 
-            </fieldset>
-
-            <button type="submit" class="button">{{__ 'Save Changes'}}</button>
-
-        </form>
-
-    </div>
-
-</div>
+</form>
