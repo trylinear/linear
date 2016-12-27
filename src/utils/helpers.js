@@ -1,5 +1,3 @@
-/* eslint no-invalid-this: 0 */
-
 const markdown = require('markdown-it')({
     'html': true,
     'linkify': true

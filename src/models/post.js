@@ -1,6 +1,3 @@
-/* eslint func-names: 0 */
-/* eslint no-invalid-this: 0 */
-
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
