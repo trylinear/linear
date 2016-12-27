@@ -3,9 +3,10 @@
 > A simple setup micro-forum built in Node.js with Express and MongoDB.
 
 [![Build Status](https://travis-ci.org/trylinear/linear.svg)](https://travis-ci.org/trylinear/linear)
-[![Code Climate](https://codeclimate.com/github/trylinear/linear/badges/gpa.svg)](https://codeclimate.com/github/trylinear/linear)
+[![codecov](https://img.shields.io/codecov/c/github/trylinear/linear/master.svg)](https://codecov.io/gh/trylinear/linear)
 [![Dependency Status](https://david-dm.org/trylinear/linear.svg?style=flat)](https://david-dm.org/trylinear/linear/)
-[![devDependency Status](https://david-dm.org/trylinear/linear/dev-status.svg?style=flat)](https://david-dm.org/trylinear/linear/#info=devDependencies)
+[![Known Vulnerabilities](https://snyk.io/test/npm/linear/badge.svg)](https://snyk.io/test/npm/linear)
+[![bitHound Overall Score](https://www.bithound.io/github/trylinear/linear/badges/score.svg)](https://www.bithound.io/github/trylinear/linear)
 [![NPM Version](http://img.shields.io/npm/v/linear.svg?style=flat)](https://www.npmjs.org/package/linear/)
 
 ## Install
