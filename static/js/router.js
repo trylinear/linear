@@ -22,17 +22,16 @@ const Router = Backbone.Router.extend({
     postEdit (postName, postId) {
 
         const profile = new ProfileModel();
-        const model = new PostModel({
-            'id': postId
-        });
 
         const view = new PostView({
-            model
+            'model': new PostModel({
+                'id': postId
+            })
         });
 
         $.when(
             profile.fetch(),
-            model.fetch()
+            view.model.fetch()
         ).done(() => {
 
             // Started router
