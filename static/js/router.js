@@ -2,10 +2,13 @@
 
 const $ = require('jquery');
 const Backbone = require('backbone');
+
 const ProfileModel = require('./models/profile');
 const PostModel = require('./models/post');
+
 const PostCreateView = require('./views/post-create');
 const PostView = require('./views/post');
+
 const Navigation = require('./utils/navigation');
 
 const Router = Backbone.Router.extend({
