@@ -1,14 +1,16 @@
 <div {{#if _id}}id="message-{{_id}}" data-id="{{_id}}" class="message"{{else}} class="message message-create"{{/if}}>
 
-    {{#if user}}
-
-    <img src="{{user.avatar}}" width="50" height="50" class="avatar">
-
-    {{/if}}
-
     {{#if createdBy}}
 
     <img src="{{createdBy.avatar}}" width="50" height="50" class="avatar">
+
+    {{else}}
+
+        {{#if user}}
+
+        <img src="{{user.avatar}}" width="50" height="50" class="avatar">
+
+        {{/if}}
 
     {{/if}}
 

@@ -1,14 +1,16 @@
 <div {{#if _id}}id="post-{{_id}}" data-id="{{_id}}" class="post"{{else}} class="post post-create"{{/if}}>
 
-    {{#if user}}
-
-    <img src="{{user.avatar}}" width="60" height="60" class="avatar">
-
-    {{/if}}
-
     {{#if createdBy}}
 
-    <img src="{{createdBy.avatar}}" width="60" height="60" class="avatar">
+    <img src="{{createdBy.avatar}}" width="50" height="50" class="avatar">
+
+    {{else}}
+
+        {{#if user}}
+
+        <img src="{{user.avatar}}" width="50" height="50" class="avatar">
+
+        {{/if}}
 
     {{/if}}
 
