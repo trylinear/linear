@@ -15,7 +15,7 @@ const passport = require('passport');
 
 const hbs = require('express-hbs');
 
-require('./src/utils/helpers')(hbs);
+require('./src/utils/helpers');
 
 const i18n = require('i18n');
 const moment = require('moment');

@@ -1,3 +1,5 @@
+const Handlebars = require('express-hbs');
+
 const markdown = require('markdown-it')({
     'html': true,
     'linkify': true
@@ -10,69 +12,65 @@ const sanitizeHtml = require('sanitize-html');
 const moment = require('moment');
 const numeral = require('numeral');
 
-module.exports = Handlebars => {
+Handlebars.registerHelper('displayNumber', num => numeral(num).format('0,0a'));
 
-    Handlebars.registerHelper('displayNumber', num => numeral(num).format('0,0a'));
+Handlebars.registerHelper('ifCond', function ifCond (a, b, options) {
 
-    Handlebars.registerHelper('ifCond', function ifCond (a, b, options) {
+    if (a === b) {
 
-        if (a === b) {
+        return options.fn(this);
 
-            return options.fn(this);
+    }
 
-        }
+    return options.inverse(this);
 
-        return options.inverse(this);
+});
 
-    });
+Handlebars.registerHelper('limitOutput', (value, limit) => {
 
-    Handlebars.registerHelper('limitOutput', (value, limit) => {
+    if (value) {
 
-        if (value) {
+        let modifiedValue = markdown.render(value).replace(/<.+?>/g, '');
 
-            let modifiedValue = markdown.render(value).replace(/<.+?>/g, '');
+        if (value.length > limit) {
 
-            if (value.length > limit) {
-
-                modifiedValue = modifiedValue.substring(0, limit);
-                modifiedValue = `${modifiedValue.substring(0, modifiedValue.lastIndexOf(' '))} …`;
-
-            }
-
-            return modifiedValue;
+            modifiedValue = modifiedValue.substring(0, limit);
+            modifiedValue = `${modifiedValue.substring(0, modifiedValue.lastIndexOf(' '))} …`;
 
         }
 
-        return value;
+        return modifiedValue;
 
-    });
+    }
 
-    Handlebars.registerHelper('markdown', value => {
+    return value;
 
-        if (value) {
+});
 
-            return sanitizeHtml(markdown.render(value), {
-                'allowedTags': sanitizeHtml.defaults.allowedTags.concat(['img'])
-            });
+Handlebars.registerHelper('markdown', value => {
 
-        }
+    if (value) {
 
-        return false;
+        return sanitizeHtml(markdown.render(value), {
+            'allowedTags': sanitizeHtml.defaults.allowedTags.concat(['img'])
+        });
 
-    });
+    }
 
-    Handlebars.registerHelper('relativeTime', date => moment(date).fromNow());
+    return false;
 
-    Handlebars.registerHelper('titleCase', value => {
+});
 
-        if (value) {
+Handlebars.registerHelper('relativeTime', date => moment(date).fromNow());
 
-            return value.replace(/\b\w/g, letter => letter.toUpperCase());
+Handlebars.registerHelper('titleCase', value => {
 
-        }
+    if (value) {
 
-        return false;
+        return value.replace(/\b\w/g, letter => letter.toUpperCase());
 
-    });
+    }
 
-};
+    return false;
+
+});
