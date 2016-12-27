@@ -317,8 +317,7 @@ postSchema.statics.deleteMessageFromPostById = function (postId, messageId, prof
                 }
             },
             {
-                'new': true,
-                'upsert': true
+                'new': true
             },
             (updateError, results) => {
 
