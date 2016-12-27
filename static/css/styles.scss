@@ -1,7 +1,7 @@
-@import "fonts";
-@import "mixins";
-@import "variables";
-@import "form";
+@import 'fonts';
+@import 'mixins';
+@import 'variables';
+@import 'form';
 
 * {
     margin: 0; padding: 0;
@@ -165,7 +165,7 @@ ol {
             margin: 0 0 0.5em;
             color: #444;
 
-            @import "content";
+            @import 'content';
 
         }
 
