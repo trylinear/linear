@@ -500,7 +500,7 @@ postSchema.statics.searchPosts = function (query) {
 
                 this.find({
                     'title': {
-                        '$regex': new RegExp(query, 'i')
+                        '$regex': new RegExp(modifiedQuery, 'i')
                     }
                 })
                     .populate('createdBy')
