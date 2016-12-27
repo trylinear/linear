@@ -12,8 +12,6 @@ const EditorView = require('./editor');
 const FADE_OUT_DURATION = 200;
 const KEY_CODE_ENTER_KEY = 13;
 
-window.Handlebars = Handlebars;
-
 module.exports = Marionette.View.extend({
 
     'events': {
