@@ -384,6 +384,7 @@ postSchema.statics.showMessageById = function (postId, messageId) {
     return new Promise((resolve, reject) => {
 
         this.find({
+            '_id': postId,
             'messages._id': messageId
         }, {
             'messages.$': true
