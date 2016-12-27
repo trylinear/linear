@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.0 (December 27, 2016)
+
+- Complete rewrite of back-end.
+- Updated post model to support pinned posts.
+- Added Backbone and Marionette powered front-end.
+- Improved API to support front-end changes.
+- Fixed issue with Handlebars rendering indentation via the `preventIndent` flag.
+- Removed `pt-br` locale.
+- Removed Grunt and bower.
+- Converted codebase to ES2015.
+- Added code coverage.
+- Updated tests.
+- Updated packages.
+
 ## 0.1.0-beta.10 (June 18, 2015)
 
 - Added Google login support.
