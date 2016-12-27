@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const profileModel = require('../../../src/models/profile');
 const profileController = require('../../../src/controllers/profile');
 
-describe('profile model', () => {
+describe('profile controller', () => {
 
     let profileId = null;
 
@@ -112,7 +112,7 @@ describe('profile model', () => {
 
     it('should error on invalid profileId', done => {
 
-        profileController.show('invalid').catch(err => {
+        profileController.show(mongoose.Types.ObjectId()).catch(err => {
 
             expect(err.status).to.equal(404);
 
