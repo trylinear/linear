@@ -8,7 +8,7 @@ COLOROFF=$(tput sgr0)
 
 echo "Testing localized files:"
 
-for file in locales/*; do
+for file in locales/*.json; do
     if [[ $file =~ ([a-z\-]+)\.json$ ]]; then
         echo -n " - ${file} ... "
         UNTRANSLATED=$(grep '\['"${BASH_REMATCH[1]}"'\]' "$file")
