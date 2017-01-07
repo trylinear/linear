@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 (January 6, 2017)
+
+- Added timestamp title to created and updated tags.
+- Added static compiled files to package config.
+- Removed postinstall NPM script.
+
 ## 1.0.0 (December 27, 2016)
 
 - Complete rewrite of back-end.
