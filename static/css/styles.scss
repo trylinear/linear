@@ -119,6 +119,7 @@ ol {
             left: 0;
             right: 0;
             background-color: rgba($theme-color, 0.95);
+            z-index: 10;
         }
 
         .navigation a {
