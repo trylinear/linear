@@ -7,8 +7,17 @@
   },
   "main": "main.js",
   "files": [
+    "data/",
+    "locales/",
+    "src/",
     "static/css/styles.css",
-    "static/js/main.min.js"
+    "static/fonts/",
+    "static/images/",
+    "static/js/main.min.js",
+    ".eslintignore",
+    ".eslintrc",
+    "config.json",
+    "main.js"
   ],
   "license": "MIT",
   "dependencies": {
