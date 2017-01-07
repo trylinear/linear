@@ -18,9 +18,9 @@
 
                 <span class="date">
                     {{#if updatedAt}}
-                    {{__ 'updated'}} <a href="#message-{{_id}}">{{relativeTime updatedAt}}</a>
+                    {{__ 'updated'}} <a href="#message-{{_id}}" title="{{updatedAt}}">{{relativeTime updatedAt}}</a>
                     {{else}}
-                    {{__ 'posted'}} <a href="#message-{{_id}}">{{relativeTime createdAt}}</a>
+                    {{__ 'posted'}} <a href="#message-{{_id}}" title="{{createdAt}}">{{relativeTime createdAt}}</a>
                     {{/if}}
                 </span>
 
