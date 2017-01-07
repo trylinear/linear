@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2 (January 6, 2017)
+
+- Added the rest of the files to be packaged.
+
 ## 1.0.1 (January 6, 2017)
 
 - Added timestamp title to created and updated tags.
