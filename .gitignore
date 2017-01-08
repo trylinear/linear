@@ -2,6 +2,7 @@ node_modules/
 
 coverage/
 
+static/css/custom.css
 static/css/styles.css
 
 static/js/main.min.js
