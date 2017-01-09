@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3 (January 8, 2017)
+
+- Added `MONGODB_URI` to list of `process.env` variables.
+- Added custom CSS file.
+- Fixed minor CSS issue.
+
 ## 1.0.2 (January 6, 2017)
 
 - Added the rest of the files to be packaged.
