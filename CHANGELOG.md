@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.5 (January 14, 2017)
+
+- Updated packages.
+
 ## 1.0.4 (January 8, 2017)
 
 - Added missing style to custom CSS file.
