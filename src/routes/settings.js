@@ -1,4 +1,4 @@
-const requireLogin = require('../utils/auth').requireLogin;
+const {requireLogin} = require('../utils/auth');
 
 const settingsController = require('../controllers/settings');
 
