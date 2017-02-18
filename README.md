@@ -1,7 +1,5 @@
 # linear
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/trylinear/linear.svg)](https://greenkeeper.io/)
-
 > A simple setup micro-forum built in Node.js with Express and MongoDB.
 
 [![Build Status](https://travis-ci.org/trylinear/linear.svg)](https://travis-ci.org/trylinear/linear)
@@ -10,6 +8,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/npm/linear/badge.svg)](https://snyk.io/test/npm/linear)
 [![bitHound Overall Score](https://www.bithound.io/github/trylinear/linear/badges/score.svg)](https://www.bithound.io/github/trylinear/linear)
 [![NPM Version](http://img.shields.io/npm/v/linear.svg?style=flat)](https://www.npmjs.org/package/linear/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/trylinear/linear.svg)](https://greenkeeper.io/)
 
 ## Install
 
