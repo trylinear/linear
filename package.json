@@ -49,13 +49,13 @@
     "passport-google-oauth": "1.0.0",
     "passport-twitter": "1.0.4",
     "sanitize-html": "1.14.1",
-    "spire-of-babel": "1.1.22",
+    "spire-of-babel": "1.2.0",
     "whatwg-fetch": "2.0.2"
   },
   "devDependencies": {
     "@neogeek/eslint-config-standards": "1.14.0",
     "chai": "3.5.0",
-    "eslint": "3.16.1",
+    "eslint": "3.17.1",
     "istanbul": "0.4.5",
     "mocha": "3.2.0",
     "mocha-reporter-cov-summary": "0.1.1"
