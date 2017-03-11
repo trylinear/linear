@@ -49,7 +49,7 @@
     "passport-google-oauth": "1.0.0",
     "passport-twitter": "1.0.4",
     "sanitize-html": "1.14.1",
-    "spire-of-babel": "1.1.22",
+    "spire-of-babel": "1.2.0",
     "whatwg-fetch": "2.0.2"
   },
   "devDependencies": {
