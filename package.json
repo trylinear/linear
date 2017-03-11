@@ -50,7 +50,7 @@
     "passport-twitter": "1.0.4",
     "sanitize-html": "1.14.1",
     "spire-of-babel": "1.2.0",
-    "whatwg-fetch": "2.0.2"
+    "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
     "@neogeek/eslint-config-standards": "1.14.0",
