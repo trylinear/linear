@@ -40,7 +40,7 @@
     "markdown-it-emoji": "1.3.0",
     "meddleware": "3.0.3",
     "moment": "2.17.1",
-    "mongoose": "4.8.6",
+    "mongoose": "4.8.7",
     "mongoose-findorcreate": "1.0.0",
     "node-sass": "4.5.0",
     "numeral": "2.0.4",
