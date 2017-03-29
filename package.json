@@ -42,7 +42,7 @@
     "moment": "2.17.1",
     "mongoose": "4.9.0",
     "mongoose-findorcreate": "1.0.0",
-    "node-sass": "4.5.0",
+    "node-sass": "4.5.2",
     "numeral": "2.0.4",
     "passport": "0.3.2",
     "passport-facebook": "2.1.1",
