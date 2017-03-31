@@ -53,12 +53,12 @@
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
-    "@neogeek/eslint-config-standards": "1.15.0",
-    "chai": "3.5.0",
-    "eslint": "3.18.0",
-    "istanbul": "0.4.5",
-    "mocha": "3.2.0",
-    "mocha-reporter-cov-summary": "0.1.1"
+    "@neogeek/eslint-config-standards": "^1.15.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.18.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "mocha-reporter-cov-summary": "^0.1.1"
   },
   "scripts": {
     "test": "make lint && make coverage",
