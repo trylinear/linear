@@ -20,7 +20,7 @@ module.exports = router => {
             res.redirect(`/post/${post.slug}/${post.id}/`);
 
         })
-        .catch(next);
+            .catch(next);
 
     });
 
@@ -35,7 +35,7 @@ module.exports = router => {
             });
 
         })
-        .catch(next);
+            .catch(next);
 
     });
 
@@ -54,7 +54,7 @@ module.exports = router => {
             }
 
         })
-        .catch(next);
+            .catch(next);
 
     });
 

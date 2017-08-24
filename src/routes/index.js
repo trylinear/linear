@@ -12,7 +12,7 @@ module.exports = router => {
             });
 
         })
-        .catch(next);
+            .catch(next);
 
     });
 

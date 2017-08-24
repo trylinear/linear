@@ -12,15 +12,15 @@ module.exports = router => {
             res.json(posts);
 
         })
-        .catch(err => {
+            .catch(err => {
 
-            res.status(err.status);
-            res.json({
-                'message': err.message,
-                'status': err.status
+                res.status(err.status);
+                res.json({
+                    'message': err.message,
+                    'status': err.status
+                });
+
             });
-
-        });
 
     });
 
@@ -31,15 +31,15 @@ module.exports = router => {
             res.json(post);
 
         })
-        .catch(err => {
+            .catch(err => {
 
-            res.status(err.status);
-            res.json({
-                'message': err.message,
-                'status': err.status
+                res.status(err.status);
+                res.json({
+                    'message': err.message,
+                    'status': err.status
+                });
+
             });
-
-        });
 
     });
 
@@ -54,15 +54,15 @@ module.exports = router => {
             res.json(post);
 
         })
-        .catch(err => {
+            .catch(err => {
 
-            res.status(err.status);
-            res.json({
-                'message': err.message,
-                'status': err.status
+                res.status(err.status);
+                res.json({
+                    'message': err.message,
+                    'status': err.status
+                });
+
             });
-
-        });
 
     });
 
@@ -76,15 +76,15 @@ module.exports = router => {
             res.json(post);
 
         })
-        .catch(err => {
+            .catch(err => {
 
-            res.status(err.status);
-            res.json({
-                'message': err.message,
-                'status': err.status
+                res.status(err.status);
+                res.json({
+                    'message': err.message,
+                    'status': err.status
+                });
+
             });
-
-        });
 
     });
 
@@ -95,15 +95,15 @@ module.exports = router => {
             res.json(messages);
 
         })
-        .catch(err => {
+            .catch(err => {
 
-            res.status(err.status);
-            res.json({
-                'message': err.message,
-                'status': err.status
+                res.status(err.status);
+                res.json({
+                    'message': err.message,
+                    'status': err.status
+                });
+
             });
-
-        });
 
     });
 
@@ -118,15 +118,15 @@ module.exports = router => {
             res.json(message);
 
         })
-        .catch(err => {
+            .catch(err => {
 
-            res.status(err.status);
-            res.json({
-                'message': err.message,
-                'status': err.status
+                res.status(err.status);
+                res.json({
+                    'message': err.message,
+                    'status': err.status
+                });
+
             });
-
-        });
 
     });
 
@@ -140,15 +140,15 @@ module.exports = router => {
             res.json(message);
 
         })
-        .catch(err => {
+            .catch(err => {
 
-            res.status(err.status);
-            res.json({
-                'message': err.message,
-                'status': err.status
+                res.status(err.status);
+                res.json({
+                    'message': err.message,
+                    'status': err.status
+                });
+
             });
-
-        });
 
     });
 
@@ -164,15 +164,15 @@ module.exports = router => {
             res.json(message);
 
         })
-        .catch(err => {
+            .catch(err => {
 
-            res.status(err.status);
-            res.json({
-                'message': err.message,
-                'status': err.status
+                res.status(err.status);
+                res.json({
+                    'message': err.message,
+                    'status': err.status
+                });
+
             });
-
-        });
 
     });
 
@@ -187,15 +187,15 @@ module.exports = router => {
             res.json(message);
 
         })
-        .catch(err => {
+            .catch(err => {
 
-            res.status(err.status);
-            res.json({
-                'message': err.message,
-                'status': err.status
+                res.status(err.status);
+                res.json({
+                    'message': err.message,
+                    'status': err.status
+                });
+
             });
-
-        });
 
     });
 

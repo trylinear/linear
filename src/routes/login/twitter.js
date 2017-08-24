@@ -18,11 +18,11 @@ if (process.env.TWITTER_CONSUMER_KEY &&
             'id': data.id,
             'name': data.displayName
         })
-        .then(profile => {
+            .then(profile => {
 
-            done(null, profile);
+                done(null, profile);
 
-        });
+            });
 
     }));
 

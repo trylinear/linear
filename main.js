@@ -164,10 +164,16 @@ module.exports = {
 
             app.engine('hbs', hbs.express4({
                 'onCompile': (exhbs, source) => exhbs.handlebars.compile(source, {'preventIndent': true}),
-                'partialsDir': [`${config.directories.views}/partials`, `${__dirname}/src/views/partials`]
+                'partialsDir': [
+                    `${config.directories.views}/partials`,
+                    `${__dirname}/src/views/partials`
+                ]
             }));
 
-            app.set('views', [config.directories.views, `${__dirname}/src/views`]);
+            app.set('views', [
+                config.directories.views,
+                `${__dirname}/src/views`
+            ]);
 
         } else {
 

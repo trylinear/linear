@@ -21,11 +21,11 @@ if (process.env.GOOGLE_CLIENT_ID &&
             'id': data.id,
             'name': data.displayName
         })
-        .then(profile => {
+            .then(profile => {
 
-            done(null, profile);
+                done(null, profile);
 
-        });
+            });
 
     }));
 

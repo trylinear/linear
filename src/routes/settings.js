@@ -20,7 +20,7 @@ module.exports = router => {
             res.redirect('/settings/');
 
         })
-        .catch(next);
+            .catch(next);
 
     });
 

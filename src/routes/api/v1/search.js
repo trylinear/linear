@@ -9,15 +9,15 @@ module.exports = router => {
             res.json(results);
 
         })
-        .catch(err => {
+            .catch(err => {
 
-            res.status(err.status);
-            res.json({
-                'message': err.message,
-                'status': err.status
+                res.status(err.status);
+                res.json({
+                    'message': err.message,
+                    'status': err.status
+                });
+
             });
-
-        });
 
     });
 

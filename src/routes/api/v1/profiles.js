@@ -11,15 +11,15 @@ module.exports = router => {
             res.json(profile);
 
         })
-        .catch(err => {
+            .catch(err => {
 
-            res.status(err.status);
-            res.json({
-                'message': err.message,
-                'status': err.status
+                res.status(err.status);
+                res.json({
+                    'message': err.message,
+                    'status': err.status
+                });
+
             });
-
-        });
 
     });
 
@@ -30,15 +30,15 @@ module.exports = router => {
             res.json(profile);
 
         })
-        .catch(err => {
+            .catch(err => {
 
-            res.status(err.status);
-            res.json({
-                'message': err.message,
-                'status': err.status
+                res.status(err.status);
+                res.json({
+                    'message': err.message,
+                    'status': err.status
+                });
+
             });
-
-        });
 
     });
 
