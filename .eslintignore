@@ -1,3 +1,5 @@
+coverage/
+
 **/*.min.js
 
 static/templates/partials.js
