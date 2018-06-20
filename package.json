@@ -50,7 +50,8 @@
     "passport-twitter": "1.0.4",
     "sanitize-html": "1.14.1",
     "spire-of-babel": "1.3.0",
-    "whatwg-fetch": "2.0.3"
+    "whatwg-fetch": "2.0.3",
+    "snyk": "^1.83.0"
   },
   "devDependencies": {
     "@neogeek/eslint-config-standards": "^2.0.0",
@@ -65,7 +66,9 @@
     "build": "npm run build:css && npm run build:handlebars && npm run build:javascript",
     "build:css": "node-sass static/css/ -o static/css/",
     "build:handlebars": "handlebars src/views/ -f static/templates/views.js -e hbs -c handlebars && handlebars src/views/partials/ -f static/templates/partials.js -p -e hbs -c handlebars",
-    "build:javascript": "spire-of-babel static/js/router.js --bundle --minify --output static/js/main.min.js"
+    "build:javascript": "spire-of-babel static/js/router.js --bundle --minify --output static/js/main.min.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [
     "node",
@@ -77,5 +80,6 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/trylinear/linear.git"
-  }
+  },
+  "snyk": true
 }
