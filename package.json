@@ -57,7 +57,7 @@
     "chai": "^4.1.1",
     "eslint": "^4.5.0",
     "istanbul": "^0.4.5",
-    "mocha": "^3.5.0",
+    "mocha": "^6.1.2",
     "mocha-reporter-cov-summary": "^0.1.1"
   },
   "scripts": {
