@@ -32,7 +32,7 @@
     "express-session": "1.15.5",
     "handlebars": "4.0.10",
     "i18n": "0.8.3",
-    "jquery": "3.2.1",
+    "jquery": "3.4.0",
     "latest-version": "3.1.0",
     "le_node": "1.7.1",
     "lusca": "1.5.1",
